@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "programming-revision"
+    }
+  },
+  "defaultProject": "programming-revision",
+  "cli": {
+    "analytics": false
+  }
 }
