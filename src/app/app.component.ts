@@ -4,13 +4,15 @@ export interface Question {
   question: string;
   answer: string;
   datesAnswered: string[]
+  answeredToday: boolean
 }
 
 export function emptyQuestion(): Question {
   return {
     question: '',
     answer: '',
-    datesAnswered: []
+    datesAnswered: [],
+    answeredToday: false
   }
 }
 
@@ -21,7 +23,7 @@ export function emptyQuestion(): Question {
 })
 export class AppComponent {
   title = 'programming-revision';
-  questions: Question[];
+  questions: Question[] = [];
   current: Question = emptyQuestion();
   index: number = 0;
   showAnswer: boolean = false;
@@ -90,16 +92,36 @@ export class AppComponent {
           } 
         );
 
-        this.current = this.questions[0];
-        this.index = 0;
+        this.nextQuestion();
         console.log('questions: ', this.questions);
       }
     }
   }
 
+  // All the questions with answers
+  public questionsToAnswer() {
+    return this.questions.filter((q) => q.answer != '');
+  }
+
+  // There are questions with answers that we haven't answered
+  public questionsLeft() {
+    return !!this.questions.filter((q) => q.answer != '' && q.answeredToday == false);
+  }
+
   public nextQuestion() {
-    if (this.index < this.questions.length - 1) {
-      this.index += 1;
+    let randomIndex = 0;
+
+    if (this.questionsLeft()) {
+      let answeredThisQuestion = true;
+      // Get a random question that we haven't answered
+      while (answeredThisQuestion) {
+        randomIndex = Math.floor(Math.random()*this.questions.length);
+        if (!this.questions[randomIndex].answeredToday && this.questions[randomIndex].answer) {
+          answeredThisQuestion = false;
+        }
+      }
+      
+      this.index = randomIndex;
     } else {
       this.index = 0;
     }
@@ -115,6 +137,7 @@ export class AppComponent {
   public answeredCorrectly() {
     const currentDate = new Date().toISOString();
     console.log('questions: ', this.questions);
+    this.questions[this.index].answeredToday = true;
     this.questions[this.index].datesAnswered.push(currentDate);
   }
 
