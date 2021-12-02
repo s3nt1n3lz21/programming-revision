@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
   questions: Question[] = [];
   current: Question = emptyQuestion();
   index: number = 0;
-  showAnswer: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -147,12 +146,7 @@ export class AppComponent implements OnInit {
       this.index = 0;
     }
 
-    this.showAnswer = false;
     this.current = this.questions[this.index];
-  }
-
-  public revealAnswer() {
-    this.showAnswer = true;
   }
 
   public answeredCorrectly() {

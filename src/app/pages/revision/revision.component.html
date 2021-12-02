@@ -1,0 +1,12 @@
+<div class="dots-container">
+    <div class="dot" [ngClass]="{'red' : !question.answeredToday}" *ngFor="let question of questionsToAnswer()">
+    </div>
+</div>
+<div *ngIf="questionsLeft()">
+    <app-question question="current"></app-question>
+    <button class="button" (click)="nextQuestion()">Next Question</button>
+    <button class="button" (click)="saveData()">Save CSV</button>
+</div>
+<div *ngIf="!questionsLeft()">
+    No Questions Left
+</div>

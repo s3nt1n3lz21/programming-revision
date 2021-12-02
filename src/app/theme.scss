@@ -1,4 +1,4 @@
-$color-primary: blue;
+$color-primary: rgb(33, 118, 151);
 $color-secondary: white;
 
 $font-size: 30px;
@@ -7,4 +7,10 @@ $font-size: 30px;
     margin: 5px;
     font-size: $font-size;
     background-color: $color-secondary;
+}
+
+.card {
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }

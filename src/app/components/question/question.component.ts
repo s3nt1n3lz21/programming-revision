@@ -11,6 +11,7 @@ export class QuestionComponent implements OnInit {
   constructor() { }
 
   @Input() question: Question;
+  showAnswer: boolean = false;
 
   ngOnInit(): void {
     console.log('question: ', this.question);
@@ -18,4 +19,7 @@ export class QuestionComponent implements OnInit {
 
   answeredCorrectly = () => {}
 
+  revealAnswer = () => {
+    this.showAnswer = true;
+  }
 }

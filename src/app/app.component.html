@@ -1,21 +1,8 @@
-<input id="preview" type="file" (change)="previewFile($event.target.files)" />
-<div class="dots-container">
-    <div class="dot" [ngClass]="{'red' : !question.answeredToday}" *ngFor="let question of questionsToAnswer()">
-    </div>
-</div>
 
-<div *ngFor="let question of questions">
-    <app-question [question]="question"></app-question>
-</div>
 
-<div *ngIf="questionsLeft()">
-    <app-question question="current"></app-question>
-    <button class="button" (click)="nextQuestion()">Next Question</button>
-    <button class="button" (click)="saveData()">Save CSV</button>
-</div>
-<button class="button" (click)="addQuestion()">Add Question</button>
+<!-- <input id="preview" type="file" (change)="previewFile($event.target.files)" /> -->
+<header></header>
+<ng-content></ng-content>
 
-<div *ngIf="!questionsLeft()">
-    No Questions Left
-</div>
+
 
