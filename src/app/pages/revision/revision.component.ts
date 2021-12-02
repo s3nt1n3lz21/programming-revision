@@ -14,7 +14,7 @@ export class RevisionComponent implements OnInit {
   ) { }
 
   questions: Question[] = [];
-  current: Question = emptyQuestion();
+  currentQuestion: Question = emptyQuestion();
   index: number = 0;
 
   ngOnInit(): void {
@@ -26,6 +26,7 @@ export class RevisionComponent implements OnInit {
         }
   
         this.questions = questions;
+        this.nextQuestion();
       },
       (error) => {
         console.error(error);
@@ -35,7 +36,7 @@ export class RevisionComponent implements OnInit {
 
   // There are questions with answers that we haven't answered
   public questionsLeft() {
-    return !!this.questions.filter((q) => q.answer != '' && q.answerExpiryDate < new Date().toISOString());
+    return this.questions.some((q) => q.answer != '' && q.answerExpiryDate < new Date().toISOString());
   }
 
   // All the questions with answers
@@ -47,6 +48,7 @@ export class RevisionComponent implements OnInit {
     let randomIndex = 0;
 
     if (this.questionsLeft()) {
+      console.log('there are questions left');
       let answeredThisQuestion = true;
       // Get a random question that we haven't answered
       while (answeredThisQuestion) {
@@ -56,12 +58,13 @@ export class RevisionComponent implements OnInit {
         }
       }
       
+      console.log('question index: ', randomIndex);
       this.index = randomIndex;
     } else {
       this.index = 0;
     }
 
-    this.current = this.questions[this.index];
+    this.currentQuestion = this.questions[this.index];
   }
 
   public answeredCorrectly() {

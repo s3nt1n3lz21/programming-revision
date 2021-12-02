@@ -3,7 +3,7 @@
     </div>
 </div>
 <div *ngIf="questionsLeft()">
-    <app-question question="current"></app-question>
+    <app-question [question]="currentQuestion"></app-question>
     <button class="button" (click)="nextQuestion()">Next Question</button>
     <button class="button" (click)="saveData()">Save CSV</button>
 </div>

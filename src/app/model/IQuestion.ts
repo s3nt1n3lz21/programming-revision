@@ -12,14 +12,23 @@ export interface IQuestionForm extends FormGroup {
 export const DAY = 86400000; // 1 day in milliseconds
 
 export interface Question {
-  question: string;
-  answer: string;
-  answerExpiryDate: string
-  timesAnsweredCorrectly: number
+    id: string;
+    question: string;
+    answer: string;
+    answerExpiryDate: string
+    timesAnsweredCorrectly: number
+}
+
+export interface QuestionAPI {
+    question: string;
+    answer: string;
+    answerExpiryDate: string
+    timesAnsweredCorrectly: number
 }
 
 export function emptyQuestion(): Question {
   return {
+    id: '',
     question: '',
     answer: '',
     answerExpiryDate: new Date().toISOString(),
