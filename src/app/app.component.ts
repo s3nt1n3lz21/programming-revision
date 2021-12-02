@@ -25,8 +25,6 @@ export function emptyQuestion(): Question {
 export class AppComponent implements OnInit {
   title = 'programming-revision';
   questions: Question[] = [];
-  current: Question = emptyQuestion();
-  index: number = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -112,48 +110,10 @@ export class AppComponent implements OnInit {
           } 
         );
 
-        this.nextQuestion();
+        // this.nextQuestion();
         console.log('questions: ', this.questions);
       }
     }
-  }
-
-  // All the questions with answers
-  public questionsToAnswer() {
-    return this.questions.filter((q) => q.answer != '');
-  }
-
-  // There are questions with answers that we haven't answered
-  public questionsLeft() {
-    return !!this.questions.filter((q) => q.answer != '' && q.answeredToday == false);
-  }
-
-  public nextQuestion() {
-    let randomIndex = 0;
-
-    if (this.questionsLeft()) {
-      let answeredThisQuestion = true;
-      // Get a random question that we haven't answered
-      while (answeredThisQuestion) {
-        randomIndex = Math.floor(Math.random()*this.questions.length);
-        if (!this.questions[randomIndex].answeredToday && this.questions[randomIndex].answer) {
-          answeredThisQuestion = false;
-        }
-      }
-      
-      this.index = randomIndex;
-    } else {
-      this.index = 0;
-    }
-
-    this.current = this.questions[this.index];
-  }
-
-  public answeredCorrectly() {
-    const currentDate = new Date().toISOString();
-    console.log('questions: ', this.questions);
-    this.questions[this.index].answeredToday = true;
-    this.questions[this.index].datesAnswered.push(currentDate);
   }
 
   public saveData() {
@@ -163,28 +123,6 @@ export class AppComponent implements OnInit {
     })
 
     this.saveToCSVFile('programmingRevision', questionsArray);
-  }
-
-  public addQuestion = (question: Question) => {
-    console.log('adding question');
-    this.http.post(
-      'https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json',
-      JSON.stringify({question: 'test question', answer: 'test answer'}),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      }
-    )
-    .subscribe(
-      (response) => {
-        console.log('successfully added question', response)
-        console.log('question id: ', response['name']);
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
   }
 
   //https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side

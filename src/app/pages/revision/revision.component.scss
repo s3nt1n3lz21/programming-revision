@@ -1,0 +1,20 @@
+@import '../../theme.scss';
+
+.dots-container {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .dot {
+        flex: 1;
+        height: 20px;
+        margin: 1px;
+        background-color: green;
+    }
+
+    .red {
+        background-color: red;
+    }
+}

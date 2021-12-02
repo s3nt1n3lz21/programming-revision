@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Question } from 'src/app/app.component';
 
 @Component({
   selector: 'app-questions-list',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class QuestionsListComponent implements OnInit {
 
   constructor() { }
+  questions: Question[] = [];
 
   ngOnInit(): void {
   }
