@@ -1,0 +1,4 @@
+<p class="question">{{ question.question }}</p>
+<button class="reveal-button" (click)="revealAnswer()">Reveal Answer</button>
+<p *ngIf="showAnswer" class="answer">{{ question.answer }}</p>
+<button class="correct-button" (click)="answeredCorrectly()">Correct</button>
