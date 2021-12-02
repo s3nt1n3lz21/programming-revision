@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { emptyQuestion, Question } from 'src/app/app.component';
+import { Question, emptyQuestion, DAY } from 'src/app/model/IQuestion';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-revision',
@@ -8,12 +9,28 @@ import { emptyQuestion, Question } from 'src/app/app.component';
 })
 export class RevisionComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private apiService: ApiService
+  ) { }
+
   questions: Question[] = [];
   current: Question = emptyQuestion();
   index: number = 0;
 
   ngOnInit(): void {
+    this.apiService.getQuestions().subscribe(
+      (data) => {
+        const questions = [];
+        for (const key in data) {
+          questions.push(data[key]);
+        }
+  
+        this.questions = questions;
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
   }
 
   // There are questions with answers that we haven't answered
@@ -49,7 +66,7 @@ export class RevisionComponent implements OnInit {
 
   public answeredCorrectly() {
     console.log('questions: ', this.questions);
-    this.questions[this.index].answerExpiryDate = new Date().toISOString();
+    this.questions[this.index].answerExpiryDate = new Date().toISOString() + this.questions[this.index].timesAnsweredCorrectly*DAY;
     this.questions[this.index].timesAnsweredCorrectly += 1;
   }
 

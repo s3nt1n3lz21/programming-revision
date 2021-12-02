@@ -1,24 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { emptyQuestion, Question } from './model/IQuestion';
 import { ApiService } from './services/api.service';
-
-const DAY = 86400000; // 1 day in milliseconds
-
-export interface Question {
-  question: string;
-  answer: string;
-  answerExpiryDate: string
-  timesAnsweredCorrectly: number
-}
-
-export function emptyQuestion(): Question {
-  return {
-    question: '',
-    answer: '',
-    answerExpiryDate: new Date().toISOString(),
-    timesAnsweredCorrectly: 0
-  }
-}
 
 @Component({
   selector: 'app-root',
@@ -30,9 +13,8 @@ export class AppComponent implements OnInit {
   questions: Question[] = [];
 
   constructor(
-    private http: HttpClient,
     private apiService: ApiService
-    ) {}
+  ) {}
 
   ngOnInit() {
     this.apiService.getQuestions().subscribe(

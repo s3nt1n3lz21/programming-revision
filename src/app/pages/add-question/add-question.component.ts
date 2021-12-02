@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { emptyQuestion, Question } from 'src/app/app.component';
-import { IQuestionForm } from 'src/app/model/IQuestion';
+import { emptyQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
 
 @Component({
   selector: 'app-add-question',
