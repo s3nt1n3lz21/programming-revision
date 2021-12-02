@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from './services/api.service';
 
 export interface Question {
   question: string;
@@ -26,18 +27,19 @@ export class AppComponent implements OnInit {
   title = 'programming-revision';
   questions: Question[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService
+    ) {}
 
   ngOnInit() {
-    this.http.get('https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json').subscribe(
+    this.apiService.getQuestions().subscribe(
       (data) => {
-        console.log('response: ', JSON.stringify(data));
-        const response = JSON.stringify(data);
         const questions = [];
         for (const key in data) {
           questions.push(data[key]);
         }
-
+  
         this.questions = questions;
       },
       (error) => {
