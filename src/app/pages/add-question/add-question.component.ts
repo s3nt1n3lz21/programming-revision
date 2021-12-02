@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Question } from 'src/app/app.component';
+import { FormBuilder } from '@angular/forms';
+import { emptyQuestion, Question } from 'src/app/app.component';
+import { IQuestionForm } from 'src/app/model/IQuestion';
 
 @Component({
   selector: 'app-add-question',
@@ -9,16 +11,29 @@ import { Question } from 'src/app/app.component';
 })
 export class AddQuestionComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  public questionForm: IQuestionForm = this.fb.group({
+    question: '',
+    answer: '',
+  });
+
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
   }
 
   public addQuestion = () => {
+    const questionFormValues = this.questionForm.value;
+    const question: Question = emptyQuestion();
+    question.question = questionFormValues.question;
+    question.answer = questionFormValues.answer;
+
     console.log('adding question');
     this.http.post(
       'https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json',
-      JSON.stringify({question: 'test question', answer: 'test answer'}),
+      JSON.stringify(question),
       {
         headers: {
           'Content-Type': 'application/json',

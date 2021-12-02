@@ -18,7 +18,7 @@ export class RevisionComponent implements OnInit {
 
   // There are questions with answers that we haven't answered
   public questionsLeft() {
-    return !!this.questions.filter((q) => q.answer != '' && q.answeredToday == false);
+    return !!this.questions.filter((q) => q.answer != '' && q.answerExpiryDate < new Date().toISOString());
   }
 
   // All the questions with answers
@@ -34,7 +34,7 @@ export class RevisionComponent implements OnInit {
       // Get a random question that we haven't answered
       while (answeredThisQuestion) {
         randomIndex = Math.floor(Math.random()*this.questions.length);
-        if (!this.questions[randomIndex].answeredToday && this.questions[randomIndex].answer) {
+        if (!(this.questions[randomIndex].answerExpiryDate < new Date().toISOString())  && this.questions[randomIndex].answer) {
           answeredThisQuestion = false;
         }
       }
@@ -48,10 +48,9 @@ export class RevisionComponent implements OnInit {
   }
 
   public answeredCorrectly() {
-    const currentDate = new Date().toISOString();
     console.log('questions: ', this.questions);
-    this.questions[this.index].answeredToday = true;
-    this.questions[this.index].datesAnswered.push(currentDate);
+    this.questions[this.index].answerExpiryDate = new Date().toISOString();
+    this.questions[this.index].timesAnsweredCorrectly += 1;
   }
 
 }

@@ -9,6 +9,7 @@ import { RevisionComponent } from './pages/revision/revision.component';
 import { QuestionsListComponent } from './pages/questions-list/questions-list.component';
 import { AddQuestionComponent } from './pages/add-question/add-question.component';
 import { HeaderComponent } from './pages/header/header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { HeaderComponent } from './pages/header/header.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

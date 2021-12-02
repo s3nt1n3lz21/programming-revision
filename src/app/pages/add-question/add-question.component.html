@@ -1,1 +1,11 @@
+<form [formGroup]="questionForm">
+    <div class="input-container">
+        <div class="label">Question:</div>
+        <input class="input" type="text" placeholder="Add Question" formControlName="question">
+    </div>
+    <div class="input-container">
+        <div class="label">Answer:</div>
+        <input class="input" type="text" placeholder="Add Answer" formControlName="answer">
+    </div>
+</form>
 <button class="button" (click)="addQuestion()">Add Question</button>

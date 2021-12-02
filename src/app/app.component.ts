@@ -2,19 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './services/api.service';
 
+const DAY = 86400000; // 1 day in milliseconds
+
 export interface Question {
   question: string;
   answer: string;
-  datesAnswered: string[]
-  answeredToday: boolean
+  answerExpiryDate: string
+  timesAnsweredCorrectly: number
 }
 
 export function emptyQuestion(): Question {
   return {
     question: '',
     answer: '',
-    datesAnswered: [],
-    answeredToday: false
+    answerExpiryDate: new Date().toISOString(),
+    timesAnsweredCorrectly: 0
   }
 }
 
@@ -106,8 +108,8 @@ export class AppComponent implements OnInit {
           {
             const question = emptyQuestion();
             question.question = q[0],
-            question.answer = q[1],
-            question.datesAnswered = q[2].split(';')
+            question.answer = q[1]
+            // question.datesAnswered = q[2].split(';')
             return question;
           } 
         );
@@ -118,14 +120,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public saveData() {
-    const questionsArray = this.questions.map((q) => {
-      const dates: string = q.datesAnswered.join(';');
-      return [q.question, q.answer, dates];
-    })
+  // public saveData() {
+  //   const questionsArray = this.questions.map((q) => {
+  //     const dates: string = q.datesAnswered.join(';');
+  //     return [q.question, q.answer, dates];
+  //   })
 
-    this.saveToCSVFile('programmingRevision', questionsArray);
-  }
+  //   this.saveToCSVFile('programmingRevision', questionsArray);
+  // }
 
   //https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
 }
