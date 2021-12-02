@@ -6,7 +6,8 @@ $font-size: 30px;
 .button {
     margin: 5px;
     font-size: $font-size;
-    background-color: $color-secondary;
+    background-color: $color-primary;
+    color: $color-secondary;
 }
 
 .card {
