@@ -12,7 +12,9 @@ export class QuestionComponent implements OnInit {
 
   @Input() question: Question;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('question: ', this.question);
+  }
 
   answeredCorrectly = () => {}
 

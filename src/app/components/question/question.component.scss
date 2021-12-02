@@ -6,11 +6,21 @@
     width: 100%;
     background-color: blue;
     flex-direction: column;
+    margin-top: 5px;
 
     .header {
         flex: 4;
         display: flex;
         flex-direction: column;
+        align-items: center;
+
+        .question {
+            font-size: $font-size;
+        }
+
+        .answer {
+            font-size: $font-size;
+        }
     }
 
     .footer {

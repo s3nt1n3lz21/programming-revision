@@ -1,8 +1,10 @@
 $color-primary: blue;
 $color-secondary: white;
 
+$font-size: 30px;
+
 .button {
     margin: 5px;
-    font-size: 20px;
+    font-size: $font-size;
     background-color: $color-secondary;
 }
