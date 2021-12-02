@@ -1,4 +1,10 @@
-<p class="question">{{ question.question }}</p>
-<button class="reveal-button" (click)="revealAnswer()">Reveal Answer</button>
-<p *ngIf="showAnswer" class="answer">{{ question.answer }}</p>
-<button class="correct-button" (click)="answeredCorrectly()">Correct</button>
+<div class="container">
+    <div class="header">
+        <p class="question">{{ question.question }}</p>
+        <p class="answer" *ngIf="showAnswer">{{ question.answer }}</p>
+    </div>
+    <div class="footer">
+        <button class="button" (click)="revealAnswer()">Reveal Answer</button>
+        <button class="button" (click)="answeredCorrectly()">Correct</button>
+    </div>
+</div>

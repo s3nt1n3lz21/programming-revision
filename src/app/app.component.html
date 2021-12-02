@@ -6,16 +6,9 @@
 
 <div *ngIf="questionsLeft()">
 
-    <app-question question="current.question"></app-question>
-
-    <button class="next-button" (click)="nextQuestion()">Next Question</button>
-    <button class="next-button" (click)="saveData()">Save CSV</button>
-    <!-- <p class="question">{{ current.question }}</p>
-    <button class="reveal-button" (click)="revealAnswer()">Reveal Answer</button>
-    <p *ngIf="showAnswer" class="answer">{{ current.answer }}</p>
-    <button class="correct-button" (click)="answeredCorrectly()">Correct</button>
-    <button class="next-button" (click)="nextQuestion()">Next Question</button>
-    <button class="next-button" (click)="saveData()">Save CSV</button> -->
+    <app-question question="current"></app-question>
+    <button class="button" (click)="nextQuestion()">Next Question</button>
+    <button class="button" (click)="saveData()">Save CSV</button>
 </div>
 <div *ngIf="!questionsLeft()">
     No Questions Left
