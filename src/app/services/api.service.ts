@@ -14,9 +14,7 @@ export class ApiService {
   }
 
   updateQuestion(question: Question) {
-    console.log('updating question');
-
-    this.http.put(
+    return this.http.put(
       'https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json/' + question.id,
       JSON.stringify(question),
       {

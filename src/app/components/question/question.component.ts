@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducer';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { AllActions, SetSelectedQuestion } from '../../store/action';
+import { AllActions, SetEditingQuestion, SetSelectedQuestion } from '../../store/action';
 
 @Component({
   selector: 'app-question',
@@ -49,6 +49,7 @@ export class QuestionComponent implements OnInit {
   edit = () => {
     // Set the selected question
     this.store.dispatch(new SetSelectedQuestion(this.question));
+    this.store.dispatch(new SetEditingQuestion(true));
     this.router.navigate(['add-question']);
   }
 }
