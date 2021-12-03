@@ -8,4 +8,5 @@
         <input class="input" type="text" placeholder="Add Answer" formControlName="answer">
     </div>
 </form>
-<button class="button" (click)="addQuestion()">Add Question</button>
+<button *ngIf="!editingQuestion" class="button" (click)="addQuestion()">Add Question</button>
+<button *ngIf="editingQuestion" class="button" (click)="editQuestion()">Edit Question</button>

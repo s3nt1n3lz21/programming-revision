@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DAY, Question } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducer';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { AllActions, SetSelectedQuestion } from '../../store/action';
 
 @Component({
   selector: 'app-question',
@@ -8,8 +13,16 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent implements OnInit {
+  // Component State
 
-  constructor(private apiService: ApiService) { }
+  // App State
+
+  constructor(
+    private store: Store<AppState>,
+    private apiService: ApiService,
+    private router: Router
+  ) {
+  }
 
   @Input() question: Question;
   showAnswer: boolean = false;
@@ -31,5 +44,11 @@ export class QuestionComponent implements OnInit {
 
   revealAnswer = () => {
     this.showAnswer = true;
+  }
+
+  edit = () => {
+    // Set the selected question
+    this.store.dispatch(new SetSelectedQuestion(this.question));
+    this.router.navigate(['add-question']);
   }
 }

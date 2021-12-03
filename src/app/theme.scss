@@ -8,6 +8,7 @@ $font-size: 30px;
     font-size: $font-size;
     background-color: $color-primary;
     color: $color-secondary;
+    min-width: 200px;
 }
 
 .card {

@@ -4,7 +4,8 @@
         <p class="answer" *ngIf="showAnswer">{{ question.answer }}</p>
     </div>
     <div class="footer">
-        <button class="button" (click)="revealAnswer()">Reveal Answer</button>
+        <button class="button" (click)="revealAnswer()">Reveal</button>
+        <button class="button" (click)="edit()">Edit</button>
         <button class="button" (click)="answeredCorrectly()">Correct</button>
     </div>
 </div>
