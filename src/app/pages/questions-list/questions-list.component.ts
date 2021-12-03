@@ -17,7 +17,13 @@ export class QuestionsListComponent implements OnInit {
       (data) => {
         const questions = [];
         for (const key in data) {
-          questions.push(data[key]);
+          
+          const question: Question = {
+            id: key,
+            ...data[key]
+          };
+
+          questions.push(question);
         }
   
         this.questions = questions;

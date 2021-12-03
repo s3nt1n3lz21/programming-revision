@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { emptyQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
+import { AddQuestion, emptyAddQuestion, emptyQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
 import { EditQuestion, SetEditingQuestion, SetSelectedQuestion } from 'src/app/store/action';
 import { AppState, AppStateWrapper } from 'src/app/store/reducer';
@@ -30,7 +31,8 @@ export class AddQuestionComponent implements OnInit {
   constructor(
     private store: Store<AppStateWrapper>,
     private fb: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) { 
     this.editingQuestionStore = this.store.select(state => state.state.editingQuestion);
     this.selectedQuestionStore = this.store.select(state => state.state.selectedQuestion);
@@ -52,7 +54,7 @@ export class AddQuestionComponent implements OnInit {
 
   public addQuestion = () => {
     const questionFormValues = this.questionForm.value;
-    const question: Question = emptyQuestion();
+    const question: AddQuestion = emptyAddQuestion();
     question.question = questionFormValues.question;
     question.answer = questionFormValues.answer;
 
@@ -60,9 +62,9 @@ export class AddQuestionComponent implements OnInit {
 
     this.apiService.addQuestion(question).subscribe(
       (response) => {
-        console.log('successfully added question', response)
+        console.log('successfully added question', response);
         console.log('question id: ', response['name']);
-        question.id = response['name'];
+        this.router.navigate(['question-list']);
       },
       (error) => {
         console.error(error);

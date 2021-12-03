@@ -19,7 +19,7 @@ export interface Question {
     timesAnsweredCorrectly: number
 }
 
-export interface QuestionAPI {
+export interface AddQuestion {
     question: string;
     answer: string;
     answerExpiryDate: string
@@ -29,6 +29,15 @@ export interface QuestionAPI {
 export function emptyQuestion(): Question {
   return {
     id: '',
+    question: '',
+    answer: '',
+    answerExpiryDate: new Date().toISOString(),
+    timesAnsweredCorrectly: 0
+  }
+}
+
+export function emptyAddQuestion(): AddQuestion {
+  return {
     question: '',
     answer: '',
     answerExpiryDate: new Date().toISOString(),
