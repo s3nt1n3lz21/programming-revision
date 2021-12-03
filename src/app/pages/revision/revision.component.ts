@@ -73,4 +73,8 @@ export class RevisionComponent implements OnInit {
 
     this.currentQuestion = this.questions[this.index];
   }
+
+  public expired(date: string) {
+    return new Date(date) < new Date();
+  }
 }

@@ -1,13 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AddQuestion, emptyAddQuestion, emptyQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
+import { AddQuestion, emptyAddQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
-import { EditQuestion, SetEditingQuestion, SetSelectedQuestion } from 'src/app/store/action';
-import { AppState, AppStateWrapper } from 'src/app/store/reducer';
+import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
+import { AppStateWrapper } from 'src/app/store/reducer';
 
 @Component({
   selector: 'app-add-question',
@@ -80,7 +79,7 @@ export class AddQuestionComponent implements OnInit {
 
     this.apiService.updateQuestion(question).subscribe(
       () => {
-        this.store.dispatch(new EditQuestion(question));
+        this.store.dispatch(new UpdateQuestion(question));
         this.store.dispatch(new SetSelectedQuestion(null));
         this.store.dispatch(new SetEditingQuestion(false));
       },

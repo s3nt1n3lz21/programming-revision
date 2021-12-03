@@ -1,5 +1,5 @@
 import { Question } from '../model/IQuestion';
-import { AllActions, EDIT_QUESTION, SET_EDITING_QUESTION, SET_QUESTIONS, SET_SELECTED_QUESTION } from './action';
+import { AllActions, UPDATE_QUESTION, SET_EDITING_QUESTION, SET_QUESTIONS, SET_SELECTED_QUESTION } from './action';
 
 export interface AppStateWrapper {
     state: AppState
@@ -18,7 +18,7 @@ const initialState: AppState = {
 }
 
 export function reducer(state: AppState = initialState, action: AllActions) {
-    let newState = null;
+    let newState: AppState = null;
 
     switch (action.type) {
         case SET_SELECTED_QUESTION:
@@ -29,10 +29,16 @@ export function reducer(state: AppState = initialState, action: AllActions) {
             newState = { ...state, questions: action.questions };
             console.log(action.type, newState);
             return newState;
-        case EDIT_QUESTION:
-            newState = { ...state, question: action.question };
-            console.log(action.type, newState);
-            return newState;
+        case UPDATE_QUESTION:
+            newState = { ...state };
+            const index = newState.questions.findIndex((q) => q.id === action.question.id);
+            if (index >= 0) {
+                newState.questions[index] = action.question;
+                console.log(action.type, newState);
+                return newState;
+            } else {
+                return state;
+            }
         case SET_EDITING_QUESTION:
             newState = { ...state, editingQuestion: action.editingQuestion }
             console.log(action.type, newState);

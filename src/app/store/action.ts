@@ -3,7 +3,7 @@ import { Question } from '../model/IQuestion';
 
 export const SET_SELECTED_QUESTION = 'SET_SELECTED_QUESTION';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
-export const EDIT_QUESTION = 'EDIT_QUESTION';
+export const UPDATE_QUESTION = 'UPDATE_QUESTION';
 export const SET_EDITING_QUESTION = 'SET_EDITING_QUESTION';
 
 export class SetSelectedQuestion implements Action {
@@ -18,8 +18,8 @@ export class SetQuestions implements Action {
     constructor(public questions: Question[]) {}
 }
 
-export class EditQuestion implements Action {
-    readonly type = EDIT_QUESTION;
+export class UpdateQuestion implements Action {
+    readonly type = UPDATE_QUESTION;
 
     constructor(public question: Question) {}
 }
@@ -33,5 +33,5 @@ export class SetEditingQuestion implements Action {
 export type AllActions = 
     SetQuestions | 
     SetSelectedQuestion |
-    EditQuestion |
+    UpdateQuestion |
     SetEditingQuestion;
