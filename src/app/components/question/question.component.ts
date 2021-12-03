@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Question } from 'src/app/model/IQuestion';
+import { DAY, Question } from 'src/app/model/IQuestion';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-question',
@@ -8,7 +9,7 @@ import { Question } from 'src/app/model/IQuestion';
 })
 export class QuestionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   @Input() question: Question;
   showAnswer: boolean = false;
@@ -17,7 +18,16 @@ export class QuestionComponent implements OnInit {
     console.log('question: ', this.question);
   }
 
-  answeredCorrectly = () => {}
+  answeredCorrectly = () => {
+    console.log('question answered correctly');
+
+    const newQuestion = { ...this.question } ;
+    newQuestion.answerExpiryDate = new Date().toISOString() + this.question.timesAnsweredCorrectly*DAY;
+    this.apiService.updateQuestion(newQuestion);
+
+    // this.questions[this.index].answerExpiryDate = new Date().toISOString() + this.questions[this.index].timesAnsweredCorrectly*DAY;
+    // this.questions[this.index].timesAnsweredCorrectly += 1;
+  }
 
   revealAnswer = () => {
     this.showAnswer = true;

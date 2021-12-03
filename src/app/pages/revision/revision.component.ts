@@ -22,7 +22,12 @@ export class RevisionComponent implements OnInit {
       (data) => {
         const questions = [];
         for (const key in data) {
-          questions.push(data[key]);
+          const question: Question = {
+            id: key,
+            ...data[key]
+          };
+
+          questions.push(question);
         }
   
         this.questions = questions;
@@ -66,11 +71,4 @@ export class RevisionComponent implements OnInit {
 
     this.currentQuestion = this.questions[this.index];
   }
-
-  public answeredCorrectly() {
-    console.log('questions: ', this.questions);
-    this.questions[this.index].answerExpiryDate = new Date().toISOString() + this.questions[this.index].timesAnsweredCorrectly*DAY;
-    this.questions[this.index].timesAnsweredCorrectly += 1;
-  }
-
 }
