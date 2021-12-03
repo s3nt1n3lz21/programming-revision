@@ -41,7 +41,7 @@ export class RevisionComponent implements OnInit {
 
   // There are questions with answers that we haven't answered
   public questionsLeft() {
-    return this.questions.some((q) => q.answer != '' && q.answerExpiryDate < new Date().toISOString());
+    return this.questions.some((q) => q.answer != '' && new Date(q.answerExpiryDate) < new Date());
   }
 
   // All the questions with answers
@@ -55,12 +55,14 @@ export class RevisionComponent implements OnInit {
     if (this.questionsLeft()) {
       console.log('there are questions left');
       let answeredThisQuestion = true;
+      let limit = 0;
       // Get a random question that we haven't answered
-      while (answeredThisQuestion) {
+      while (answeredThisQuestion && limit < 10000) {
         randomIndex = Math.floor(Math.random()*this.questions.length);
-        if (!(this.questions[randomIndex].answerExpiryDate < new Date().toISOString())  && this.questions[randomIndex].answer) {
+        if (!(new Date(this.questions[randomIndex].answerExpiryDate) < new Date())  && this.questions[randomIndex].answer) {
           answeredThisQuestion = false;
         }
+        limit += 1;
       }
       
       console.log('question index: ', randomIndex);
