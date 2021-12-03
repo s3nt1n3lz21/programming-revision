@@ -53,19 +53,17 @@ export class RevisionComponent implements OnInit {
     let randomIndex = 0;
 
     if (this.questionsLeft()) {
-      console.log('there are questions left');
       let answeredThisQuestion = true;
       let limit = 0;
       // Get a random question that we haven't answered
       while (answeredThisQuestion && limit < 10000) {
         randomIndex = Math.floor(Math.random()*this.questions.length);
-        if (!(new Date(this.questions[randomIndex].answerExpiryDate) < new Date())  && this.questions[randomIndex].answer) {
+        if ((new Date(this.questions[randomIndex].answerExpiryDate) < new Date()) && this.questions[randomIndex].answer) {
           answeredThisQuestion = false;
         }
         limit += 1;
       }
-      
-      console.log('question index: ', randomIndex);
+    
       this.index = randomIndex;
     } else {
       this.index = 0;
