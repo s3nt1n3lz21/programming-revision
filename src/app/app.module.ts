@@ -12,6 +12,7 @@ import { AddQuestionComponent } from './pages/add-question/add-question.componen
 import { HeaderComponent } from './pages/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { reducer } from './store/reducer';
+import { ExpiredPipe } from './pipes/expired.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { reducer } from './store/reducer';
     RevisionComponent,
     QuestionsListComponent,
     AddQuestionComponent,
-    HeaderComponent
+    HeaderComponent,
+    ExpiredPipe
   ],
   imports: [
     BrowserModule,

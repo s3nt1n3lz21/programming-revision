@@ -1,11 +1,12 @@
 <div class="dots-container">
-    <div class="dot" [ngClass]="{'red' : expired(question.answerExpiryDate)}" *ngFor="let question of questionsToAnswer()">
+    <div class="dot" [ngClass]="{'red' : expired(question.answerExpiryDate)}" *ngFor="let question of questionsToAnswer(); trackBy: trackByFn">
     </div>
 </div>
 <div *ngIf="questionsLeft()">
-    <app-question [question]="currentQuestion"></app-question>
+    <app-question [question]="currentQuestion" [showAnswer]="showAnswer"></app-question>
     <button class="button" (click)="nextQuestion()">Next Question</button>
-    <button class="button" (click)="saveData()">Save CSV</button>
+    <button class="button" (click)="answeredIncorrectly()">Incorrect</button>
+    <button class="button" (click)="answeredCorrectly()">Correct</button>
 </div>
 <div *ngIf="!questionsLeft()">
     No Questions Left

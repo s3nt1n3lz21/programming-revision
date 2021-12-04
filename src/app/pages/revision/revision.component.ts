@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Question, emptyQuestion, DAY } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
+import { UpdateQuestion } from 'src/app/store/action';
+import { AppStateWrapper } from 'src/app/store/reducer';
 
 @Component({
   selector: 'app-revision',
@@ -10,12 +13,17 @@ import { ApiService } from 'src/app/services/api.service';
 export class RevisionComponent implements OnInit {
 
   constructor(
+    private store: Store<AppStateWrapper>,
     private apiService: ApiService
   ) { }
 
+  // Component State
   questions: Question[] = [];
   currentQuestion: Question = emptyQuestion();
   index: number = 0;
+  showAnswer: boolean = false;
+
+  // App State
 
   ngOnInit(): void {
     this.apiService.getQuestions().subscribe(
@@ -50,6 +58,7 @@ export class RevisionComponent implements OnInit {
   }
   
   public nextQuestion() {
+    this.showAnswer = false;
     let randomIndex = 0;
 
     if (this.questionsLeft()) {
@@ -72,7 +81,39 @@ export class RevisionComponent implements OnInit {
     this.currentQuestion = this.questions[this.index];
   }
 
-  public expired(date: string) {
-    return new Date(date) < new Date();
+  answeredIncorrectly = () => {
+    const updatedQuestion = { ...this.currentQuestion } ;
+    updatedQuestion.timesAnsweredCorrectly = 0;
+    updatedQuestion.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
+
+    this.apiService.updateQuestion(updatedQuestion).subscribe(
+      () => {
+        this.store.dispatch(new UpdateQuestion(updatedQuestion));
+      },
+      (error) => {console.error(error)}
+    )
+    this.nextQuestion();
+  }
+
+  answeredCorrectly = () => {
+    console.log('question answered correctly');
+
+    const updatedQuestion = { ...this.currentQuestion } ;
+    updatedQuestion.timesAnsweredCorrectly += 1;
+    updatedQuestion.answerExpiryDate = new Date(Date.now() + DAY*2**(this.currentQuestion.timesAnsweredCorrectly)).toISOString();
+    this.apiService.updateQuestion(updatedQuestion).subscribe(
+      () => {
+        // Update the list of questions
+        console.log('updated question: ', updatedQuestion);
+        this.store.dispatch(new UpdateQuestion(updatedQuestion));
+      },
+      (error) => {console.error(error)}
+    )
+
+    this.nextQuestion();
+  }
+
+  trackByFn(index, item) {
+    return item.id; // or item.id
   }
 }
