@@ -78,7 +78,6 @@ export class RevisionComponent implements OnInit {
     updatedQuestion.timesAnsweredCorrectly = 0;
     updatedQuestion.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
 
-    console.log('updatedQuestion: ', updatedQuestion);
     this.apiService.updateQuestion(updatedQuestion).subscribe(
       () => {
         this.store.dispatch(new UpdateQuestion(updatedQuestion));
@@ -89,15 +88,12 @@ export class RevisionComponent implements OnInit {
   }
 
   answeredCorrectly = () => {
-    console.log('question answered correctly');
-
     const updatedQuestion = { ...this.currentQuestion } ;
     updatedQuestion.timesAnsweredCorrectly += 1;
     updatedQuestion.answerExpiryDate = new Date(Date.now() + DAY*2**(this.currentQuestion.timesAnsweredCorrectly)).toISOString();
     this.apiService.updateQuestion(updatedQuestion).subscribe(
       () => {
         // Update the list of questions
-        console.log('updated question: ', updatedQuestion);
         this.store.dispatch(new UpdateQuestion(updatedQuestion));
       },
       (error) => {console.error(error)}

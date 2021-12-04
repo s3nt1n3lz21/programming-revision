@@ -21,9 +21,7 @@ export class QuestionComponent implements OnInit {
   @Input() showAnswer: boolean = false;
   @Output() showAnswerChange = new EventEmitter<boolean>();
 
-  ngOnInit(): void {
-    console.log('question: ', this.question);
-  }
+  ngOnInit(): void {}
 
   revealAnswer = () => {
     this.showAnswer = true;

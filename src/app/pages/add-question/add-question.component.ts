@@ -57,12 +57,8 @@ export class AddQuestionComponent implements OnInit {
     question.question = questionFormValues.question;
     question.answer = questionFormValues.answer;
 
-    console.log('adding question');
-
     this.apiService.addQuestion(question).subscribe(
       (response) => {
-        console.log('successfully added question', response);
-        console.log('question id: ', response['name']);
         this.router.navigate(['question-list']);
       },
       (error) => {
