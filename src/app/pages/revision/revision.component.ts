@@ -74,10 +74,11 @@ export class RevisionComponent implements OnInit {
   }
 
   answeredIncorrectly = () => {
-    const updatedQuestion = { ...this.currentQuestion } ;
+    const updatedQuestion: Question = { ...this.currentQuestion } ;
     updatedQuestion.timesAnsweredCorrectly = 0;
     updatedQuestion.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
 
+    console.log('updatedQuestion: ', updatedQuestion);
     this.apiService.updateQuestion(updatedQuestion).subscribe(
       () => {
         this.store.dispatch(new UpdateQuestion(updatedQuestion));
@@ -105,7 +106,8 @@ export class RevisionComponent implements OnInit {
     this.nextQuestion();
   }
 
-  trackByFn(index, item) {
-    return item.id; // or item.id
+  trackByFn(index: number, item: Question) {
+    // console.log('item.id:', item.id);
+    return item.id;
   }
 }
