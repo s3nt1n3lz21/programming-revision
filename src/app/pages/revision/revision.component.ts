@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Question, emptyQuestion, DAY } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
 import { UpdateQuestion } from 'src/app/store/action';
@@ -12,38 +13,29 @@ import { AppStateWrapper } from 'src/app/store/reducer';
 })
 export class RevisionComponent implements OnInit {
 
+  // Component State
+  currentQuestion: Question = emptyQuestion();
+  index: number = 0;
+  showCurrentAnswer: boolean = false;
+
+  // App State
+  questionsStore: Observable<Question[]>;
+  questions: Question[];
+
   constructor(
     private store: Store<AppStateWrapper>,
     private apiService: ApiService
-  ) { }
-
-  // Component State
-  questions: Question[] = [];
-  currentQuestion: Question = emptyQuestion();
-  index: number = 0;
-  showAnswer: boolean = false;
-
-  // App State
+  ) { 
+    this.questionsStore = this.store.select(state => state.state.questions);
+  }
 
   ngOnInit(): void {
-    this.apiService.getQuestions().subscribe(
-      (data) => {
-        const questions = [];
-        for (const key in data) {
-          const question: Question = {
-            id: key,
-            ...data[key]
-          };
-
-          questions.push(question);
-        }
-  
+    this.questionsStore.subscribe(
+      (questions) => {
         this.questions = questions;
         this.nextQuestion();
       },
-      (error) => {
-        console.error(error);
-      }
+      (error) => { console.error(error) }
     )
   }
 
@@ -58,7 +50,6 @@ export class RevisionComponent implements OnInit {
   }
   
   public nextQuestion() {
-    this.showAnswer = false;
     let randomIndex = 0;
 
     if (this.questionsLeft()) {
@@ -78,6 +69,7 @@ export class RevisionComponent implements OnInit {
       this.index = 0;
     }
 
+    this.showCurrentAnswer = false;
     this.currentQuestion = this.questions[this.index];
   }
 

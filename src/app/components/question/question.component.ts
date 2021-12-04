@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Question } from 'src/app/model/IQuestion';
 import { Store } from '@ngrx/store';
 import { AppStateWrapper } from 'src/app/store/reducer';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { SetEditingQuestion, SetSelectedQuestion } from '../../store/action';
 
@@ -12,21 +11,15 @@ import { SetEditingQuestion, SetSelectedQuestion } from '../../store/action';
   styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent implements OnInit {
-  // Component State
-  questions: Question[];
-
-  // App State
-  questionsStore: Observable<Question[]>;
 
   constructor(
     private store: Store<AppStateWrapper>,
     private router: Router
-  ) {
-    this.questionsStore = this.store.select(state => state.state.questions);
-  }
+  ) {}
 
   @Input() question: Question;
   @Input() showAnswer: boolean = false;
+  @Output() showAnswerChange = new EventEmitter<boolean>();
 
   ngOnInit(): void {
     console.log('question: ', this.question);
@@ -34,6 +27,7 @@ export class QuestionComponent implements OnInit {
 
   revealAnswer = () => {
     this.showAnswer = true;
+    this.showAnswerChange.emit(this.showAnswer);
   }
 
   edit = () => {

@@ -3,7 +3,7 @@
     </div>
 </div>
 <div *ngIf="questionsLeft()">
-    <app-question [question]="currentQuestion" [showAnswer]="showAnswer"></app-question>
+    <app-question [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
     <button class="button" (click)="nextQuestion()">Next Question</button>
     <button class="button" (click)="answeredIncorrectly()">Incorrect</button>
     <button class="button" (click)="answeredCorrectly()">Correct</button>
