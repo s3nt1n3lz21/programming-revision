@@ -30,11 +30,11 @@ export function reducer(state: AppState = initialState, action: AllActions) {
             console.log(action.type, newState);
             return newState;
         case UPDATE_QUESTION:
-            newState = { ...state };
-            const index = newState.questions.findIndex((q) => q.id === action.question.id);
-            console.log('updating question index: ', index);
+            const index = state.questions.findIndex((q) => q.id === action.question.id)
+            const newQuestions = [...state.questions];
             if (index >= 0) {
-                newState.questions[index] = action.question;
+                newQuestions[index] = action.question;
+                newState = { ...state, questions: newQuestions};
                 console.log(action.type, newState);
                 return newState;
             } else {

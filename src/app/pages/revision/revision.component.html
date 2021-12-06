@@ -1,5 +1,5 @@
 <div class="dots-container">
-    <div class="dot" [ngClass]="{'red' : question.answerExpiryDate | expired }" *ngFor="let question of questionsToAnswer(); trackBy: trackByFn">
+    <div class="dot" [ngClass]="{'red' : question.answerExpiryDate | expired }" *ngFor="let question of questionsToAnswer; trackBy: trackByFn">
     </div>
 </div>
 <div *ngIf="questionsLeft()">
