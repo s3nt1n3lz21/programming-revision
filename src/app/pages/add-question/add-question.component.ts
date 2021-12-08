@@ -78,6 +78,7 @@ export class AddQuestionComponent implements OnInit {
         this.store.dispatch(new UpdateQuestion(question));
         this.store.dispatch(new SetSelectedQuestion(null));
         this.store.dispatch(new SetEditingQuestion(false));
+        this.router.navigate(['question-list']);
       },
       (error) => {console.error(error)}
     )
