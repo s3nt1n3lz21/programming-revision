@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AddQuestion, emptyAddQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
+import { AddQuestion, DAY, emptyAddQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
 import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
 import { AppStateWrapper } from 'src/app/store/reducer';
@@ -56,6 +56,8 @@ export class AddQuestionComponent implements OnInit {
     const question: AddQuestion = emptyAddQuestion();
     question.question = questionFormValues.question;
     question.answer = questionFormValues.answer;
+    question.timesAnsweredCorrectly = 0;
+    question.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
 
     this.apiService.addQuestion(question).subscribe(
       (response) => {
