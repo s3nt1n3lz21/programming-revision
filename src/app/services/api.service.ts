@@ -6,6 +6,7 @@ import { AddQuestion, emptyAddQuestion, Question } from '../model/IQuestion';
   providedIn: 'root'
 })
 export class ApiService {
+  public token: string = null;
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +22,7 @@ export class ApiService {
     questionWithoutID.timesAnsweredCorrectly = question.timesAnsweredCorrectly;
 
     return this.http.put(
+      //?auth=${this.token}
       `https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions/${question.id}.json`,
       JSON.stringify(questionWithoutID),
       {
@@ -33,7 +35,7 @@ export class ApiService {
 
   addQuestion(question: AddQuestion) {
     return this.http.post(
-      'https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json',
+      `https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json`,
       JSON.stringify(question),
       {
         headers: {

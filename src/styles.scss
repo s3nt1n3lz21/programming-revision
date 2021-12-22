@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../src/app/variables.scss';
+
+// Root font size depends on screen size
+html {
+    font-size: 100%;
+
+    @media (max-width: 900px) {
+        font-size: 90%;
+    }
+    @media (max-width: 400px) {
+        font-size: 70%;
+    }
+}
+// Adjust base root font size for mobile devices
+

@@ -1,11 +1,13 @@
 @import "../../theme.scss";
 
+$base-font-size: 30px;
+
 .input-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     min-height: 100px;
-    font-size: $font-size;
+    font-size: $base-font-size;
     padding-top: 5px;
 
     .input {

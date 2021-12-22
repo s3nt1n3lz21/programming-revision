@@ -21,7 +21,51 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store<AppStateWrapper>,
     private apiService: ApiService
-  ) {}
+  ) {
+    // Load the firebase service account details from a local non-git file, without using a backend
+    // var {google} = require("googleapis");
+
+    // // Load the service account key JSON file.
+    // var serviceAccount = require("../../firebase-service-account.json");
+    // // console.log('serviceAccountDetails: ', serviceAccount);
+
+    // // Define the required scopes.
+    // var scopes = [
+    //   "https://www.googleapis.com/auth/userinfo.email",
+    //   "https://www.googleapis.com/auth/firebase.database"
+    // ];
+    
+    // // Authenticate a JWT client with the service account.
+    // var jwtClient = new google.auth.JWT(
+    //   serviceAccount.client_email,
+    //   null,
+    //   serviceAccount.private_key,
+    //   scopes
+    // );
+    
+    // // Use the JWT client to generate an access token.
+    // jwtClient.authorize(function(error, tokens) {
+    //   if (error) {
+    //     console.log("Error making request to generate access token:", error);
+    //   } else if (tokens.access_token === null) {
+    //     console.log("Provided service account does not have permission to generate access tokens");
+    //   } else {
+    //     this.apiService.token = tokens.access_token;
+    //     // See the "Using the access token" section below for information
+    //     // on how to use the access token to send authenticated requests to
+    //     // the Realtime Database REST API.
+    //   }
+    // });
+    
+
+
+    // var admin = require("firebase-admin");
+    // var serviceAccount = require("path/to/serviceAccountKey.json");
+    // admin.initializeApp({
+    //   credential: admin.credential.cert(serviceAccount),
+    //   databaseURL: "https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app"
+    // });
+  }
 
   ngOnInit() {
     this.apiService.getQuestions().subscribe(

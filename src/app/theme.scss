@@ -1,18 +1,6 @@
-$color-primary: rgb(33, 118, 151);
-$color-secondary: white;
+@import './variables.scss';
+@import './mixins.scss';
+@import './default-components.scss';
 
-$font-size: 30px;
 
-.button {
-    margin: 5px;
-    font-size: $font-size;
-    background-color: $color-primary;
-    color: $color-secondary;
-    min-width: 200px;
-}
 
-.card {
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
