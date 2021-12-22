@@ -46,6 +46,14 @@ export class RevisionComponent implements OnInit {
   public questionsLeft() {
     return this.questions.some((q) => q.answer != '' && new Date(q.answerExpiryDate) < new Date());
   }
+
+  public selectQuestion = (question: Question) => {
+    if (new Date(question.answerExpiryDate) < new Date()) {
+      this.showCurrentAnswer = false;
+      this.index = this.questions.findIndex(q => q.id === question.id);
+      this.currentQuestion = question;
+    }
+  }
   
   public nextQuestion() {
     let randomIndex = 0;

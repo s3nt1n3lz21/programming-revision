@@ -12,9 +12,14 @@
         height: 20px;
         margin: 1px;
         background-color: green;
+        text-align: center;
     }
 
     .red {
         background-color: red;
+    }
+
+    .red:hover {
+        cursor: pointer;
     }
 }
