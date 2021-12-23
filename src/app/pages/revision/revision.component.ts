@@ -22,8 +22,6 @@ export class RevisionComponent implements OnInit {
   questionsStore: Observable<Question[]>;
   questions: Question[];
 
-  questionsToAnswer: Question[]; // All the questions with answers
-
   constructor(
     private store: Store<AppStateWrapper>,
     private apiService: ApiService
@@ -35,7 +33,6 @@ export class RevisionComponent implements OnInit {
     this.questionsStore.subscribe(
       (questions) => {
         this.questions = questions;
-        this.questionsToAnswer = this.questions.filter((q) => q.answer != '');
         this.nextQuestion();
       },
       (error) => { console.error(error) }
