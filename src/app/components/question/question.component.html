@@ -1,19 +1,21 @@
 <div class="container card">
     <div class="header">
-        <p class="question">{{ question.question }}</p>
-        <p class="answer" *ngIf="showAnswer">{{ question.answer }}</p>
+        <div class="question">{{ question.question }}</div>
+        <div class="answer" *ngIf="showAnswer">{{ question.answer }}</div>
     </div>
 
-    <mat-chip-list #chipList aria-label="Tag selection">
-        <mat-chip
-          *ngFor="let tag of question.tags"
-          (removed)="remove(tag)">
-          {{tag}}
-              <button matChipRemove>
-                  <mat-icon>cancel</mat-icon>
-              </button>
-        </mat-chip>
-    </mat-chip-list>    
+    <mat-form-field class="chip-list" appearance="fill">
+        <mat-chip-list #chipList aria-label="Tag selection">
+            <mat-chip
+            *ngFor="let tag of question.tags"
+            (removed)="remove(tag)">
+            {{tag}}
+                <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-chip>
+        </mat-chip-list> 
+    </mat-form-field>   
 
     <div class="footer">
         <button class="button" (click)="revealAnswer()">Reveal</button>

@@ -12,7 +12,7 @@
 <mat-form-field class="example-chip-list" appearance="fill">
     <mat-chip-list #chipList aria-label="Tag selection">
       <mat-chip
-        *ngFor="let tag of selectedQuestion.tags"
+        *ngFor="let tag of tags"
         (removed)="remove(tag)">
             {{tag}}
         <button matChipRemove>

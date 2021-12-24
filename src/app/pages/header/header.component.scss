@@ -1,6 +1,7 @@
 @import "../../theme.scss";
 
 .link-container {
+    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -9,6 +10,12 @@
     color: $color-secondary;
 
     .link {
-        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p:hover {
+            cursor: pointer;
+        }
     }
 }

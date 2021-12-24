@@ -18,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon'; 
+import { CommonModule } from '@angular/common'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatAutocompleteModule,
     MatIconModule,
+    CommonModule,
     StoreModule.forRoot({ state: reducer }),
     BrowserAnimationsModule
   ],
