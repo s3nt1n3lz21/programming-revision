@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Question } from './model/IQuestion';
+import { emptyQuestion, Question } from './model/IQuestion';
 import { ApiService } from './services/api.service';
 import { SetQuestions } from './store/action';
 import { AppStateWrapper } from './store/reducer';
@@ -73,6 +73,7 @@ export class AppComponent implements OnInit {
         const questions = [];
         for (const key in data) {
           const question: Question = {
+            ...emptyQuestion(),
             id: key,
             ...data[key]
           };

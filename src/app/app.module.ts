@@ -13,6 +13,10 @@ import { HeaderComponent } from './pages/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { reducer } from './store/reducer';
 import { ExpiredPipe } from './pipes/expired.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { ExpiredPipe } from './pipes/expired.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ state: reducer })
+    MatChipsModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    StoreModule.forRoot({ state: reducer }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

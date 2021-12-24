@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -7,6 +7,10 @@ import { AddQuestion, DAY, emptyAddQuestion, IQuestionForm, Question } from 'src
 import { ApiService } from 'src/app/services/api.service';
 import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
 import { AppStateWrapper } from 'src/app/store/reducer';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { map, startWith } from 'rxjs/operators';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-add-question',
@@ -22,10 +26,15 @@ export class AddQuestionComponent implements OnInit {
   });
   selectedQuestion: Question;
   editingQuestion: boolean;
+  tags: string[];
 
   // App State
   editingQuestionStore: Observable<boolean>;
   selectedQuestionStore: Observable<Question>;
+
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  tagCtrl = new FormControl();
+  separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
     private store: Store<AppStateWrapper>,
@@ -47,9 +56,20 @@ export class AddQuestionComponent implements OnInit {
       if (question) {
         this.questionForm.get('question').setValue(question.question);
         this.questionForm.get('answer').setValue(question.answer);
+        this.tags = this.selectedQuestion.tags.slice();
       }
+
+      // this.filteredTag = this.tagCtrl.valueChanges.pipe(
+      //   map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
+      // );
     })
   }
+
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
+
+  //   return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
+  // }
 
   public addQuestion = () => {
     const questionFormValues = this.questionForm.value;
@@ -74,6 +94,9 @@ export class AddQuestionComponent implements OnInit {
     let question: Question = { ...this.selectedQuestion };
     question.question = questionFormValues.question;
     question.answer = questionFormValues.answer;
+    console.log('this.tags: ', this.tags);
+    question.tags = this.tags;
+    console.log('question.tags: ', question.tags);
 
     this.apiService.updateQuestion(question).subscribe(
       () => {
@@ -85,4 +108,40 @@ export class AddQuestionComponent implements OnInit {
       (error) => {console.error(error)}
     )
   };
+
+  tagSelected(event: MatAutocompleteSelectedEvent): void {
+    this.selectedQuestion.tags.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    this.tagCtrl.setValue(null);
+  }
+
+
+  add(event: MatChipInputEvent): void {
+    const tag: string = (event.value || '').trim();
+    // console.log('add: ', tag);
+    // console.log(typeof tag);
+    // console.log('this.selectedQuestion.tags: ', this.selectedQuestion.tags);
+    // const newTags: string[] = this.selectedQuestion.tags.slice();
+    // newTags.push(tag);
+
+    // Add our tag
+    if (tag) {
+      // newTags.push(tag)
+      this.tags.push(tag);
+      console.log('this.tags: ', this.tags);
+    }
+
+    // Clear the input value
+    this.tagInput.nativeElement.value = '';
+
+    this.tagCtrl.setValue(null);
+  }
+
+  remove(tag: string): void {
+    const index = this.selectedQuestion.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.selectedQuestion.tags.splice(index, 1);
+    }
+  }
 }

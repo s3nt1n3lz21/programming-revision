@@ -8,5 +8,33 @@
         <input class="input" type="text" placeholder="Add Answer" formControlName="answer">
     </div>
 </form>
+
+<mat-form-field class="example-chip-list" appearance="fill">
+    <mat-chip-list #chipList aria-label="Tag selection">
+      <mat-chip
+        *ngFor="let tag of selectedQuestion.tags"
+        (removed)="remove(tag)">
+            {{tag}}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input
+        placeholder="New Tag..."
+        #tagInput
+        [formControl]="tagCtrl"
+
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <!-- [matAutocomplete]="auto" -->
+    <!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="tagSelected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag}}
+      </mat-option>
+    </mat-autocomplete> -->
+</mat-form-field>  
+
 <button *ngIf="!editingQuestion" class="button" (click)="addQuestion()">Add Question</button>
 <button *ngIf="editingQuestion" class="button" (click)="editQuestion()">Edit Question</button>

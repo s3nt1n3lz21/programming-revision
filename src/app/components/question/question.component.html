@@ -3,6 +3,18 @@
         <p class="question">{{ question.question }}</p>
         <p class="answer" *ngIf="showAnswer">{{ question.answer }}</p>
     </div>
+
+    <mat-chip-list #chipList aria-label="Tag selection">
+        <mat-chip
+          *ngFor="let tag of question.tags"
+          (removed)="remove(tag)">
+          {{tag}}
+              <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+              </button>
+        </mat-chip>
+    </mat-chip-list>    
+
     <div class="footer">
         <button class="button" (click)="revealAnswer()">Reveal</button>
         <button class="button" (click)="edit()">Edit</button>

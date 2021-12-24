@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AddQuestion, emptyAddQuestion, Question } from '../model/IQuestion';
 
 @Injectable({
@@ -10,8 +11,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getQuestions() {
-    return this.http.get('https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json');
+  getQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>('https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json');
   }
 
   updateQuestion(question: Question) {
@@ -20,6 +21,7 @@ export class ApiService {
     questionWithoutID.question = question.question;
     questionWithoutID.answerExpiryDate = question.answerExpiryDate;
     questionWithoutID.timesAnsweredCorrectly = question.timesAnsweredCorrectly;
+    questionWithoutID.tags = question.tags;
 
     return this.http.put(
       //?auth=${this.token}

@@ -15,15 +15,17 @@ export interface Question {
     id: string;
     question: string;
     answer: string;
-    answerExpiryDate: string
-    timesAnsweredCorrectly: number
+    answerExpiryDate: string;
+    timesAnsweredCorrectly: number;
+    tags: string[];
 }
 
 export interface AddQuestion {
     question: string;
     answer: string;
-    answerExpiryDate: string
-    timesAnsweredCorrectly: number
+    answerExpiryDate: string;
+    timesAnsweredCorrectly: number;
+    tags: string[];
 }
 
 export function emptyQuestion(): Question {
@@ -32,7 +34,8 @@ export function emptyQuestion(): Question {
     question: '',
     answer: '',
     answerExpiryDate: new Date().toISOString(),
-    timesAnsweredCorrectly: 0
+    timesAnsweredCorrectly: 0,
+    tags: []
   }
 }
 
@@ -41,6 +44,7 @@ export function emptyAddQuestion(): AddQuestion {
     question: '',
     answer: '',
     answerExpiryDate: new Date().toISOString(),
-    timesAnsweredCorrectly: 0
+    timesAnsweredCorrectly: 0,
+    tags: []
   }
 }

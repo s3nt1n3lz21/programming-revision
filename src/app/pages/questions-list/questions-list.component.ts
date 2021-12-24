@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Question } from 'src/app/model/IQuestion';
-import { ApiService } from 'src/app/services/api.service';
+import { AppStateWrapper } from 'src/app/store/reducer';
 
 @Component({
   selector: 'app-questions-list',
@@ -9,28 +11,22 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class QuestionsListComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
-  questions: Question[] = [];
+  // App State
+  questionsStore: Observable<Question[]>;
+  questions: Question[];
+
+  constructor(
+    private store: Store<AppStateWrapper>,
+  ) { 
+    this.questionsStore = this.store.select(state => state.state.questions);
+  }
 
   ngOnInit(): void {
-    this.apiService.getQuestions().subscribe(
-      (data) => {
-        const questions = [];
-        for (const key in data) {
-          
-          const question: Question = {
-            id: key,
-            ...data[key]
-          };
-
-          questions.push(question);
-        }
-  
+    this.questionsStore.subscribe(
+      (questions) => {
         this.questions = questions;
       },
-      (error) => {
-        console.error(error);
-      }
+      (error) => { console.error(error) }
     )
   }
 
