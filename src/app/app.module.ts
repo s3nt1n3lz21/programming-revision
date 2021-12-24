@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
+import { MatIconModule } from '@angular/material/icon'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +37,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatChipsModule,
     MatInputModule,
     MatAutocompleteModule,
+    MatIconModule,
     StoreModule.forRoot({ state: reducer }),
     BrowserAnimationsModule
   ],
