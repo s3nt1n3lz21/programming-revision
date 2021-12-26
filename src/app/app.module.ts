@@ -18,7 +18,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon'; 
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
+import { BarComponent } from './components/charts/bar/bar.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { CommonModule } from '@angular/common';
     QuestionsListComponent,
     AddQuestionComponent,
     HeaderComponent,
-    ExpiredPipe
+    ExpiredPipe,
+    BarComponent
   ],
   imports: [
     BrowserModule,

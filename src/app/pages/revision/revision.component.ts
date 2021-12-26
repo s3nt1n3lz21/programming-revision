@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { BarChartData } from 'src/app/model/IBarChart';
 import { Question, emptyQuestion, DAY } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
 import { UpdateQuestion } from 'src/app/store/action';
@@ -17,6 +18,12 @@ export class RevisionComponent implements OnInit {
   currentQuestion: Question = emptyQuestion();
   index: number = 0;
   showCurrentAnswer: boolean = false;
+  chartData: BarChartData[] = [
+    { id: 'd1', value: 10, title: 'USA' },
+    { id: 'd2', value: 11, title: 'India' },
+    { id: 'd3', value: 12, title: 'China' },
+    { id: 'd4', value: 6, title: 'Germany' },
+  ];
 
   // App State
   questionsStore: Observable<Question[]>;
@@ -33,6 +40,13 @@ export class RevisionComponent implements OnInit {
     this.questionsStore.subscribe(
       (questions) => {
         this.questions = questions;
+        this.chartData = this.questions.map((q) => {
+          return {
+            id: q.id,
+            value: q.timesAnsweredCorrectly,
+            title: q.question
+          }
+        })
         this.nextQuestion();
       },
       (error) => { console.error(error) }
