@@ -3,13 +3,14 @@
         {{ question.timesAnsweredCorrectly }}
     </div>
 </div>
-<div *ngIf="questionsLeft()">
+<div *ngIf="!questionsLeft()">
+    No Questions Left
+</div>
+<div>
     <app-question [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
     <button class="button" (click)="nextQuestion()">Next Question</button>
     <button class="button" (click)="answeredIncorrectly()">Incorrect</button>
     <button class="button" (click)="answeredCorrectly()">Correct</button>
 </div>
-<div *ngIf="!questionsLeft()">
-    No Questions Left
-</div>
+
 <app-bar [data]="chartData"></app-bar>
