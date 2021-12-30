@@ -21,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { BarComponent } from './components/charts/bar/bar.component';
 import { LoginComponent } from './pages/login/login.component'; 
+
+
 @NgModule({
   declarations: [
     AppComponent,
