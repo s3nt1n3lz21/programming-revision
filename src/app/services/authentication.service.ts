@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInAnonymously } from '@angular/fire/auth';
+import { Auth } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,5 @@ export class AuthenticationService {
 
   signIn = () => {
     this.auth
-
-    signInAnonymously(this.auth).then(credential=>{
-      console.log('signInAnonymously',credential);
-      this.userData.addNewUser();
-      console.log('add new user')
-    });
   }
 }
