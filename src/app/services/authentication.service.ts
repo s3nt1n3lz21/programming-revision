@@ -10,6 +10,5 @@ export class AuthenticationService {
   constructor(private auth:Auth) { }
 
   signIn = () => {
-    this.auth
   }
 }
