@@ -1,3 +1,4 @@
+<app-bar [data]="chartData"></app-bar>
 <div class="dots-container">
     <div class="dot" (click)="selectQuestion(question)" [ngClass]="{'purple' : question.answer === '', 'red' : question.answerExpiryDate | expired  }" *ngFor="let question of questions; trackBy: trackByFn">
         {{ question.timesAnsweredCorrectly }}
@@ -13,4 +14,3 @@
     <button class="button" (click)="answeredCorrectly()">Correct</button>
 </div>
 
-<app-bar [data]="chartData"></app-bar>

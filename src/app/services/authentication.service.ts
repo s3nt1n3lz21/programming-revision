@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { Auth } from 'firebase/auth';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class AuthenticationService {
-  isLoggedIn = false;
+	isLoggedIn = false;
 
-  constructor(private auth:Auth) { }
-
-  signIn = () => {
-  }
+	constructor(private auth:Auth) { }
 }
