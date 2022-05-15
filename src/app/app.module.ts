@@ -20,36 +20,41 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon'; 
 import { CommonModule } from '@angular/common';
 import { BarComponent } from './components/charts/bar/bar.component';
-import { LoginComponent } from './pages/login/login.component'; 
+import { LoginComponent } from './pages/login/login.component';
+import { NotificationComponent } from './components/notification/notification.component'; 
+import { NotificationService } from './services/notification.service';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    QuestionComponent,
-    RevisionComponent,
-    QuestionsListComponent,
-    AddQuestionComponent,
-    HeaderComponent,
-    ExpiredPipe,
-    BarComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatChipsModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatIconModule,
-    CommonModule,
-    StoreModule.forRoot({ state: reducer }),
-    BrowserAnimationsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		QuestionComponent,
+		RevisionComponent,
+		QuestionsListComponent,
+		AddQuestionComponent,
+		HeaderComponent,
+		ExpiredPipe,
+		BarComponent,
+		LoginComponent,
+		NotificationComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatChipsModule,
+		MatInputModule,
+		MatAutocompleteModule,
+		MatIconModule,
+		CommonModule,
+		StoreModule.forRoot({ state: reducer }),
+		BrowserAnimationsModule
+	],
+	providers: [
+		NotificationService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

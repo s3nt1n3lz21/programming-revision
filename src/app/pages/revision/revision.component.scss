@@ -27,6 +27,14 @@
         background-color: purple;
     }
 
+    .orange {
+        background-color: orange;
+    }
+    
+    .selected {
+        outline: 2px solid black;
+    }
+
     .red:hover {
         cursor: pointer;
     }

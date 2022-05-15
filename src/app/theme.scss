@@ -4,5 +4,8 @@
 @import './placeholders.scss';
 @import './d3.scss';
 
-
+body {
+    --theme-success: green;
+    --theme-error-dark: red;
+}
 

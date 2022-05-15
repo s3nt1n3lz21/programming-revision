@@ -1,0 +1,14 @@
+<div class="notification" [ngClass]="{
+    'notification--success': notification.type === 'success',
+    'notification--hidden': !isVisible
+}">
+    <mat-icon class="notification__icon" *ngIf="notification.type === 'success'">check</mat-icon>
+    <mat-icon class="notification__icon" *ngIf="notification.type === 'error'">error_outline</mat-icon>
+    <div class="notification__message">
+        {{ notification.message }}
+    </div>
+    
+    <button mat-icon-button class="notification__cancel" (click)="closeNotification()">
+        <mat-icon>clear</mat-icon>
+    </button>
+</div>
