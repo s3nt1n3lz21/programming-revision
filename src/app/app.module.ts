@@ -14,15 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { reducer } from './store/reducer';
 import { ExpiredPipe } from './pipes/expired.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatIconModule } from '@angular/material/icon'; 
+
 import { CommonModule } from '@angular/common';
 import { BarComponent } from './components/charts/bar/bar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotificationComponent } from './components/notification/notification.component'; 
 import { NotificationService } from './services/notification.service';
+import { MaterialModule } from './material.module';
 
 
 @NgModule({
@@ -44,11 +42,8 @@ import { NotificationService } from './services/notification.service';
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
-		MatChipsModule,
-		MatInputModule,
-		MatAutocompleteModule,
-		MatIconModule,
 		CommonModule,
+		MaterialModule,
 		StoreModule.forRoot({ state: reducer }),
 		BrowserAnimationsModule
 	],
