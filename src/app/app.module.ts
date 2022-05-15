@@ -25,16 +25,23 @@ import { MaterialModule } from './material.module';
 
 @NgModule({
 	declarations: [
+		// Layout
 		AppComponent,
-		QuestionComponent,
-		RevisionComponent,
+		HeaderComponent,
+
+		// Pages
+		LoginComponent,
 		QuestionsListComponent,
 		AddQuestionComponent,
-		HeaderComponent,
-		ExpiredPipe,
+		RevisionComponent,
+
+		// Components
+		QuestionComponent,
 		BarComponent,
-		LoginComponent,
-		NotificationComponent
+		NotificationComponent,
+
+		// Pipes
+		ExpiredPipe
 	],
 	imports: [
 		BrowserModule,
