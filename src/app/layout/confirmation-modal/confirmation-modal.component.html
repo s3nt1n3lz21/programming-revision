@@ -1,0 +1,15 @@
+<app-modal *ngIf="isVisible" (click)="closeModal()">
+    <div class="confirmation-modal">
+        <div class="confirmation-modal__header">
+            <mat-icon class="confirmation-modal__icon">warning_amber</mat-icon>
+        </div>
+        <div class="confirmation-modal__message">
+            {{ confirmationModal.message }}
+        </div>
+        <div class="confirmation-modal__footer">
+            <app-button *ngIf="!isAnyLoading" [button]="{ label: 'Cancel', matIcon: 'not_interested' }" class="confirmation-modal__cancel" (click)="closeModal()"></app-button>
+            <app-button *ngIf="!isAnyLoading" [button]="{ label: 'Confirm', matIcon: 'check' }" class="confirmation-modal__confirm" (click)="onConfirm()"></app-button>
+            <mat-progress-spinner *ngIf="isAnyLoading" mode="indeterminate"></mat-progress-spinner>
+        </div>
+    </div>
+</app-modal>
