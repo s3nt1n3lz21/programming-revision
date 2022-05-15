@@ -20,7 +20,7 @@ import { BarComponent } from './components/charts/bar/bar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotificationComponent } from './components/notification/notification.component'; 
 import { NotificationService } from './services/notification.service';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './modules/material.module';
 
 
 @NgModule({
