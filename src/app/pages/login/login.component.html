@@ -9,5 +9,3 @@
         <input matInput type="text" placeholder="..."/>
     </mat-form-field>
 </form>
-  
-JSON web tokens are used for authentication, to check the user is who they say they are. Its an alternative to using a users session id and cookies. When a user logs in the server creates and sends back a JSON web token with a secret key attached created from the users details. The user then uses this when requesting data from the server. The server checks its the same user as before by checking that the secret key of the JSON web token hasn't been changed. If the user details have changed then the key would be different. The server doesnt have to store any user information like when using session IDs and cookies. All the user information is in the token. This also allows you to access different servers for different data without having to login to another application and just reuse the same web token. Sometimes there are so many users that the servers are duplicated and load balanced. Using a JSON web token the user can easily switch between them. You store the secret key on the server and this should be kept private. You use this to generate the hash on the token.

@@ -1,6 +1,7 @@
 import { HttpEvent, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ReportMappingsService } from './report-mappings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CacheService {
   private EXPIRE_AFTER: number = 3600000; // 1 hour in ms
   private _expiryDate: Date = new Date();
 
-  constructor() { }
+  constructor(private readonly _reportMappingsService: ReportMappingsService) { }
 
   public cacheExpired(): boolean {
     return this._expiryDate < new Date();
@@ -24,6 +25,7 @@ export class CacheService {
 
   public clear() {
     this._cache.clear();
+    this._reportMappingsService.callAPIsAgain();
   }
 
   public resetExpiryDate() {

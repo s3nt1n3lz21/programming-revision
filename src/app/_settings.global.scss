@@ -1,0 +1,74 @@
+// Fonts
+$font-primary: 'Barlow', sans-serif;
+
+// Base Font Sizes
+$font-size-base: 16px;
+$font-size-mobile: 10px;
+
+// Font Sizes
+$font-size-small: 1rem;        /* 16px    */
+$font-size-medium: 1.3rem;     /* 20.8px; */
+$font-size-large: 1.5rem;      /* 24px    */
+$font-size-very-large: 1.8rem; /* 28.8px  */
+$font-size-largest: 3rem;      /* 48px    */
+
+// Line Height
+$base-line-height: 1.5rem;
+
+// Borders
+$border-width--small: 0.0625rem; // 1px
+$border-width--base: 0.1875rem; // 3px
+
+// Outline
+$outline-width-base: 5px;
+
+// Radius
+$base-radius: 0.3125rem; // 5px
+
+// Padding and margin
+$spacing-unit--huge: 2.5rem; // 40px
+$spacing-unit--large: 1.875rem; // 30px
+$spacing-unit--base: 1.25rem; // 20px
+$spacing-unit--small: 0.625rem; // 10px
+$spacing-unit--tiny: 0.3125rem; // 5px
+
+// Printing
+$page-margin-top: 1.5cm;
+$page-margin-bottom: 1cm;
+$page-margin-left: 0cm;
+$page-margin-right: 0cm;
+
+// Icon sizes
+$icon-size: 3.125rem; // 50px
+
+// Logo sizes
+$product-logo-height: 5rem; // 80px
+$product-logo-height-mobile: 2.5rem; // 25px (out of 10px)
+$corporate-logo-min-height: 2.5rem; // 40px 
+
+// Chart sizes
+$chart-max-width: 18.75rem; // 300px
+$chart-max-width-mobile: 9.375rem; // 150px
+
+// Header height
+$header-height: 8.3125rem; // 133px
+
+// Report Header
+$report-header-height: 27.0625rem; // 433px
+
+// Animations
+$mark-fade-in: .3s;
+$mark-fade-out: .3s;
+
+// Screen sizes
+$max-width--max: 1800px;
+$max-width--xlarge: 1600px;
+$max-width--large: 1350px;
+$max-width--medium: 1000px;
+$max-width--small: 700px;
+$max-width--tiny: 500px;
+$max-width--tablet: 700px;
+
+/////////////////////////////////////////
+// CSS Variables
+
