@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ApiService } from './api.service';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { createReportMapping, emptyReportMapping, IReportMapping } from '../model/IReportMapping';
-import { IReportMappingDetail, emptyReportMappingDetail } from '../model/IReportMappingDetail';
+import { IReportMappingDetail } from '../model/IReportMappingDetail';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ReportMappingsService {
 
-	private _selectedReportMappingDetail: IReportMappingDetail = emptyReportMappingDetail();
 	private _reportMappings: IReportMapping[] = [];
 	private _isCopying = false;
 	private _copiedReportMapping: IReportMapping = emptyReportMapping();
   
-	private _selectedReportMappingDetailSubject: BehaviorSubject<IReportMappingDetail> = new BehaviorSubject<IReportMappingDetail>(this._selectedReportMappingDetail);
 	private _reportMappingsSubject: BehaviorSubject<IReportMapping[]> = new BehaviorSubject<IReportMapping[]>(this._reportMappings);
 	private _isCopyingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this._isCopying);
 	private _copiedReportMappingSubject: BehaviorSubject<IReportMapping> = new BehaviorSubject<IReportMapping>(this._copiedReportMapping);
@@ -36,73 +34,82 @@ export class ReportMappingsService {
 		});
 	}
 
-	public setSelectedReportMappingDetail(value: IReportMappingDetail) {
-		this._selectedReportMappingDetail = value;
-		this._selectedReportMappingDetailSubject.next(this._selectedReportMappingDetail);
-	}
-
-	public getSelectedReportMappingDetail() {
-		return this._selectedReportMappingDetailSubject.asObservable();
-	}
-
 	public setReportMappings(value: IReportMapping[]) {
 		this._reportMappings = value;
 		this._reportMappingsSubject.next(this._reportMappings);
 	}
 
 	public getReportMappings(): Observable<IReportMapping[]> {
+		// If haven't called API, call the API and store results in the service
 		if (this._callAPI.get('getReportMappings')) {
 			return this._apiService.getReportMappings()
 				.pipe(
 					map(response => response.map((r => createReportMapping(r)))),
-					tap(
-						(response) => {
-							this.setReportMappings(response);
-							this._callAPI.set('getReportMappings', false);
-						}
-					)
+					tap((reportMappings) => {
+						this._callAPI.set('getReportMappings', false),
+						this.setReportMappings(reportMappings);
+					}),
+					catchError(error => throwError(error)),
 				);
 		} else {
 			return this._reportMappingsSubject.asObservable();
 		}
 	}
 
-	public addReportMapping(value: IReportMapping) {
-		this._reportMappings.push(value);
-		this._reportMappingsSubject.next(this._reportMappings);
-	}
-
-	public updateReportMapping(value: IReportMapping) {
-		const index = this._reportMappings.findIndex((element) => {
-			return element.jobProfileId === value.jobProfileId &&
-        element.jobProfileMajorVersion === value.jobProfileMajorVersion &&
-        element.reportTemplateId === value.reportTemplateId &&
-        element.reportTemplateMajorVersion === value.reportTemplateMajorVersion;
-		});
-		this._reportMappings[index] = value;
-		this._reportMappingsSubject.next(this._reportMappings);
-	}
-
-	public deleteReportMapping(value: IReportMapping) {
-		return new Observable(observer => {
-			this._apiService.deleteReportMapping(value).subscribe(
-				() => {
-					const index = this._reportMappings.findIndex((element) => {
-						return element.jobProfileId === value.jobProfileId &&
-            element.jobProfileMajorVersion === value.jobProfileMajorVersion &&
-            element.reportTemplateId === value.reportTemplateId &&
-            element.reportTemplateMajorVersion === value.reportTemplateMajorVersion;
-					});
-					this._reportMappings.splice(index, 1);
-					this._reportMappingsSubject.next(this._reportMappings);
-					observer.next();
-					observer.complete();
-				},
-				(error) => {
-					observer.error(error);
-				}
+	public addReportMapping(reportMapping: IReportMapping) {
+		return this._apiService.addReportMapping(reportMapping)
+			.pipe(
+				tap(() => {
+					this._addReportMapping(reportMapping);
+				}),
+				catchError(error => throwError(error))
 			);
+	}
+
+	private _addReportMapping(reportMapping: IReportMapping) {
+		this._reportMappings.push(reportMapping);
+		this._reportMappingsSubject.next(this._reportMappings);
+	}
+
+	public updateReportMapping(reportMapping: IReportMappingDetail) {
+		return this._apiService.updateReportMapping(reportMapping)
+			.pipe(
+				tap(() => {
+					reportMapping.lastUpdated = new Date().toISOString();
+					this._updateReportMapping(reportMapping);
+				}),
+				catchError(error => throwError(error))
+			);
+	}
+
+	private _updateReportMapping(reportMapping: IReportMapping) {
+		const index = this._reportMappings.findIndex((element) => {
+			return element.jobProfileId === reportMapping.jobProfileId &&
+        element.jobProfileMajorVersion === reportMapping.jobProfileMajorVersion &&
+        element.reportTemplateId === reportMapping.reportTemplateId &&
+        element.reportTemplateMajorVersion === reportMapping.reportTemplateMajorVersion;
 		});
+		this._reportMappings[index] = reportMapping;
+		this._reportMappingsSubject.next(this._reportMappings);
+	}
+
+	public deleteReportMapping(reportMapping: IReportMapping) {
+		return this._apiService.deleteReportMapping(reportMapping)
+			.pipe(
+				tap(() => this._deleteReportMapping(reportMapping)),
+				catchError(error => throwError(error))
+			);
+	}
+
+	private _deleteReportMapping(reportMapping: IReportMapping) {
+		const index = this._reportMappings.findIndex((element) => {
+			return element.jobProfileId === reportMapping.jobProfileId &&
+      element.jobProfileMajorVersion === reportMapping.jobProfileMajorVersion &&
+      element.reportTemplateId === reportMapping.reportTemplateId &&
+      element.reportTemplateMajorVersion === reportMapping.reportTemplateMajorVersion;
+		});
+		this._reportMappings.splice(index, 1);
+		this._reportMappingsSubject.next(this._reportMappings);
 	}
 
 	public setIsCopying(value: boolean) {
@@ -123,37 +130,25 @@ export class ReportMappingsService {
 		return this._copiedReportMappingSubject.asObservable();
 	}
 
-	public activateReportMapping(value: IReportMapping) {
-		const newReportMapping = value;
-		return new Observable(observer => {
-			this._apiService.activateReportMapping(value).subscribe(
-				() => {
-					newReportMapping.isActive = true;
-					this.updateReportMapping(newReportMapping);
-					observer.next();
-					observer.complete();
-				},
-				(error) => {
-					observer.error(error);
-				}
+	public activateReportMapping(reportMapping: IReportMapping) {
+		return this._apiService.activateReportMapping(reportMapping)
+			.pipe(
+				tap(() => {
+					reportMapping.isActive = true;
+					this._updateReportMapping(reportMapping);
+				}),
+				catchError(error => throwError(error))
 			);
-		});
 	}
 
-	public deactivateReportMapping(value: IReportMapping) {
-		const newReportMapping = value;
-		return new Observable(observer => {
-			this._apiService.deactivateReportMapping(value).subscribe(
-				() => {
-					newReportMapping.isActive = false;
-					this.updateReportMapping(newReportMapping);
-					observer.next();
-					observer.complete();
-				},
-				(error) => {
-					observer.error(error);
-				}
+	public deactivateReportMapping(reportMapping: IReportMapping) {
+		return this._apiService.deactivateReportMapping(reportMapping)
+			.pipe(
+				tap(() => {
+					reportMapping.isActive = false;
+					this._updateReportMapping(reportMapping);
+				}),
+				catchError(error => throwError(error))
 			);
-		});
 	}
 }
