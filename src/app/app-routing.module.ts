@@ -6,31 +6,31 @@ import { QuestionsListComponent } from './pages/questions-list/questions-list.co
 import { RevisionComponent } from './pages/revision/revision.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+	{ path: '', redirectTo: 'login', pathMatch: 'full' },
 
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
+	{
+		path: 'login',
+		component: LoginComponent,
+	},
 
-  {
-    path: 'revision',
-    component: RevisionComponent,
-  },
+	{
+		path: 'revision',
+		component: RevisionComponent,
+	},
 
-  {
-    path: 'question-list',
-    component: QuestionsListComponent,
-  },
+	{
+		path: 'question-list',
+		component: QuestionsListComponent,
+	},
 
-  {
-    path: 'add-question',
-    component: AddQuestionComponent,
-  },
+	{
+		path: 'add-question',
+		component: AddQuestionComponent,
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }

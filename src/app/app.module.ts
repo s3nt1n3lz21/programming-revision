@@ -21,6 +21,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { NotificationComponent } from './components/notification/notification.component'; 
 import { NotificationService } from './services/notification.service';
 import { MaterialModule } from './modules/material.module';
+import { ShowNDirective } from './directives/show-n.directive';
 
 
 @NgModule({
@@ -41,7 +42,10 @@ import { MaterialModule } from './modules/material.module';
 		NotificationComponent,
 
 		// Pipes
-		ExpiredPipe
+		ExpiredPipe,
+
+		// Directives
+  		ShowNDirective
 	],
 	imports: [
 		BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BarChartData } from 'src/app/model/IBarChart';
@@ -6,6 +6,7 @@ import { Question, emptyQuestion, DAY } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
 import { UpdateQuestion } from 'src/app/store/action';
 import { AppStateWrapper } from 'src/app/store/reducer';
+import { EventEmitter } from 'stream';
 
 @Component({
 	selector: 'app-revision',
@@ -40,13 +41,14 @@ export class RevisionComponent implements OnInit {
 		this.questionsStore.subscribe(
 			(questions) => {
 				this.questions = questions;
-				this.chartData = this.questions.map((q) => {
-					return {
-						id: q.id,
-						value: q.timesAnsweredCorrectly,
-						title: q.question
-					};
-				});
+				this.chartData = this.questions.filter((q) => q.answer)
+					.map((q) => {
+						return {
+							id: q.id,
+							value: q.timesAnsweredCorrectly,
+							title: q.question
+						};
+					});
 				this.nextQuestion();
 			},
 			(error) => { console.error(error); }
@@ -59,11 +61,11 @@ export class RevisionComponent implements OnInit {
 	}
 
 	public selectQuestion = (question: Question) => {
-		if (new Date(question.answerExpiryDate) < new Date()) {
-			this.showCurrentAnswer = false;
-			this.index = this.questions.findIndex(q => q.id === question.id);
-			this.currentQuestion = question;
-		}
+		// if (new Date(question.answerExpiryDate) < new Date()) {
+		this.showCurrentAnswer = false;
+		this.index = this.questions.findIndex(q => q.id === question.id);
+		this.currentQuestion = question;
+		// }
 	};
   
 	public nextQuestion() {

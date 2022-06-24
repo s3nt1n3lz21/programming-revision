@@ -17,6 +17,10 @@
         max-width: 20px;
         background-color: green;
         text-align: center;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .red {
@@ -35,7 +39,7 @@
         outline: 2px solid black;
     }
 
-    .red:hover {
-        cursor: pointer;
-    }
+    // .red:hover {
+    //     cursor: pointer;
+    // }
 }

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
+import { Subject } from 'rxjs';
 import { BarChartData } from 'src/app/model/IBarChart';
 
 @Component({
@@ -10,12 +11,17 @@ import { BarChartData } from 'src/app/model/IBarChart';
 export class BarComponent implements OnInit {
 
 	private _data: BarChartData[] = [];
+	@ViewChild('chart', { static: true }) chart: ElementRef;
 
 	constructor() { }
 
 	ngOnInit(): void {
+		this.chartWidth = this.chart.nativeElement.getBoundingClientRect().width;
+		console.log('chartWidth: ', this.chartWidth);
+	}
 
-
+	ngAfterViewInit() {
+		// this.chartWidth = this.chart.nativeElement.width;
 	}
 
 	chartWidth = 1500;
@@ -45,7 +51,7 @@ export class BarComponent implements OnInit {
   		.scaleBand()
   		.domain(this._data.map((dataPoint) => dataPoint.title))
   		.rangeRound([0, this.chartWidth])
-  		.padding(0.1);
+  		.padding(0.2);
   };
 
   private yScale = () => {
