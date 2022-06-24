@@ -22,6 +22,8 @@ import { NotificationComponent } from './components/notification/notification.co
 import { NotificationService } from './services/notification.service';
 import { MaterialModule } from './modules/material.module';
 import { ShowNDirective } from './directives/show-n.directive';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -56,7 +58,19 @@ import { ShowNDirective } from './directives/show-n.directive';
 		CommonModule,
 		MaterialModule,
 		StoreModule.forRoot({ state: reducer }),
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+  ServiceWorkerModule.register('ngsw-worker.js', {
+    enabled: environment.production,
+    // Register the ServiceWorker as soon as the application is stable
+    // or after 30 seconds (whichever comes first).
+    registrationStrategy: 'registerWhenStable:30000'
+  }),
+  ServiceWorkerModule.register('ngsw-worker.js', {
+    enabled: environment.production,
+    // Register the ServiceWorker as soon as the app is stable
+    // or after 30 seconds (whichever comes first).
+    registrationStrategy: 'registerWhenStable:30000'
+  })
 	],
 	providers: [
 		NotificationService
