@@ -27,6 +27,7 @@
     "d3-scale": "^4.0.2",
     "firebase": "^9.6.1",
     "googleapis": "^92.0.0",
+    "http-server": "^14.1.1",
     "rxjs": "^6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "^0.11.4"
