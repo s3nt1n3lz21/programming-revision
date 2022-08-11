@@ -9,6 +9,9 @@
         {{ question.timesAnsweredCorrectly }}
     </div>
 </div>
+<div>
+    Total Questions: {{questions.length}} Total: {{ sum() }}
+</div>
 <div *ngIf="!questionsLeft()">
     No Questions Left
 </div>

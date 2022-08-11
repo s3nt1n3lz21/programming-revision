@@ -17,7 +17,6 @@ export class BarComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.chartWidth = this.chart.nativeElement.getBoundingClientRect().width;
-		console.log('chartWidth: ', this.chartWidth);
 	}
 
 	ngAfterViewInit() {
@@ -26,10 +25,17 @@ export class BarComponent implements OnInit {
 
 	chartWidth = 1500;
 	chartHeight = 200;
-	yDomainMax = 1200/this.chartHeight;
+	highestScore = 1;
+	yDomainMax = this.highestScore;
 
   @Input() public set data(data: BarChartData[]) {
 		this._data = data;
+
+		const yDomain: number[] = this._data.map(data => data.value);
+		console.log(yDomain);
+		this.highestScore = Math.max(...yDomain);
+		this.yDomainMax = this.highestScore;
+
 		const container = d3
 			.select('.bar-chart');
 
@@ -58,6 +64,6 @@ export class BarComponent implements OnInit {
   	return d3
   		.scaleLinear()
   		.domain([0, this.yDomainMax])
-  		.range([200, 0]);
+  		.range([this.chartHeight, 0]);
   };
 }

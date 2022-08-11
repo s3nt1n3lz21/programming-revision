@@ -134,4 +134,8 @@ export class RevisionComponent implements OnInit {
 		// console.log('item.id:', item.id);
 		return item.id;
 	}
+
+	public sum() {
+		return this.questions.map(q => q.timesAnsweredCorrectly).reduce((previousValue, currentValue) => previousValue + currentValue,0);
+	}
 }
