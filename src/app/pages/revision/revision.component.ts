@@ -136,6 +136,10 @@ export class RevisionComponent implements OnInit {
 	}
 
 	public sum() {
-		return this.questions.map(q => q.timesAnsweredCorrectly).reduce((previousValue, currentValue) => previousValue + currentValue,0);
+		return this.questions.map(q => q.timesAnsweredCorrectly).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+	}
+
+	public noQuestionsLeft() {
+		return this.questions.map(q => new Date(q.answerExpiryDate) < new Date() ).reduce((previousValue, currentValue) => previousValue + Number(currentValue), 0);
 	}
 }
