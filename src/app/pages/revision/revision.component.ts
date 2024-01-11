@@ -74,16 +74,21 @@ export class RevisionComponent implements OnInit {
 		if (this.questionsLeft()) {
 			let answeredThisQuestion = true;
 			let limit = 0;
+			// Find the questions i've answered the least
+			const timesAnsweredCorrectly = this.questions.map(x => x.timesAnsweredCorrectly);
+			const leastTimesAnsweredCorrectly = Math.min(...timesAnsweredCorrectly);
+			const questionsAnsweredTheLeast = this.questions.filter(x => x.timesAnsweredCorrectly == leastTimesAnsweredCorrectly);
+
 			// Get a random question that we haven't answered
 			while (answeredThisQuestion && limit < 10000) {
-				randomIndex = Math.floor(Math.random()*this.questions.length);
-				if ((new Date(this.questions[randomIndex].answerExpiryDate) < new Date()) && this.questions[randomIndex].answer) {
+				randomIndex = Math.floor(Math.random()*questionsAnsweredTheLeast.length);
+				if ((new Date(questionsAnsweredTheLeast[randomIndex].answerExpiryDate) < new Date()) && questionsAnsweredTheLeast[randomIndex].answer) {
 					answeredThisQuestion = false;
 				}
 				limit += 1;
 			}
     
-			this.index = randomIndex;
+			this.index = this.questions.findIndex(x => x.id == questionsAnsweredTheLeast[randomIndex].id);
 		} else {
 			this.index = 0;
 		}
