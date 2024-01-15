@@ -16,12 +16,21 @@ export class BarComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit(): void {
+		this._clearChart();
 		this.chartWidth = this.chart.nativeElement.getBoundingClientRect().width;
 	}
 
 	ngAfterViewInit() {
 		// this.chartWidth = this.chart.nativeElement.width;
 	}
+
+	private _clearChart() {
+		d3
+		.select(this.chart.nativeElement)
+		.select(".barchart")
+		.select("*")
+		.remove();
+  	}
 
 	chartWidth = 1500;
 	chartHeight = 200;
