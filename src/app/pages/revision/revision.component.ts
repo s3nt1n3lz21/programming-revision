@@ -75,7 +75,7 @@ export class RevisionComponent implements OnInit {
 			let answeredThisQuestion = true;
 			let limit = 0;
 			// Find the questions i've answered the least
-			const timesAnsweredCorrectly = this.questions.filter(x => new Date(x.answerExpiryDate) < new Date()).map(x => x.timesAnsweredCorrectly);
+			const timesAnsweredCorrectly = this.questions.filter(x => new Date(x.answerExpiryDate) < new Date() && x.question).map(x => x.timesAnsweredCorrectly);
 			const leastTimesAnsweredCorrectly = Math.min(...timesAnsweredCorrectly);
 			const questionsAnsweredTheLeast = this.questions.filter(x => x.timesAnsweredCorrectly == leastTimesAnsweredCorrectly);
 
