@@ -10,18 +10,22 @@
 </div>
 
 <div class="card">
-    <div class="card__content">
-        Total No Questions: {{questions.length}} Total Questions Answered Correctly: {{ sum() }} No Questions Left: {{ noQuestionsLeft() }}
-    </div>
-    <div class="card__content" *ngIf="!questionsLeft()">
-        No Questions Left
-    </div>
-    <div class="card__content">
-        <app-question [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
-    </div>
-    <div class="card__button-container">
-        <button class="card__button" (click)="nextQuestion()">Next Question</button>
-        <button class="card__button" (click)="answeredIncorrectly()">Incorrect</button>
-        <button class="card__button" (click)="answeredCorrectly()">Correct</button>
+    <div class="card__outer">
+        <div class="card__inner">
+            <div class="card__content">
+                Total No Questions: {{questions.length}} Total Questions Answered Correctly: {{ sum() }} No Questions Left: {{ noQuestionsLeft() }}
+            </div>
+            <div class="card__content" *ngIf="!questionsLeft()">
+                No Questions Left
+            </div>
+            <div class="card__content">
+                <app-question [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
+            </div>
+            <div class="card__button-container">
+                <button class="card__button" (click)="nextQuestion()">Next</button>
+                <button class="card__button" (click)="answeredIncorrectly()">Incorrect</button>
+                <button class="card__button" (click)="answeredCorrectly()">Correct</button>
+            </div>
+        </div>
     </div>
 </div>

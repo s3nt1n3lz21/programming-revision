@@ -54,7 +54,7 @@
 }
 
 .dots-container__dot--selected {
-    // outline: 4px solid $color-secondary;
+    outline: 4px solid $color-secondary;
 }
 
 .card {
@@ -62,19 +62,41 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
     width: 90%;
     max-width: 700px;
+    z-index: 10;
     border-radius: 8px;
     height: 100%;
     max-height: 1000px;
-
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+
+    &__outer {
+        background-color: $color-primary;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Make outer cover entire card */
+        box-sizing: border-box; /* Include padding in the height/width calculations */
+        width: 100%;
+    }
+
+    &__inner {
+        background: rgba(255, 255, 255, 1);
+        border-radius: 8px;
+        box-shadow: inset 0 0 0 rgba(0, 0, 0, 0); /* Inner shadow if needed */
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 
     &__content {
         margin-bottom: 20px;
