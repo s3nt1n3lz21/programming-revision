@@ -1,45 +1,44 @@
 @import '../../theme.scss';
 
 .dots-container {
-    padding-top: 5px;
-    padding-bottom: 5px;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex-grow: 0;
+    height: 100vh; /* Ensure the container takes up the full viewport height */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr)); /* Create a grid that adapts */
+    grid-template-rows: repeat(auto-fit, minmax(20px, 1fr)); /* Ensure rows follow the same logic */
+    gap: 1px; /* Spacing between dots */
     position: relative;
+}
 
-    &__dot {
-        flex: 1;
-        height: 20px;
-        margin: 1px;
-        min-width: 20px;
-        max-width: 20px;
-        background-color: $color-lime-green;
-        text-align: center;
-        border-radius: 2px;
+.dots-container__dot {
+    background-color: $color-lime-green;
+    text-align: center;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px;
+    min-height: 20px;
 
-        &:hover {
-            cursor: pointer;
-        }
+    &:hover {
+        cursor: pointer;
     }
+}
 
-    &__dot--red {
-        background-color: red;
-    }
+.dots-container__dot--red {
+    background-color: red;
+}
 
-    &__dot--purple {
-        background-color: purple;
-    }
+.dots-container__dot--purple {
+    background-color: purple;
+}
 
-    &__dot--orange {
-        background-color: orange;
-    }
+.dots-container__dot--orange {
+    background-color: orange;
+}
 
-    &__dot--selected {
-        outline: 2px solid black;
-    }
+.dots-container__dot--selected {
+    outline: 2px solid black;
 }
 
 .card {
