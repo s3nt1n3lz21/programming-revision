@@ -12,6 +12,9 @@
 <div class="card">
     <div class="card__outer">
         <div class="card__inner">
+            <div class="card__circle">
+                {{ currentQuestion.timesAnsweredCorrectly }}
+            </div>
             <div class="card__content">
                 Total No Questions: {{questions.length}} Total Questions Answered Correctly: {{ sum() }} No Questions Left: {{ noQuestionsLeft() }}
             </div>
