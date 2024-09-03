@@ -25,23 +25,36 @@
 
     &:hover {
         cursor: pointer;
+        background-color: lighten($color-lime-green, 20%);
     }
 }
 
 .dots-container__dot--red {
     background-color: red;
+
+    &:hover {
+        background-color: lighten(red, 20%);
+    }
 }
 
 .dots-container__dot--purple {
     background-color: purple;
+
+    &:hover {
+        background-color: lighten(purple, 20%);
+    }
 }
 
 .dots-container__dot--orange {
     background-color: orange;
+
+    &:hover {
+        background-color: lighten(orange, 20%);
+    }
 }
 
 .dots-container__dot--selected {
-    outline: 2px solid black;
+    // outline: 4px solid $color-secondary;
 }
 
 .card {
