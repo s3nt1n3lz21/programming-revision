@@ -1,25 +1,27 @@
 <div class="dots-container">
-    <div class="dot" (click)="selectQuestion(question)" [ngClass]="{
-        'selected' : question === currentQuestion,
-        'orange' : question.question === '',
-        'purple' : question.answer === '',
-        'red' : question.answerExpiryDate | expired
+    <div class="dots-container__dot" (click)="selectQuestion(question)" [ngClass]="{
+        'dots-container__dot--selected' : question === currentQuestion,
+        'dots-container__dot--orange' : question.question === '',
+        'dots-container__dot--purple' : question.answer === '',
+        'dots-container__dot--red' : question.answerExpiryDate | expired
     }" *ngFor="let question of questions; trackBy: trackByFn">
         {{ question.timesAnsweredCorrectly }}
     </div>
 </div>
 
 <div class="card">
-    <div>
+    <div class="card__content">
         Total No Questions: {{questions.length}} Total Questions Answered Correctly: {{ sum() }} No Questions Left: {{ noQuestionsLeft() }}
     </div>
-    <div *ngIf="!questionsLeft()">
+    <div class="card__content" *ngIf="!questionsLeft()">
         No Questions Left
     </div>
-    <div>
+    <div class="card__content">
         <app-question [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
-        <button class="button" (click)="nextQuestion()">Next Question</button>
-        <button class="button" (click)="answeredIncorrectly()">Incorrect</button>
-        <button class="button" (click)="answeredCorrectly()">Correct</button>
+    </div>
+    <div class="card__button-container">
+        <button class="card__button" (click)="nextQuestion()">Next Question</button>
+        <button class="card__button" (click)="answeredIncorrectly()">Incorrect</button>
+        <button class="card__button" (click)="answeredCorrectly()">Correct</button>
     </div>
 </div>

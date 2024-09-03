@@ -1,10 +1,11 @@
-.button {
+.card__button, .button {
     margin: 5px;
     font-size: $font-size-2;
     background-color: $color-primary;
     color: $color-secondary;
     min-width: 200px;
     max-height: 45px;
+    
     &:hover {
         background-color: lighten($color-primary,10%);
     }
