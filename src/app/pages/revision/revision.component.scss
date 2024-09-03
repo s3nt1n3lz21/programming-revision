@@ -4,6 +4,7 @@
     width: 100%;
     height: 100vh; /* Ensure the container takes up the full viewport height */
     display: grid;
+    padding: 1px;
     grid-template-columns: repeat(auto-fit, minmax(20px, 1fr)); /* Create a grid that adapts */
     grid-template-rows: repeat(auto-fit, minmax(20px, 1fr)); /* Ensure rows follow the same logic */
     gap: 1px; /* Spacing between dots */
@@ -13,12 +14,14 @@
 .dots-container__dot {
     background-color: $color-lime-green;
     text-align: center;
-    border-radius: 2px;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 20px;
     min-height: 20px;
+    color: $color-secondary;
+    font-weight: bold;
 
     &:hover {
         cursor: pointer;
