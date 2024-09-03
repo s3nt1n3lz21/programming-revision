@@ -11,6 +11,7 @@
         flex: 10;
         @extend %center;
         flex-direction: column;
+        color: $color-primary;
 
         .question {
             flex: 1;
