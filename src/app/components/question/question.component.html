@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
-        <div class="question">{{ question.question }}</div>
-        <div class="answer" *ngIf="showAnswer">{{ question.answer }}</div>
+        <div class="question">Q: {{ question.question }}</div>
+        <div class="answer" *ngIf="showAnswer">A: {{ question.answer }}</div>
     </div>
 
     <mat-form-field class="chip-list" appearance="fill">
@@ -18,7 +18,7 @@
     </mat-form-field>   
 
     <div class="footer">
-        <button mat-button (click)="revealAnswer()">Reveal</button>
+        <button mat-button (click)="revealAnswer()">{{ showAnswer ? "Hide" : "Reveal"}}</button>
         <button mat-button (click)="edit()">Edit</button>
     </div>
 </div>

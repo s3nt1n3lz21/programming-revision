@@ -24,7 +24,7 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {}
 
   revealAnswer = () => {
-  	this.showAnswer = true;
+  	this.showAnswer = !this.showAnswer;
   	this.showAnswerChange.emit(this.showAnswer);
   };
 
