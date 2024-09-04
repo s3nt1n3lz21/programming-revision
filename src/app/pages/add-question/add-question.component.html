@@ -1,32 +1,36 @@
-<form [formGroup]="questionForm">
-  <mat-form-field appearance="fill">
-      <mat-label>Question</mat-label>
-      <input matInput placeholder="Add Question" formControlName="question">
-  </mat-form-field>
+<form class="add-question" [formGroup]="questionForm">
+  <div class="input-container">
+      <mat-form-field appearance="fill">
+          <mat-label>Question</mat-label>
+          <input matInput placeholder="Add Question" formControlName="question">
+      </mat-form-field>
+  </div>
+
+  <div class="input-container">
+      <mat-form-field appearance="fill">
+          <mat-label>Answer</mat-label>
+          <input matInput placeholder="Add Answer" formControlName="answer">
+      </mat-form-field>
+  </div>
+
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-chip-list #chipList aria-label="Tag selection">
+        <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+            {{ tag }}
+            <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip>
+        <input
+            placeholder="New Tag..."
+            #tagInput
+            [formControl]="tagCtrl"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>  
   
-  <mat-form-field appearance="fill">
-      <mat-label>Answer</mat-label>
-      <input matInput placeholder="Add Answer" formControlName="answer">
-  </mat-form-field>
+  <button *ngIf="!editingQuestion" mat-raised-button color="primary" (click)="addQuestion()">Add Question</button>
+  <button *ngIf="editingQuestion" mat-raised-button color="accent" (click)="editQuestion()">Edit Question</button>  
 </form>
-
-<mat-form-field class="example-chip-list" appearance="fill">
-  <mat-chip-list #chipList aria-label="Tag selection">
-      <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
-          {{ tag }}
-          <button matChipRemove>
-              <mat-icon>cancel</mat-icon>
-          </button>
-      </mat-chip>
-      <input
-          placeholder="New Tag..."
-          #tagInput
-          [formControl]="tagCtrl"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)">
-  </mat-chip-list>
-</mat-form-field>  
-
-<button *ngIf="!editingQuestion" mat-raised-button color="primary" (click)="addQuestion()">Add Question</button>
-<button *ngIf="editingQuestion" mat-raised-button color="accent" (click)="editQuestion()">Edit Question</button>

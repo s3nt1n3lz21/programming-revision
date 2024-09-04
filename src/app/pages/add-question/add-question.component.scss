@@ -2,15 +2,22 @@
 
 $base-font-size: 30px;
 
+.add-question {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .input-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     min-height: 100px;
     font-size: $base-font-size;
     padding-top: 5px;
+}
 
-    .input {
-        width: 1000px;
-    }
+mat-form-field {
+    width: 1000px;
+    display: block;
 }
