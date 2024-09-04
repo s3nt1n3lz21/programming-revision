@@ -7,18 +7,28 @@
     <mat-form-field class="chip-list" appearance="fill">
         <mat-chip-list #chipList aria-label="Tag selection">
             <mat-chip
-            *ngFor="let tag of question.tags"
-            (removed)="remove(tag)">
-            {{tag}}
+                *ngFor="let tag of question.tags"
+                (removed)="remove(tag)">
+                {{ tag }}
                 <button matChipRemove>
                     <mat-icon>cancel</mat-icon>
                 </button>
             </mat-chip>
-        </mat-chip-list> 
+            <!-- Input for adding new tags -->
+            <input
+                placeholder="New tag..."
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="true"
+                (matChipInputTokenEnd)="add($event)"
+            />
+        </mat-chip-list>
     </mat-form-field>   
 
     <div class="footer">
-        <button mat-button (click)="revealAnswer()">{{ showAnswer ? "Hide" : "Reveal"}}</button>
+        <button mat-button (click)="revealAnswer()">
+            {{ showAnswer ? "Hide" : "Reveal" }}
+        </button>
         <button mat-button (click)="edit()">Edit</button>
     </div>
 </div>
