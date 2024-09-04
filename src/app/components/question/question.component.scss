@@ -18,13 +18,13 @@
         .question {
             flex: 1;
             @extend %center;
-            font-size: $font-size-2;
+            font-size: $font-size-6;
         }
 
         .answer {
             flex: 4;
             @extend %center;
-            font-size: $font-size-1-5;
+            font-size: $font-size-4;
         }
     }
 
