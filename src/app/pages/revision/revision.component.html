@@ -25,9 +25,9 @@
                 <app-question [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
             </div>
             <div class="card__button-container">
-                <button class="card__button card__button--skip" (click)="nextQuestion()">Skip</button>
-                <button class="card__button card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
-                <button class="card__button card__button--correct" (click)="answeredCorrectly()">Correct</button>
+                <button mat-button class="card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
+                <button mat-button class="card__button--skip" (click)="nextQuestion()">Skip</button>
+                <button mat-button class="card__button--correct" (click)="answeredCorrectly()">Correct</button>
             </div>
         </div>
     </div>

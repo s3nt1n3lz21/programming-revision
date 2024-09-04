@@ -1,4 +1,4 @@
-<div class="container card">
+<div class="container">
     <div class="header">
         <div class="question">{{ question.question }}</div>
         <div class="answer" *ngIf="showAnswer">{{ question.answer }}</div>
@@ -18,7 +18,7 @@
     </mat-form-field>   
 
     <div class="footer">
-        <button class="button" (click)="revealAnswer()">Reveal</button>
-        <button class="button" (click)="edit()">Edit</button>
+        <button mat-button (click)="revealAnswer()">Reveal</button>
+        <button mat-button (click)="edit()">Edit</button>
     </div>
 </div>
