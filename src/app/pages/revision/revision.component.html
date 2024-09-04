@@ -38,9 +38,13 @@
                     </div>
                 </div>
             </div>
-            <div class="card__circle">
+            <div class="card__circle" [ngClass]="{
+                'card__circle--orange' : currentQuestion.question === '',
+                'card__circle--purple' : currentQuestion.answer === '',
+                'card__circle--red' : currentQuestion.answerExpiryDate | expired
+            }">
                 {{ currentQuestion.timesAnsweredCorrectly }}
-            </div>
+            </div>            
             <div class="card__content" *ngIf="!questionsLeft()">
                 No Questions Left
             </div>

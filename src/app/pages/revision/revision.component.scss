@@ -118,7 +118,7 @@
     &__circle {
         position: relative;
         left: calc(100% - 80px);
-        background-color: $color-primary;
+        background-color: $color-primary; // Default color
         color: $color-secondary;
         width: 80px;
         height: 80px;
@@ -128,6 +128,32 @@
         border-radius: 50%;
         font-size: 2rem;
         font-weight: bold;
+        transition: background-color 0.3s;
+
+        // Active state styles for the circle (based on conditions)
+        &--red {
+            background-color: red;
+
+            &:hover {
+                background-color: lighten(red, 10%);
+            }
+        }
+
+        &--purple {
+            background-color: purple;
+
+            &:hover {
+                background-color: lighten(purple, 10%);
+            }
+        }
+
+        &--orange {
+            background-color: orange;
+
+            &:hover {
+                background-color: lighten(orange, 10%);
+            }
+        }
     }
 
     &__content {
