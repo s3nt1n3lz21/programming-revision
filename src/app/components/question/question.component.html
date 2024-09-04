@@ -23,12 +23,12 @@
                 (matChipInputTokenEnd)="add($event)"
             />
         </mat-chip-list>
-    </mat-form-field>   
+    </mat-form-field>
 
     <div class="footer">
-        <button mat-button (click)="revealAnswer()">
+        <button mat-raised-button (click)="revealAnswer()">
             {{ showAnswer ? "Hide" : "Reveal" }}
         </button>
-        <button mat-button (click)="edit()">Edit</button>
+        <button mat-raised-button (click)="edit()">Edit</button>
     </div>
 </div>

@@ -1,40 +1,32 @@
 <form [formGroup]="questionForm">
-    <div class="input-container">
-        <div class="label">Question:</div>
-        <input class="input" type="text" placeholder="Add Question" formControlName="question">
-    </div>
-    <div class="input-container">
-        <div class="label">Answer:</div>
-        <input class="input" type="text" placeholder="Add Answer" formControlName="answer">
-    </div>
+  <mat-form-field appearance="fill">
+      <mat-label>Question</mat-label>
+      <input matInput placeholder="Add Question" formControlName="question">
+  </mat-form-field>
+  
+  <mat-form-field appearance="fill">
+      <mat-label>Answer</mat-label>
+      <input matInput placeholder="Add Answer" formControlName="answer">
+  </mat-form-field>
 </form>
 
 <mat-form-field class="example-chip-list" appearance="fill">
-    <mat-chip-list #chipList aria-label="Tag selection">
-      <mat-chip
-        *ngFor="let tag of tags"
-        (removed)="remove(tag)">
-            {{tag}}
-        <button matChipRemove>
-          <mat-icon>cancel</mat-icon>
-        </button>
+  <mat-chip-list #chipList aria-label="Tag selection">
+      <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+          {{ tag }}
+          <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+          </button>
       </mat-chip>
       <input
-        placeholder="New Tag..."
-        #tagInput
-        [formControl]="tagCtrl"
-
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-    <!-- [matAutocomplete]="auto" -->
-    <!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="tagSelected($event)">
-      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-        {{tag}}
-      </mat-option>
-    </mat-autocomplete> -->
+          placeholder="New Tag..."
+          #tagInput
+          [formControl]="tagCtrl"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
 </mat-form-field>  
 
-<button *ngIf="!editingQuestion" class="button" (click)="addQuestion()">Add Question</button>
-<button *ngIf="editingQuestion" class="button" (click)="editQuestion()">Edit Question</button>
+<button *ngIf="!editingQuestion" mat-raised-button color="primary" (click)="addQuestion()">Add Question</button>
+<button *ngIf="editingQuestion" mat-raised-button color="accent" (click)="editQuestion()">Edit Question</button>
