@@ -13,4 +13,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  navLinks = [
+    { path: 'revision', label: 'Revision' },
+    { path: 'question-list', label: 'All Questions' },
+    { path: 'add-question', label: 'Add Question' }
+  ];
+
 }

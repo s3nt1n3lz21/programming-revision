@@ -1,11 +1,13 @@
-<div class="link-container">
-    <div class="link">
-        <p (click)="router.navigate(['revision'])">Revision</p>
-    </div>
-    <div class="link">
-        <p (click)="router.navigate(['question-list'])">All Questions</p>
-    </div>
-    <div class="link">
-        <p (click)="router.navigate(['add-question'])">Add Question</p>
-    </div>
-</div>
+<nav class="header__nav" mat-tab-nav-bar>
+    <a
+      class="header__nav-link"
+      mat-tab-link
+      *ngFor="let link of navLinks"
+      [routerLink]="link.path"
+      routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive"
+    >
+      {{ link.label }}
+    </a>
+  </nav>
+  

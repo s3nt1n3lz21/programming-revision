@@ -1,21 +1,49 @@
 @import "../../theme.scss";
 
-.link-container {
+.header__nav {
+//   display: flex;
+  background-color: $color-primary;
+//   font-size: $font-size-6;
+//   color: $color-secondary;
+  width: 100%;
+  height: 60px;
+//   align-items: center;
+
+  .header__nav-link {
     flex: 1;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    font-size: $font-size-6;
-    background-color: $color-primary;
+    justify-content: center;
+    align-items: center;
     color: $color-secondary;
+    opacity: 1;
+//     text-decoration: none;
+//     padding: 16px;
+//     transition: background-color 0.3s, color 0.3s;
+    height: 60px;
+    font-size: $font-size-6;
 
-    .link {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+//     &:hover {
+//       cursor: pointer;
+//       background-color: lighten($color-primary, 10%);
+//     }
 
-        p:hover {
-            cursor: pointer;
-        }
-    }
+//     &.active {
+//       border-bottom: 2px solid darken($color-secondary, 10%);
+//     }
+
+//     // Override Angular Material styles if necessary
+//     .mat-tab-label {
+//       color: inherit;
+//       font-weight: bold;
+//     }
+
+//     .mat-tab-label-active {
+//       color: inherit;
+//     }
+  }
+
+//   // Optional: Style the mat-tab-nav-bar indicator
+//   .mat-tab-nav-bar-header-pagination-container {
+//     display: none; // Hide pagination arrows if not needed
+//   }
 }
