@@ -6,12 +6,14 @@ import { QuestionsListComponent } from './pages/questions-list/questions-list.co
 import { RevisionComponent } from './pages/revision/revision.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: 'login', pathMatch: 'full' },
+	// { path: '', redirectTo: 'login', pathMatch: 'full' },
 
-	{
-		path: 'login',
-		component: LoginComponent,
-	},
+	{ path: '', redirectTo: 'revision', pathMatch: 'full' },
+
+	// {
+	// 	path: 'login',
+	// 	component: LoginComponent,
+	// },
 
 	{
 		path: 'revision',
