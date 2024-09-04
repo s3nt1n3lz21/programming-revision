@@ -70,13 +70,17 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.apiService.getQuestions().subscribe(
       (data) => {
-        const questions = [];
+        const questions: Question[] = [];
         for (const key in data) {
           const question: Question = {
             ...emptyQuestion(),
             id: key,
-            ...data[key]
+            ...data[key],
           };
+
+          if (!question.tags || !Array.isArray(question.tags)) {
+            question.tags = []
+          }
 
           questions.push(question);
         }
