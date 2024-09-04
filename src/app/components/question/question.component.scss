@@ -29,6 +29,6 @@
     .footer {
         flex: 1;
         @extend %space-around;
-        flex-direction: row;
+        flex-direction: column;
     }
 }

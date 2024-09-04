@@ -12,11 +12,34 @@
 <div class="card">
     <div class="card__outer">
         <div class="card__inner">
+            <div class="card__header">
+                <div class="card__header-item">
+                    <div>
+                        Total No Questions
+                    </div>
+                    <div>
+                        {{questions.length}}
+                    </div>
+                </div>
+                <div class="card__header-item">
+                    <div>
+                        Total Questions Answered Correctly
+                    </div>
+                    <div>
+                        {{ sum() }}
+                    </div>
+                </div>
+                <div class="card__header-item">
+                    <div>
+                        No Questions Left
+                    </div>
+                    <div>
+                        {{ noQuestionsLeft() }}
+                    </div>
+                </div>
+            </div>
             <div class="card__circle">
                 {{ currentQuestion.timesAnsweredCorrectly }}
-            </div>
-            <div class="card__content">
-                Total No Questions: {{questions.length}} Total Questions Answered Correctly: {{ sum() }} No Questions Left: {{ noQuestionsLeft() }}
             </div>
             <div class="card__content" *ngIf="!questionsLeft()">
                 No Questions Left
