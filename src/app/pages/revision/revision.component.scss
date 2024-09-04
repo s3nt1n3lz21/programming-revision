@@ -132,14 +132,13 @@
     &__content {
         margin-bottom: 20px;
         color: $color-primary;
+        flex-grow: 1;
     }
 
     &__button-container {
         display: flex;
         justify-content: space-around;
-        margin-top: auto;
     }
-
 
     &__button--incorrect {
         background-color: $color-red;

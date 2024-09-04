@@ -44,9 +44,7 @@
             <div class="card__content" *ngIf="!questionsLeft()">
                 No Questions Left
             </div>
-            <div class="card__content">
-                <app-question [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
-            </div>
+            <app-question class="card__content" [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
             <div class="card__button-container">
                 <button mat-button class="card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
                 <button mat-button class="card__button--skip" (click)="nextQuestion()">Skip</button>
