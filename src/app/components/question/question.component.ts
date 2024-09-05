@@ -46,18 +46,29 @@ export class QuestionComponent implements OnInit {
   };
 
   add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value.trim();
-
-    if (value && !this.question.tags.includes(value) && this.question.tags.length < this.maxTags) {
-      this.question.tags.push(value);
-      this.logger.log(LogLevel.DEBUG, 'QuestionComponent', 'Tag added:', value);
-    }
-
-    if (input) {
-      input.value = '';
-    }
-  }
+	const input = event.input;
+	const value = event.value.trim();
+  
+	this.logger.log(LogLevel.DEBUG, 'QuestionComponent', 'Tags before adding:', this.question.tags);
+  
+	if (value) {
+	  if (!Array.isArray(this.question.tags)) {
+		this.logger.log(LogLevel.ERROR, 'QuestionComponent', 'Tags is not an array, initializing');
+		this.question.tags = [];
+	  }
+  
+	  if (!this.question.tags.includes(value) && this.question.tags.length < this.maxTags) {
+		this.question.tags.push(value);
+		this.logger.log(LogLevel.INFO, 'QuestionComponent', 'Tag added:', value);
+	  }
+	}
+  
+	if (input) {
+	  input.value = '';
+	}
+  
+	this.logger.log(LogLevel.DEBUG, 'QuestionComponent', 'Tags after adding:', this.question.tags);
+  }  
 
   remove(tag: string): void {
     const index = this.question.tags.indexOf(tag);
