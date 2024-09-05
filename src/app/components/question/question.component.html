@@ -32,9 +32,9 @@
     </mat-form-field> -->
 
     <div class="question-card__footer">
-        <button mat-raised-button (click)="revealAnswer()">
+        <button class="question-card__footer-item" mat-raised-button (click)="revealAnswer()">
             {{ showAnswer ? 'Hide' : 'Reveal' }}
         </button>
-        <button mat-raised-button (click)="edit()">Edit</button>
+        <button class="question-card__footer-item" mat-raised-button (click)="edit()">Edit</button>
     </div>
 </div>

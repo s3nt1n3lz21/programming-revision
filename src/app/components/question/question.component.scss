@@ -52,4 +52,8 @@
         @extend %space-around;
         flex-direction: column;
     }
+
+    &__footer-item {
+        width: 100%;
+    }
 }
