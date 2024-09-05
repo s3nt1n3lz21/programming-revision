@@ -4,6 +4,9 @@
   background-color: $color-primary;
   width: 100%;
   height: $header-height;
+  display: flex; // Ensure tabs stay in a single row
+  justify-content: space-around; // Distribute tabs evenly
+  overflow-x: hidden; // Prevent overflow
 
   .header__nav-link {
     flex: 1;
@@ -17,27 +20,25 @@
     background-color: $color-primary; // Base background color
     transition: background-color 0.3s, box-shadow 0.3s;
 
-    // Normal (non-active) state - no indentation
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), 
-                -2px -2px 5px rgba(255, 255, 255, 0.1);
+    // Normal (non-active) state
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3),
+      -2px -2px 5px rgba(255, 255, 255, 0.1);
     border: 1px solid darken($color-primary, 10%);
 
     &:hover {
       cursor: pointer;
-      background-color: lighten($color-primary, 5%); // Lighten slightly on hover
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4), 
-                  -2px -2px 5px rgba(255, 255, 255, 0.2);
+      background-color: lighten($color-primary, 5%);
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4),
+        -2px -2px 5px rgba(255, 255, 255, 0.2);
     }
 
     &.active {
-      // Active state - indented (pressed) look
       background-color: darken($color-primary, 10%);
-      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), 
-                  inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.2);
       border-bottom: 2px solid darken($color-secondary, 10%);
     }
 
-    // Optionally, override Angular Material styles if necessary
     .mat-tab-label {
       color: inherit;
       font-weight: bold;
@@ -45,6 +46,21 @@
 
     .mat-tab-label-active {
       color: inherit;
+    }
+  }
+
+  // Media query for smaller screens
+  @media (max-width: 768px) {
+    .header__nav-link {
+      font-size: $font-size-4; // Reduce font size on smaller screens
+      padding: 0 10px; // Adjust padding to fit more tabs
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header__nav-link {
+      font-size: $font-size-3; // Further reduce font size on very small screens
+      padding: 0 5px; // Further reduce padding to ensure tabs fit
     }
   }
 }
