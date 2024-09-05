@@ -1,6 +1,6 @@
 @import "../../theme.scss";
 
-.container {
+.question-card {
     display: flex;
     min-height: 300px;
     width: 100%;
@@ -10,26 +10,30 @@
     height: 100%;
     text-align: center;
 
-    .header {
+    &__header {
         flex: 10;
         @extend %center;
         flex-direction: column;
         color: $color-primary;
-
-        .question {
-            flex: 1;
-            @extend %center;
-            font-size: $font-size-6;
-        }
-
-        .answer {
-            flex: 4;
-            @extend %center;
-            font-size: $font-size-4;
-        }
     }
 
-    .footer {
+    &__question {
+        flex: 1;
+        @extend %center;
+        font-size: $font-size-6;
+    }
+
+    &__answer {
+        flex: 4;
+        @extend %center;
+        font-size: $font-size-4;
+    }
+
+    &__chip-list {
+        margin: 10px 0;
+    }
+
+    &__footer {
         flex: 1;
         @extend %space-around;
         flex-direction: column;
