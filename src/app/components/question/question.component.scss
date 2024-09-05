@@ -29,6 +29,15 @@
         @extend %center;
         font-size: $font-size-4;
         line-height: 1;
+        opacity: 0; // Initially hidden
+        max-height: 0; // Hide content initially
+        overflow: hidden; // Ensure smooth transition
+        transition: opacity 0.3s ease, max-height 0.3s ease; // Smooth transition for opacity and height
+    }
+
+    &__answer--visible {
+        opacity: 1;
+        max-height: 200px; // Adjust height based on content size
     }
 
     &__chip-list {
