@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SetEditingQuestion, SetSelectedQuestion } from '../../store/action';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { LoggerService, LogLevel } from 'src/app/services/logger.service'; // Import LoggerService and LogLevel
 
 @Component({
 	selector: 'app-question',
@@ -14,59 +15,68 @@ import { MatChipInputEvent } from '@angular/material/chips';
 })
 export class QuestionComponent implements OnInit {
 
-	// Define the separator key codes for adding tags
 	readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-    
+	maxTags = 99;
+
 	constructor(
-        private store: Store<AppStateWrapper>,
-        private router: Router
+    private store: Store<AppStateWrapper>,
+    private router: Router,
+    private logger: LoggerService  // Inject LoggerService
 	) {}
 
-    @Input() question: Question;
-    @Input() showAnswer = false;
-    @Output() showAnswerChange = new EventEmitter<boolean>();
+  @Input() question: Question;
+  @Input() showAnswer = false;
+  @Output() showAnswerChange = new EventEmitter<boolean>();
 
-    ngOnInit(): void {}
+  ngOnInit(): void {
+    this.logger.log(LogLevel.INFO, 'QuestionComponent', 'Initialized with question:', this.question);
+  }
 
-    // Toggle the display of the answer
-    revealAnswer = () => {
-    	this.showAnswer = !this.showAnswer;
-    	this.showAnswerChange.emit(this.showAnswer);
-    };
+  revealAnswer = () => {
+    this.showAnswer = !this.showAnswer;
+    this.logger.log(LogLevel.DEBUG, 'QuestionComponent', 'Answer visibility toggled:', this.showAnswer);
+    this.showAnswerChange.emit(this.showAnswer);
+  };
 
-    // Navigate to the edit page
-    edit = () => {
-    	this.store.dispatch(new SetSelectedQuestion(this.question));
-    	this.store.dispatch(new SetEditingQuestion(true));
-    	this.router.navigate(['add-question']);
-    };
+  edit = () => {
+    this.logger.log(LogLevel.INFO, 'QuestionComponent', 'Navigating to edit question:', this.question.id);
+    this.store.dispatch(new SetSelectedQuestion(this.question));
+    this.store.dispatch(new SetEditingQuestion(true));
+    this.router.navigate(['add-question']);
+  };
 
-    // Add a new tag
-    add(event: MatChipInputEvent): void {
-		console.log('adding tag: ', event);
-    	const input = event.input;
-    	const value = event.value.trim();
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value.trim();
 
-    	// Add the tag if it's not empty and doesn't already exist
-    	if (value && !this.question.tags.includes(value)) {
-    		this.question.tags.push(value);
-    		// Optionally, update the store or perform other actions here
-    	}
-
-    	// Reset the input value
-    	if (input) {
-    		input.value = '';
-    	}
+    if (value && !this.question.tags.includes(value) && this.question.tags.length < this.maxTags) {
+      this.question.tags.push(value);
+      this.logger.log(LogLevel.DEBUG, 'QuestionComponent', 'Tag added:', value);
     }
 
-    // Remove an existing tag
-    remove(tag: string): void {
-		console.log('removing tag: ', tag);
-    	const index = this.question.tags.indexOf(tag);
-
-    	if (index >= 0) {
-    		this.question.tags.splice(index, 1);
-    		// Optionally, update the store or perform other actions here
-    	}
+    if (input) {
+      input.value = '';
     }
+  }
+
+  remove(tag: string): void {
+    const index = this.question.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.question.tags.splice(index, 1);
+      this.logger.log(LogLevel.DEBUG, 'QuestionComponent', 'Tag removed:', tag);
+    }
+  }
+
+  trackByFn(index: number, tag: string): string {
+    return tag;
+  }
+
+  isMaxTagsReached(): boolean {
+    const isReached = this.question.tags.length >= this.maxTags;
+    if (isReached) {
+      this.logger.log(LogLevel.WARN, 'QuestionComponent', 'Max tag limit reached');
+    }
+    return isReached;
+  }
 }
