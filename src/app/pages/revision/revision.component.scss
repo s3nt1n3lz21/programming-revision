@@ -29,7 +29,11 @@
     }
 }
 
-.dots-container__dot--red {
+.dots-container__dot--selected {
+    outline: 4px solid $color-secondary;
+}
+
+.dots-container__dot--not-revised {
     background-color: red;
 
     &:hover {
@@ -37,7 +41,7 @@
     }
 }
 
-.dots-container__dot--purple {
+.dots-container__dot--no-answer {
     background-color: purple;
 
     &:hover {
@@ -45,7 +49,7 @@
     }
 }
 
-.dots-container__dot--orange {
+.dots-container__dot--no-question {
     background-color: orange;
 
     &:hover {
@@ -53,8 +57,12 @@
     }
 }
 
-.dots-container__dot--selected {
-    outline: 4px solid $color-secondary;
+.dots-container__dot--revised {
+    background-color: $color-lime-green;
+
+    &:hover {
+        background-color: lighten($color-lime-green, 10%);
+    }
 }
 
 .card {
@@ -80,9 +88,26 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%; /* Make outer cover entire card */
-        box-sizing: border-box; /* Include padding in the height/width calculations */
+        height: 100%;
+        box-sizing: border-box;
         width: 100%;
+        transition: background-color 0.3s;
+
+        &--not-revised {
+            background-color: red;
+        }
+
+        &--no-answer {
+            background-color: purple;
+        }
+
+        &--no-question {
+            background-color: orange;
+        }
+
+        &--revised {
+            background-color: $color-lime-green;
+        }
     }
 
     &__inner {
@@ -130,29 +155,20 @@
         font-weight: bold;
         transition: background-color 0.3s;
 
-        // Active state styles for the circle (based on conditions)
-        &--red {
+        &--not-revised {
             background-color: red;
-
-            &:hover {
-                background-color: lighten(red, 10%);
-            }
         }
 
-        &--purple {
+        &--no-answer {
             background-color: purple;
-
-            &:hover {
-                background-color: lighten(purple, 10%);
-            }
         }
 
-        &--orange {
+        &--no-question {
             background-color: orange;
+        }
 
-            &:hover {
-                background-color: lighten(orange, 10%);
-            }
+        &--revised {
+            background-color: $color-lime-green;
         }
     }
 
