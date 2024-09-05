@@ -66,16 +66,18 @@
 }
 
 .card {
+    $top-offset: 20px;
+
     position: absolute;
-    top: 50%;
+    top: calc(60px + $top-offset); /* Offset from the top, accounting for header and some extra space */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     width: 90%;
     max-width: 700px;
     z-index: 10;
     border-radius: 8px;
     height: 100%;
-    max-height: 1000px;
+    max-height: min(calc(100vh - 60px - $top-offset), 1000px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -204,6 +206,11 @@
 
     /* Media query for smaller screens */
     @media (max-width: 768px) {
+        top: calc(60px);
+        height: calc(100vh - 60px);
+        width: 100%;
+        max-height: calc(100vh - 60px);
+
         &__header {
             font-size: $font-size-1;
         }
