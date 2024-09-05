@@ -6,7 +6,7 @@
     width: 100%;
     flex-direction: column;
     margin-top: 5px;
-    justify-content: flex-start; // Align items to the top
+    justify-content: flex-start;
     height: 100%;
     text-align: center;
 
@@ -19,24 +19,24 @@
 
     &__question {
         font-size: $font-size-6;
-        line-height: 1.2; // Adjusted line height for clarity
-        margin-bottom: 10px; // Give it some space from the answer
+        line-height: 1.2;
+        margin-bottom: 10px;
     }
 
     &__answer {
-        flex: 0 1 auto; // Allow the answer to take more space when needed
+        flex: 0 1 auto;
         font-size: $font-size-4;
         line-height: 1.4;
-        opacity: 0; // Initially hidden
-        max-height: 0; // Hide content initially
-        overflow: hidden; // Ensure smooth transition
-        transition: opacity 0.3s ease, max-height 0.3s ease; // Smooth transition for opacity and height
-        margin-top: 20px; // Add some space between question and answer
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease, max-height 0.3s ease;
+        margin-top: 20px;
     }
 
     &__answer--visible {
         opacity: 1;
-        max-height: 400px; // Increased max-height to give the answer more space
+        max-height: 400px;
     }
 
     &__chip-list {
@@ -44,7 +44,7 @@
     }
 
     &__footer {
-        margin-top: auto; // Ensure the footer stays at the bottom
+        margin-top: auto;
         @extend %space-around;
         flex-direction: column;
     }
