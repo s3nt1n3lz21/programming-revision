@@ -9,6 +9,10 @@
     grid-template-rows: repeat(auto-fit, minmax(20px, 1fr));
     gap: 1px;
     position: relative;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
 .dots-container__dot {
