@@ -2,12 +2,12 @@
 
 .dots-container {
     width: 100%;
-    height: calc(100vh - 60px - 5px); /* Ensure the container takes up the full viewport height */
+    height: calc(100vh - 60px - 5px);
     display: grid;
     padding: 1px;
-    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr)); /* Create a grid that adapts */
-    grid-template-rows: repeat(auto-fit, minmax(20px, 1fr)); /* Ensure rows follow the same logic */
-    gap: 1px; /* Spacing between dots */
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(20px, 1fr));
+    gap: 1px;
     position: relative;
 }
 
@@ -113,7 +113,7 @@
     &__inner {
         background: rgba(255, 255, 255, 1);
         border-radius: 8px;
-        box-shadow: inset 0 0 0 rgba(0, 0, 0, 0); /* Inner shadow if needed */
+        box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
         width: 100%;
         height: 100%;
         display: flex;
@@ -143,7 +143,7 @@
     &__circle {
         position: relative;
         left: calc(100% - 80px);
-        background-color: $color-primary; // Default color
+        background-color: $color-primary;
         color: $color-secondary;
         width: 80px;
         height: 80px;
@@ -181,6 +181,7 @@
     &__button-container {
         display: flex;
         justify-content: space-around;
+        flex-wrap: wrap;
     }
 
     &__button--incorrect {
@@ -188,7 +189,7 @@
         color: $color-secondary;
 
         &:hover {
-            background-color: lighten($color-red, 10%)
+            background-color: lighten($color-red, 10%);
         }
     }
 
@@ -197,7 +198,30 @@
         color: $color-secondary;
 
         &:hover {
-            background-color: lighten($color-lime-green, 10%)
+            background-color: lighten($color-lime-green, 10%);
+        }
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+        &__header {
+            font-size: $font-size-1; /* Reduce font size */
+        }
+
+        &__circle {
+            display: none; /* Hide the circle */
+        }
+
+        &__button-container {
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center;
+        }
+
+        &__button--correct,
+        &__button--skip,
+        &__button--incorrect {
+            width: 100%; /* Full width for buttons */
+            margin-bottom: 10px; /* Spacing between buttons */
         }
     }
 }
