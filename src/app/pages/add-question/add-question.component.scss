@@ -17,23 +17,28 @@
         font-size: $font-size-3;
         padding-top: 5px;
         width: 90%;
+        text-align: center; /* Center align the entire container content */
     }
 
     &__prefix {
         color: $color-primary;
+        text-align: center; /* Ensure the prefix is center aligned */
+        width: 100%; /* Take up the full width */
     }
 
     &__input {
         display: block;
 
-        // Ensure the text inside the textarea matches the primary color
+        // Ensure the text inside the textarea is centered and matches the primary color
         ::ng-deep textarea.mat-input-element {
             color: $color-primary;
+            text-align: center; /* Center align the input text */
         }
 
         // Optionally, change the placeholder color as well
         ::ng-deep textarea.mat-input-element::placeholder {
             color: lighten($color-primary, 30%);
+            text-align: center; /* Center align placeholder as well */
         }
     }
 
