@@ -1,44 +1,39 @@
-<!-- Dots container with updated state classes using answerExpiryDate and expired pipe -->
 <div class="dots-container">
     <div class="dots-container__dot" 
          (click)="selectQuestion(question)" 
          [ngClass]="{
             'dots-container__dot--selected': question === currentQuestion,
-            'dots-container__dot--no-question': question.question === '',
-            'dots-container__dot--no-answer': question.answer === '',
-            'dots-container__dot--not-revised': (question.answerExpiryDate | expired),
-            'dots-container__dot--revised': !(question.answerExpiryDate | expired) && question.answer !== ''
+            'dots-container__dot--no-question': question?.question === '',
+            'dots-container__dot--no-answer': question?.answer === '',
+            'dots-container__dot--not-revised': (question?.answerExpiryDate | expired),
+            'dots-container__dot--revised': !(question?.answerExpiryDate | expired) && question?.answer !== ''
          }" 
          *ngFor="let question of questions; trackBy: trackByFn">
-        {{ question.timesAnsweredCorrectly }}
+        {{ question?.timesAnsweredCorrectly }}
     </div>
 </div>
 
-<!-- Card with updated background colors based on answerExpiryDate and expired pipe -->
 <div class="card">
     <div class="card__outer" [ngClass]="{
-        'card__outer--no-question': currentQuestion.question === '',
-        'card__outer--no-answer': currentQuestion.answer === '',
-        'card__outer--not-revised': currentQuestion.answerExpiryDate | expired,
-        'card__outer--revised': !(currentQuestion.answerExpiryDate | expired) && currentQuestion.answer !== ''
+        'card__outer--no-question': currentQuestion?.question === '',
+        'card__outer--no-answer': currentQuestion?.answer === '',
+        'card__outer--not-revised': currentQuestion?.answerExpiryDate | expired,
+        'card__outer--revised': !(currentQuestion?.answerExpiryDate | expired) && currentQuestion?.answer !== ''
     }">
         <div class="card__inner">
-            <!-- <div class="card__header">
-            </div> -->
             <div class="card__circle" [ngClass]="{
-                'card__circle--no-question': currentQuestion.question === '',
-                'card__circle--no-answer': currentQuestion.answer === '',
-                'card__circle--not-revised': currentQuestion.answerExpiryDate | expired,
-                'card__circle--revised': !(currentQuestion.answerExpiryDate | expired) && currentQuestion.answer !== ''
+                'card__circle--no-question': currentQuestion?.question === '',
+                'card__circle--no-answer': currentQuestion?.answer === '',
+                'card__circle--not-revised': currentQuestion?.answerExpiryDate | expired,
+                'card__circle--revised': !(currentQuestion?.answerExpiryDate | expired) && currentQuestion?.answer !== ''
             }">
-                {{ currentQuestion.timesAnsweredCorrectly }}
+                {{ currentQuestion?.timesAnsweredCorrectly }}
             </div>            
             <div class="card__content" *ngIf="!questionsLeft()">
                 No Questions Left
             </div>
             <app-question class="card__content" [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
             <div class="card__button-container">
-                <!-- Buttons for answering -->
                 <button mat-raised-button class="card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
                 <button mat-raised-button class="card__button--skip" (click)="nextQuestion()">Skip</button>
                 <button mat-raised-button class="card__button--correct" (click)="answeredCorrectly()">Correct</button>

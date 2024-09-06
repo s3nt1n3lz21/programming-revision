@@ -1,10 +1,10 @@
 <div class="question-card">
     <div class="question-card__header">
-        <div class="question-card__question">Q: {{ question.question }}</div>
+        <div class="question-card__question">Q: {{ question?.question }}</div>
         <div 
             class="question-card__answer" 
             [ngClass]="{ 'question-card__answer--visible': showAnswer }">
-            A: {{ question.answer }}
+            A: {{ question?.answer }}
         </div>
     </div>
 
