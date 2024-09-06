@@ -171,19 +171,41 @@ export class AddQuestionComponent implements OnInit {
   }
 
   addPrefix(value: string, prefix: string): string {
-	if (!value) {
-	  return prefix;
+	// Ensure the prefix always has a space at the end
+	const fullPrefix = prefix.endsWith(': ') ? prefix : `${prefix} `;
+	
+	// If the value is empty or equals just the prefix, return the prefix
+	if (!value || value === fullPrefix.trim()) {
+	  return fullPrefix;
 	}
-	if (!value.startsWith(prefix)) {
-	  return prefix + value;
+  
+	// If the value starts with the prefix but the space is removed, reapply the space
+	if (value.startsWith(fullPrefix.trim()) && !value.startsWith(fullPrefix)) {
+	  return fullPrefix + value.slice(fullPrefix.trim().length);
 	}
+  
+	// Add the prefix if it's not already there
+	if (!value.startsWith(fullPrefix)) {
+	  return fullPrefix + value;
+	}
+  
 	return value;
   }
   
   removePrefix(value: string, prefix: string): string {
-	if (value.startsWith(prefix)) {
-	  return value.slice(prefix.length);
+	const fullPrefix = prefix.endsWith(': ') ? prefix : `${prefix} `;
+  
+	// If the value is only the prefix, reset it to an empty string
+	if (value === fullPrefix) {
+	  return '';
 	}
+  
+	// Remove the prefix if it exists
+	if (value.startsWith(fullPrefix)) {
+	  return value.slice(fullPrefix.length);
+	}
+  
 	return value;
   }
+  
 }
