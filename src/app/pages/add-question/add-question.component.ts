@@ -52,27 +52,27 @@ export class AddQuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Component initialized'); // Log initialization
-
-  	this.editingQuestionStore.subscribe((editingQuestion) => {
-  		this.editingQuestion = editingQuestion;
-      this.logger.log(LogLevel.DEBUG, 'AddQuestionComponent', 'Editing question state changed', editingQuestion); // Log state change
-  	});
-
-  	this.selectedQuestionStore.subscribe((question) => {
-  		this.selectedQuestion = question;
-  		this.logger.log(LogLevel.DEBUG, 'AddQuestionComponent', 'Selected question state changed', question); // Log selected question change
-  		if (question) {
-  			this.questionForm.get('question').setValue(question.question);
-  			this.questionForm.get('answer').setValue(question.answer);
-  			this.tags = this.selectedQuestion.tags.slice();
-  		}
-
-  		// this.filteredTag = this.tagCtrl.valueChanges.pipe(
-  		//   map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
-  		// );
-  	});
+	this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Component initialized'); // Log initialization
+  
+	this.editingQuestionStore.subscribe((editingQuestion) => {
+	  this.editingQuestion = editingQuestion;
+	  this.logger.log(LogLevel.DEBUG, 'AddQuestionComponent', 'Editing question state changed', editingQuestion); // Log state change
+	});
+  
+	this.selectedQuestionStore.subscribe((question) => {
+	  this.selectedQuestion = question;
+	  this.logger.log(LogLevel.DEBUG, 'AddQuestionComponent', 'Selected question state changed', question); // Log selected question change
+  
+	  // Handle initialization of form even when no question or answer exists
+	  const questionWithPrefix = this.addPrefix(question?.question || '', 'Q: ');
+	  const answerWithPrefix = this.addPrefix(question?.answer || '', 'A: ');
+  
+	  this.questionForm.get('question').setValue(questionWithPrefix);
+	  this.questionForm.get('answer').setValue(answerWithPrefix);
+	  this.tags = this.selectedQuestion?.tags.slice() || [];
+	});
   }
+  
 
   // private _filter(value: string): string[] {
   //   const filterValue = value.toLowerCase();
