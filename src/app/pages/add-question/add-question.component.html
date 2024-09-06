@@ -1,19 +1,33 @@
 <form class="add-question" [formGroup]="questionForm">
-    <!-- Question input with expanding textarea -->
-    <div class="add-question__input-container">
-        <mat-form-field appearance="fill" class="add-question__input">
-            <div matPrefix class="add-question__prefix">Q: </div> <!-- Prefix for question -->
-            <textarea matInput placeholder="Add Question" formControlName="question" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-        </mat-form-field>
-    </div>
+  <!-- Question input with dynamic prefix -->
+  <div class="add-question__input-container">
+    <mat-form-field appearance="fill" class="add-question__input">
+      <textarea
+        matInput
+        placeholder="Add Question"
+        formControlName="question"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        (input)="questionForm.get('question').setValue(addPrefix(questionForm.get('question').value, 'Q: '))">
+      </textarea>
+    </mat-form-field>
+  </div>
 
-    <!-- Answer input with expanding textarea -->
-    <div class="add-question__input-container">
-        <mat-form-field appearance="fill" class="add-question__input">
-            <div matPrefix class="add-question__prefix">A: </div> <!-- Prefix for answer -->
-            <textarea matInput placeholder="Add Answer" formControlName="answer" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-        </mat-form-field>
-    </div>
+  <!-- Answer input with dynamic prefix -->
+  <div class="add-question__input-container">
+    <mat-form-field appearance="fill" class="add-question__input">
+      <textarea
+        matInput
+        placeholder="Add Answer"
+        formControlName="answer"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        (input)="questionForm.get('answer').setValue(addPrefix(questionForm.get('answer').value, 'A: '))">
+      </textarea>
+    </mat-form-field>
+  </div>
 
   <!-- <mat-form-field class="add-question__chip-list" appearance="fill">
     <mat-chip-list #chipList aria-label="Tag selection">

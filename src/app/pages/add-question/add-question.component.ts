@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -80,53 +81,55 @@ export class AddQuestionComponent implements OnInit {
   // }
 
   public addQuestion = () => {
-    this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Adding a new question'); // Log add question action
-  	const questionFormValues = this.questionForm.value;
-  	const question: AddQuestion = emptyAddQuestion();
-  	question.question = questionFormValues.question;
-  	question.answer = questionFormValues.answer;
-  	question.timesAnsweredCorrectly = 0;
-  	question.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
-
-  	this.apiService.addQuestion(question).subscribe(
-  		(response) => {
-        this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question added successfully', response); // Log successful add
-  			this.notificationService.addNotification('Added Question', 'success');
-  			this.router.navigate(['question-list']);
-  		},
-  		(error) => {
-        this.logger.log(LogLevel.ERROR, 'AddQuestionComponent', 'Failed to add question', error); // Log error
-  			this.notificationService.addNotification('Failed To Add Question', 'error');
-  			console.error(error);
-  		}
-  	);
+	this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Adding a new question'); // Log add question action
+	
+	const questionFormValues = this.questionForm.value;
+	const question: AddQuestion = emptyAddQuestion();
+	
+	question.question = this.removePrefix(questionFormValues.question, 'Q: '); // Remove prefix
+	question.answer = this.removePrefix(questionFormValues.answer, 'A: '); // Remove prefix
+	question.timesAnsweredCorrectly = 0;
+	question.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
+  
+	this.apiService.addQuestion(question).subscribe(
+	  (response) => {
+		this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question added successfully', response); // Log successful add
+		this.notificationService.addNotification('Added Question', 'success');
+		this.router.navigate(['question-list']);
+	  },
+	  (error) => {
+		this.logger.log(LogLevel.ERROR, 'AddQuestionComponent', 'Failed to add question', error); // Log error
+		this.notificationService.addNotification('Failed To Add Question', 'error');
+		console.error(error);
+	  }
+	);
   };
 
   public editQuestion = () => {
-    this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Editing existing question'); // Log edit question action
-  	const questionFormValues = this.questionForm.value;
-  	const question: Question = { ...this.selectedQuestion };
-  	question.question = questionFormValues.question;
-  	question.answer = questionFormValues.answer;
-  	console.log('this.tags: ', this.tags);
-  	question.tags = this.tags;
-  	console.log('question.tags: ', question.tags);
-
-  	this.apiService.updateQuestion(question).subscribe(
-  		() => {
-        this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question edited successfully'); // Log successful edit
-  			this.notificationService.addNotification('Edited Question', 'success');
-  			this.store.dispatch(new UpdateQuestion(question));
-  			this.store.dispatch(new SetSelectedQuestion(null));
-  			this.store.dispatch(new SetEditingQuestion(false));
-  			this.router.navigate(['question-list']);
-  		},
-  		(error) => {
-        this.logger.log(LogLevel.ERROR, 'AddQuestionComponent', 'Failed to edit question', error); // Log error
-  			this.notificationService.addNotification('Failed To Edit Question', 'error');
-  			console.error(error);
-  		}
-  	);
+	this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Editing existing question'); // Log edit question action
+  
+	const questionFormValues = this.questionForm.value;
+	const question: Question = { ...this.selectedQuestion };
+  
+	question.question = this.removePrefix(questionFormValues.question, 'Q: '); // Remove prefix
+	question.answer = this.removePrefix(questionFormValues.answer, 'A: '); // Remove prefix
+	question.tags = this.tags;
+  
+	this.apiService.updateQuestion(question).subscribe(
+	  () => {
+		this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question edited successfully'); // Log successful edit
+		this.notificationService.addNotification('Edited Question', 'success');
+		this.store.dispatch(new UpdateQuestion(question));
+		this.store.dispatch(new SetSelectedQuestion(null));
+		this.store.dispatch(new SetEditingQuestion(false));
+		this.router.navigate(['question-list']);
+	  },
+	  (error) => {
+		this.logger.log(LogLevel.ERROR, 'AddQuestionComponent', 'Failed to edit question', error); // Log error
+		this.notificationService.addNotification('Failed To Edit Question', 'error');
+		console.error(error);
+	  }
+	);
   };
 
   tagSelected(event: MatAutocompleteSelectedEvent): void {
@@ -165,5 +168,22 @@ export class AddQuestionComponent implements OnInit {
   		this.selectedQuestion.tags.splice(index, 1);
       this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag removed', tag); // Log tag removal
   	}
+  }
+
+  addPrefix(value: string, prefix: string): string {
+	if (!value) {
+	  return prefix;
+	}
+	if (!value.startsWith(prefix)) {
+	  return prefix + value;
+	}
+	return value;
+  }
+  
+  removePrefix(value: string, prefix: string): string {
+	if (value.startsWith(prefix)) {
+	  return value.slice(prefix.length);
+	}
+	return value;
   }
 }
