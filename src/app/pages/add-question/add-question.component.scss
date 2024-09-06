@@ -1,23 +1,40 @@
 @import "../../theme.scss";
 
-$base-font-size: 30px;
-
 .add-question {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
 
     &__input-container {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         min-height: 100px;
-        font-size: $base-font-size;
+        font-size: $font-size-3;
         padding-top: 5px;
+        width: 90%;
+    }
+
+    &__prefix {
+        color: $color-primary;
     }
 
     &__input {
         display: block;
+
+        // Ensure the text inside the textarea matches the primary color
+        ::ng-deep textarea.mat-input-element {
+            color: $color-primary;
+        }
+
+        // Optionally, change the placeholder color as well
+        ::ng-deep textarea.mat-input-element::placeholder {
+            color: lighten($color-primary, 30%);
+        }
     }
 
     &__chip-list {

@@ -1,19 +1,21 @@
 <form class="add-question" [formGroup]="questionForm">
-  <div class="add-question__input-container">
-      <mat-form-field appearance="fill" class="add-question__input">
-          <mat-label>Question</mat-label>
-          <input matInput placeholder="Add Question" formControlName="question">
-      </mat-form-field>
-  </div>
+    <!-- Question input with expanding textarea -->
+    <div class="add-question__input-container">
+        <mat-form-field appearance="fill" class="add-question__input">
+            <div matPrefix class="add-question__prefix">Q: </div> <!-- Prefix for question -->
+            <textarea matInput placeholder="Add Question" formControlName="question" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+    </div>
 
-  <div class="add-question__input-container">
-      <mat-form-field appearance="fill" class="add-question__input">
-          <mat-label>Answer</mat-label>
-          <input matInput placeholder="Add Answer" formControlName="answer">
-      </mat-form-field>
-  </div>
+    <!-- Answer input with expanding textarea -->
+    <div class="add-question__input-container">
+        <mat-form-field appearance="fill" class="add-question__input">
+            <div matPrefix class="add-question__prefix">A: </div> <!-- Prefix for answer -->
+            <textarea matInput placeholder="Add Answer" formControlName="answer" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+    </div>
 
-  <mat-form-field class="add-question__chip-list" appearance="fill">
+  <!-- <mat-form-field class="add-question__chip-list" appearance="fill">
     <mat-chip-list #chipList aria-label="Tag selection">
         <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
             {{ tag }}
@@ -29,7 +31,7 @@
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
-  </mat-form-field>  
+  </mat-form-field>   -->
   
   <button *ngIf="!editingQuestion" class="add-question__button add-question__button--primary" mat-raised-button color="primary" (click)="addQuestion()">Add Question</button>
   <button *ngIf="editingQuestion" class="add-question__button add-question__button--accent" mat-raised-button color="accent" (click)="editQuestion()">Edit Question</button>  
