@@ -12,6 +12,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { NotificationService } from 'src/app/services/notification.service';
+import { LoggerService, LogLevel } from 'src/app/services/logger.service'; // Import LoggerService
 
 @Component({
 	selector: 'app-add-question',
@@ -42,19 +43,24 @@ export class AddQuestionComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private logger: LoggerService // Inject LoggerService
   ) { 
   	this.editingQuestionStore = this.store.select(state => state.state.editingQuestion);
   	this.selectedQuestionStore = this.store.select(state => state.state.selectedQuestion);
   }
 
   ngOnInit(): void {
+    this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Component initialized'); // Log initialization
+
   	this.editingQuestionStore.subscribe((editingQuestion) => {
   		this.editingQuestion = editingQuestion;
+      this.logger.log(LogLevel.DEBUG, 'AddQuestionComponent', 'Editing question state changed', editingQuestion); // Log state change
   	});
 
   	this.selectedQuestionStore.subscribe((question) => {
   		this.selectedQuestion = question;
+  		this.logger.log(LogLevel.DEBUG, 'AddQuestionComponent', 'Selected question state changed', question); // Log selected question change
   		if (question) {
   			this.questionForm.get('question').setValue(question.question);
   			this.questionForm.get('answer').setValue(question.answer);
@@ -74,6 +80,7 @@ export class AddQuestionComponent implements OnInit {
   // }
 
   public addQuestion = () => {
+    this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Adding a new question'); // Log add question action
   	const questionFormValues = this.questionForm.value;
   	const question: AddQuestion = emptyAddQuestion();
   	question.question = questionFormValues.question;
@@ -83,10 +90,12 @@ export class AddQuestionComponent implements OnInit {
 
   	this.apiService.addQuestion(question).subscribe(
   		(response) => {
+        this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question added successfully', response); // Log successful add
   			this.notificationService.addNotification('Added Question', 'success');
   			this.router.navigate(['question-list']);
   		},
   		(error) => {
+        this.logger.log(LogLevel.ERROR, 'AddQuestionComponent', 'Failed to add question', error); // Log error
   			this.notificationService.addNotification('Failed To Add Question', 'error');
   			console.error(error);
   		}
@@ -94,6 +103,7 @@ export class AddQuestionComponent implements OnInit {
   };
 
   public editQuestion = () => {
+    this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Editing existing question'); // Log edit question action
   	const questionFormValues = this.questionForm.value;
   	const question: Question = { ...this.selectedQuestion };
   	question.question = questionFormValues.question;
@@ -104,6 +114,7 @@ export class AddQuestionComponent implements OnInit {
 
   	this.apiService.updateQuestion(question).subscribe(
   		() => {
+        this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question edited successfully'); // Log successful edit
   			this.notificationService.addNotification('Edited Question', 'success');
   			this.store.dispatch(new UpdateQuestion(question));
   			this.store.dispatch(new SetSelectedQuestion(null));
@@ -111,6 +122,7 @@ export class AddQuestionComponent implements OnInit {
   			this.router.navigate(['question-list']);
   		},
   		(error) => {
+        this.logger.log(LogLevel.ERROR, 'AddQuestionComponent', 'Failed to edit question', error); // Log error
   			this.notificationService.addNotification('Failed To Edit Question', 'error');
   			console.error(error);
   		}
@@ -121,8 +133,8 @@ export class AddQuestionComponent implements OnInit {
   	this.selectedQuestion.tags.push(event.option.viewValue);
   	this.tagInput.nativeElement.value = '';
   	this.tagCtrl.setValue(null);
+    this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag selected', event.option.viewValue); // Log tag selection
   }
-
 
   add(event: MatChipInputEvent): void {
   	const tag: string = (event.value || '').trim();
@@ -137,6 +149,7 @@ export class AddQuestionComponent implements OnInit {
   		// newTags.push(tag)
   		this.tags.push(tag);
   		console.log('this.tags: ', this.tags);
+      this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag added', tag); // Log tag added
   	}
 
   	// Clear the input value
@@ -150,6 +163,7 @@ export class AddQuestionComponent implements OnInit {
 
   	if (index >= 0) {
   		this.selectedQuestion.tags.splice(index, 1);
+      this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag removed', tag); // Log tag removal
   	}
   }
 }
