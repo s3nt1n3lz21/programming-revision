@@ -1,3 +1,5 @@
-<div class="card" *ngFor="let question of questions">
-    <app-question [question]="question"></app-question>
+<div class="questions-list">
+    <div class="questions-list__question-container" *ngFor="let question of questions">
+        <app-question class="questions-list__question" [question]="question"></app-question>
+    </div>
 </div>

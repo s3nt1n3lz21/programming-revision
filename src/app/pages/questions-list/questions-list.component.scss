@@ -1,0 +1,14 @@
+@import "../../theme.scss";
+
+.questions-list {
+    width: 100vw;
+
+    &__question-container {
+        padding: 10px;
+        @extend .card;
+    }
+
+    &__question {
+
+    }
+}
