@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,17 +6,14 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  navLinks: { path: string; label: string; }[];
 
-  constructor(public router: Router) { }
-
-  ngOnInit(): void {
+  constructor(public router: Router) { 
+    this.navLinks = [
+      { path: 'revision', label: 'Revision' },
+      { path: 'question-list', label: 'All Questions' },
+      { path: 'add-question', label: 'Add Question' }
+    ];
   }
-
-  navLinks = [
-    { path: 'revision', label: 'Revision' },
-    { path: 'question-list', label: 'All Questions' },
-    { path: 'add-question', label: 'Add Question' }
-  ];
-
 }
