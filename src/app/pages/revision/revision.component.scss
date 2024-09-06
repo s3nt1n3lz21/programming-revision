@@ -211,12 +211,20 @@
     /* Media query for smaller screens */
     @media (max-width: 768px) {
         top: $header-height;
-        height: calc(100vh - $header-height);
+        height: 100%;
         width: 100%;
-        max-height: calc(100vh - $header-height);
+        max-height: none;
+        position: unset;
+        transform: unset;
 
+        &__outer {
+            height: 100%;
+            min-height: fit-content;
+        }
+    
         &__header {
             font-size: $font-size-1;
+            display: none;
         }
 
         &__circle {

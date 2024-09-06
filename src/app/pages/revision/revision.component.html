@@ -23,9 +23,8 @@
         'card__outer--revised': !(currentQuestion.answerExpiryDate | expired) && currentQuestion.answer !== ''
     }">
         <div class="card__inner">
-            <div class="card__header">
-                <!-- Header content -->
-            </div>
+            <!-- <div class="card__header">
+            </div> -->
             <div class="card__circle" [ngClass]="{
                 'card__circle--no-question': currentQuestion.question === '',
                 'card__circle--no-answer': currentQuestion.answer === '',

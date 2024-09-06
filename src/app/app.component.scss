@@ -12,5 +12,9 @@
 }
 
 .body {
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - $header-height);
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
 }
