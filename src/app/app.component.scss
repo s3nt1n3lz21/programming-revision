@@ -1,6 +1,8 @@
 @import "./theme.scss";
 
 .main {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     min-width: 100vw;
 }
@@ -9,6 +11,7 @@
     display: flex;
     width: 100%;
     position: sticky;
+    height: $header-height;
 }
 
 .body {
