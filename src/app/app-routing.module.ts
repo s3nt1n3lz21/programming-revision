@@ -6,10 +6,6 @@ import { QuestionsListComponent } from './pages/questions-list/questions-list.co
 import { RevisionComponent } from './pages/revision/revision.component';
 
 const routes: Routes = [
-	// { path: '', redirectTo: 'login', pathMatch: 'full' },
-
-	{ path: '', redirectTo: 'revision', pathMatch: 'full' },
-
 	// {
 	// 	path: 'login',
 	// 	component: LoginComponent,
@@ -29,6 +25,8 @@ const routes: Routes = [
 		path: 'add-question',
 		component: AddQuestionComponent,
 	},
+	{ path: '', redirectTo: '/revision', pathMatch: 'full' },
+	{ path: '**', redirectTo: '/revision' }
 ];
 
 @NgModule({
