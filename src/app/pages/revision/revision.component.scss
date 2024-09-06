@@ -1,5 +1,10 @@
 @import '../../theme.scss';
 
+$color-not-revised: $color-incorrect;
+$color-revised: $color-correct;
+$color-no-answer: $color-primary;
+$color-no-question: $color-primary;
+
 .dots-container {
     width: 100%;
     height: calc(100vh - $header-height - 5px);
@@ -16,7 +21,7 @@
 }
 
 .dots-container__dot {
-    background-color: $color-lime-green;
+    background-color: $color-revised;
     text-align: center;
     border-radius: 8px;
     display: flex;
@@ -29,7 +34,7 @@
 
     &:hover {
         cursor: pointer;
-        background-color: lighten($color-lime-green, 20%);
+        background-color: lighten($color-revised, 20%);
     }
 }
 
@@ -38,34 +43,34 @@
 }
 
 .dots-container__dot--not-revised {
-    background-color: red;
+    background-color: $color-not-revised;
 
     &:hover {
-        background-color: lighten(red, 20%);
+        background-color: lighten($color-not-revised, 20%);
     }
 }
 
 .dots-container__dot--no-answer {
-    background-color: purple;
+    background-color: $color-no-answer;
 
     &:hover {
-        background-color: lighten(purple, 20%);
+        background-color: lighten($color-no-answer, 20%);
     }
 }
 
 .dots-container__dot--no-question {
-    background-color: orange;
+    background-color: $color-no-question;
 
     &:hover {
-        background-color: lighten(orange, 20%);
+        background-color: lighten($color-no-question, 20%);
     }
 }
 
 .dots-container__dot--revised {
-    background-color: $color-lime-green;
+    background-color: $color-revised;
 
     &:hover {
-        background-color: lighten($color-lime-green, 10%);
+        background-color: lighten($color-revised, 10%);
     }
 }
 
@@ -100,19 +105,19 @@
         transition: background-color 0.3s;
 
         &--not-revised {
-            background-color: red;
+            background-color: $color-not-revised;
         }
 
         &--no-answer {
-            background-color: purple;
+            background-color: $color-no-answer;
         }
 
         &--no-question {
-            background-color: orange;
+            background-color: $color-no-question;
         }
 
         &--revised {
-            background-color: $color-lime-green;
+            background-color: $color-revised;
         }
     }
 
@@ -162,19 +167,19 @@
         transition: background-color 0.3s;
 
         &--not-revised {
-            background-color: red;
+            background-color: $color-not-revised;
         }
 
         &--no-answer {
-            background-color: purple;
+            background-color: $color-no-answer;
         }
 
         &--no-question {
-            background-color: orange;
+            background-color: $color-no-question;
         }
 
         &--revised {
-            background-color: $color-lime-green;
+            background-color: $color-revised;
         }
     }
 
@@ -191,20 +196,20 @@
     }
 
     &__button--incorrect {
-        background-color: $color-red;
+        background-color: $color-incorrect;
         color: $color-secondary;
 
         &:hover {
-            background-color: lighten($color-red, 10%);
+            background-color: lighten($color-incorrect, 10%);
         }
     }
 
     &__button--correct {
-        background-color: $color-lime-green;
+        background-color: $color-correct;
         color: $color-secondary;
 
         &:hover {
-            background-color: lighten($color-lime-green, 10%);
+            background-color: lighten($color-correct, 10%);
         }
     }
 
