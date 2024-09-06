@@ -91,6 +91,8 @@ export class AddQuestionComponent implements OnInit {
 	question.timesAnsweredCorrectly = 0;
 	question.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
   
+	this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Adding question: ', question);
+
 	this.apiService.addQuestion(question).subscribe(
 	  (response) => {
 		this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question added successfully', response); // Log successful add
@@ -114,6 +116,8 @@ export class AddQuestionComponent implements OnInit {
 	question.question = this.removePrefix(questionFormValues.question, 'Q: '); // Remove prefix
 	question.answer = this.removePrefix(questionFormValues.answer, 'A: '); // Remove prefix
 	question.tags = this.tags;
+
+	this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Updating question: ', question);
   
 	this.apiService.updateQuestion(question).subscribe(
 	  () => {
