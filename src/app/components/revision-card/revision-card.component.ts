@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges } from '@angular/core';
 import { DAY, Question } from 'src/app/model/IQuestion';
 import { Store } from '@ngrx/store';
 import { AppStateWrapper } from 'src/app/store/reducer';
@@ -14,7 +14,7 @@ import { ApiService } from 'src/app/services/api.service';
 	templateUrl: './revision-card.component.html',
 	styleUrls: ['./revision-card.component.scss']
 })
-export class RevisionCardComponent implements OnInit {
+export class RevisionCardComponent implements OnInit, OnChanges {
 
 	readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 	maxTags = 99;
@@ -31,6 +31,16 @@ export class RevisionCardComponent implements OnInit {
   @Input() showAnswer = false;
   @Output() showAnswerChange = new EventEmitter<boolean>();
   @Output() nextQuestionEvent = new EventEmitter<boolean>();
+
+  // This will log changes to the question Input property
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.question && !changes.question.firstChange) {
+      this.logger.log(LogLevel.INFO, 'RevisionCardComponent', 'Question changed', {
+        previousValue: changes.question.previousValue,
+        currentValue: changes.question.currentValue,
+      });
+    }
+  }
 
   ngOnInit(): void {
     this.logger.log(LogLevel.INFO, 'RevisionCardComponent', 'Initialized with question:', this.question);
