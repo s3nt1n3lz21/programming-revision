@@ -22,6 +22,31 @@
         line-height: 1.2;
     }
 
+    &__edit-icon {
+        $new-height: 24px;
+        $scaling: calc($new-height / 40px);
+
+        bottom: 2px;
+        position: relative;
+        margin-left: 10px;
+        color: $color-secondary;
+        min-width: 10px;
+        width: $new-height;
+        height: $new-height;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+
+        mat-icon {
+            font-size: calc(24px * $scaling);  // Scale down the icon graphic (default is 24px)
+        }
+
+        &:hover {
+            color: lighten($color-secondary, 10%);
+        }
+    }
+
     &__answer {
         flex: 0 1 auto;
         font-size: $font-size-4;

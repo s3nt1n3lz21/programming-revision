@@ -1,6 +1,11 @@
 <div class="question-card">
     <div class="question-card__header">
-        <div class="question-card__question">Q: {{ question?.question }}</div>
+        <div class="question-card__question">
+            Q: {{ question?.question }}
+            <button mat-icon-button class="question-card__edit-icon" (click)="edit()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
         <div 
             class="question-card__answer" 
             [ngClass]="{ 'question-card__answer--visible': showAnswer }">
@@ -35,6 +40,5 @@
         <button class="question-card__footer-item" mat-raised-button (click)="revealAnswer()">
             {{ showAnswer ? 'Hide' : 'Reveal' }}
         </button>
-        <button class="question-card__footer-item" mat-raised-button (click)="edit()">Edit</button>
     </div>
 </div>
