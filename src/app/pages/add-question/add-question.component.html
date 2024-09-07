@@ -9,6 +9,7 @@
         cdkTextareaAutosize
         cdkAutosizeMinRows="1"
         cdkAutosizeMaxRows="5"
+        spellcheck="false"
         (input)="questionForm.get('question').setValue(addPrefix(questionForm.get('question').value, 'Q: '))">
       </textarea>
     </mat-form-field>
@@ -23,7 +24,8 @@
         formControlName="answer"
         cdkTextareaAutosize
         cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5"
+        cdkAutosizeMaxRows="20"
+        spellcheck="false"
         (input)="questionForm.get('answer').setValue(addPrefix(questionForm.get('answer').value, 'A: '))">
       </textarea>
     </mat-form-field>
