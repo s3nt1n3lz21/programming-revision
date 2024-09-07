@@ -1,73 +1,70 @@
-<div class="card">
-    <div class="card__outer" [ngClass]="{
-        'card__outer--no-question': question?.question === '',
-        'card__outer--no-answer': question?.answer === '',
-        'card__outer--not-revised': question?.answerExpiryDate | expired,
-        'card__outer--revised': !(question?.answerExpiryDate | expired) && question?.answer !== ''
+<div class="revision-card">
+    <div class="revision-card__outer" [ngClass]="{
+        'revision-card__outer--no-question': question?.question === '',
+        'revision-card__outer--no-answer': question?.answer === '',
+        'revision-card__outer--not-revised': question?.answerExpiryDate | expired,
+        'revision-card__outer--revised': !(question?.answerExpiryDate | expired) && question?.answer !== ''
     }">
-        <div class="card__inner">
-            <div class="card__content-container">
-                <div class="card__circle" [ngClass]="{
-                    'card__circle--no-question': question?.question === '',
-                    'card__circle--no-answer': question?.answer === '',
-                    'card__circle--not-revised': question?.answerExpiryDate | expired,
-                    'card__circle--revised': !(question?.answerExpiryDate | expired) && question?.answer !== ''
+        <div class="revision-card__inner">
+            <div class="revision-card__content-container">
+                <div class="revision-card__circle" [ngClass]="{
+                    'revision-card__circle--no-question': question?.question === '',
+                    'revision-card__circle--no-answer': question?.answer === '',
+                    'revision-card__circle--not-revised': question?.answerExpiryDate | expired,
+                    'revision-card__circle--revised': !(question?.answerExpiryDate | expired) && question?.answer !== ''
                 }">
                     {{ question?.timesAnsweredCorrectly }}
                 </div>            
-                <div class="card__content" *ngIf="!question">
+                <div class="revision-card__content" *ngIf="!question">
                     No Questions Left
                 </div>
                 
-                <div class="revision-card">
-                    <div class="revision-card__header">
-                        <div class="revision-card__question">
-                            Q: {{ question?.question }}
-                            <button mat-icon-button class="revision-card__edit-icon" (click)="edit()">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </div>
-                        <div 
-                            class="revision-card__answer" 
-                            [ngClass]="{ 'revision-card__answer--visible': showAnswer }">
-                            A: {{ question?.answer }}
-                        </div>
-                    </div>
-                
-                    <!-- <mat-form-field class="question-card__chip-list" appearance="fill">
-                        <mat-chip-list #chipList aria-label="Tag selection">
-                            <mat-chip
-                                *ngFor="let tag of question.tags; trackBy: trackByFn"
-                                (removed)="remove(tag)">
-                                {{ tag }}
-                                <button matChipRemove aria-label="Remove tag {{ tag }}">
-                                    <mat-icon>cancel</mat-icon>
-                                </button>
-                            </mat-chip>
-                
-                            <input
-                                [placeholder]="question.tags.length < maxTags ? 'Enter Tag...' : 'Max tags reached'"
-                                [matChipInputFor]="chipList"
-                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                [matChipInputAddOnBlur]="true"
-                                (matChipInputTokenEnd)="add($event)"
-                                [disabled]="question.tags.length >= maxTags"
-                                aria-label="Tag Input"
-                            />
-                        </mat-chip-list>
-                    </mat-form-field> -->
-                
-                    <div class="revision-card__footer">
-                        <button class="revision-card__footer-item" mat-raised-button (click)="revealAnswer()">
-                            {{ showAnswer ? 'Hide' : 'Reveal' }}
+                <div class="revision-card__content">
+                    <div class="revision-card__question">
+                        Q: {{ question?.question }}
+                        <button mat-icon-button class="revision-card__edit-icon" (click)="edit()">
+                            <mat-icon>edit</mat-icon>
                         </button>
                     </div>
+                    <div 
+                        class="revision-card__answer" 
+                        [ngClass]="{ 'revision-card__answer--visible': showAnswer }">
+                        A: {{ question?.answer }}
+                    </div>
                 </div>
-
-                <div class="card__button-container">
-                    <button mat-raised-button class="card__button card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
-                    <button mat-raised-button class="card__button card__button--skip" (click)="nextQuestion()">Skip</button>
-                    <button mat-raised-button class="card__button card__button--correct" (click)="answeredCorrectly()">Correct</button>
+                
+                <!-- <mat-form-field class="revision-card__chip-list" appearance="fill">
+                    <mat-chip-list #chipList aria-label="Tag selection">
+                        <mat-chip
+                            *ngFor="let tag of question.tags; trackBy: trackByFn"
+                            (removed)="remove(tag)">
+                            {{ tag }}
+                            <button matChipRemove aria-label="Remove tag {{ tag }}">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                
+                        <input
+                            [placeholder]="question.tags.length < maxTags ? 'Enter Tag...' : 'Max tags reached'"
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="true"
+                            (matChipInputTokenEnd)="add($event)"
+                            [disabled]="question.tags.length >= maxTags"
+                            aria-label="Tag Input"
+                        />
+                    </mat-chip-list>
+                </mat-form-field> -->
+                
+                <div class="revision-card__footer">
+                    <button class="revision-card__footer-item" mat-raised-button (click)="revealAnswer()">
+                        {{ showAnswer ? 'Hide' : 'Reveal' }}
+                    </button>
+                    <div class="revision-card__button-container">
+                        <button mat-raised-button class="revision-card__button revision-card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
+                        <button mat-raised-button class="revision-card__button revision-card__button--skip" (click)="nextQuestion()">Skip</button>
+                        <button mat-raised-button class="revision-card__button revision-card__button--correct" (click)="answeredCorrectly()">Correct</button>
+                    </div>
                 </div>
             </div>
         </div>
