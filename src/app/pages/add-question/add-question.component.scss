@@ -33,6 +33,8 @@
         ::ng-deep textarea.mat-input-element {
             color: $color-primary;
             text-align: center; /* Center align the input text */
+            font-size: $font-size-6;
+            line-height: 1.2;
         }
 
         // Optionally, change the placeholder color as well
