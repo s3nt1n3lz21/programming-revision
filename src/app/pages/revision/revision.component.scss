@@ -140,8 +140,30 @@ $color-no-question: $color-primary;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        box-sizing: border-box;
         position: relative;
+        overflow-y: scroll;
+
+        /* Scrollbar custom styles for WebKit browsers */
+        &::-webkit-scrollbar {
+            width: 12px; /* Adjust the width as needed */
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: lighten($color-primary, 40%); /* Lighter background track color */
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $color-primary; /* Scrollbar color */
+            border-radius: 6px;
+            border: 3px solid white; /* Creates padding between the scrollbar and content */
+        }
+
+        /* Firefox scrollbar styles */
+        scrollbar-color: $color-primary lighten($color-primary, 40%);
+        scrollbar-width: thin;
+
+        /* Push scrollbar further to the right */
+        padding-right: 10px; /* Adjust to increase/decrease the space between content and scrollbar */
     }
 
     &__header {
@@ -249,7 +271,6 @@ $color-no-question: $color-primary;
 
         &__content-container {
             max-height: min(calc(100vh - $header-height - 80px));
-            overflow-y: scroll;
         }
     
         &__header {
