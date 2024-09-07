@@ -29,6 +29,7 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 
   @Input() question: Question;
   @Input() showAnswer = false;
+  @Input() showSkipButton = false;
   @Output() showAnswerChange = new EventEmitter<boolean>();
   @Output() nextQuestionEvent = new EventEmitter<boolean>();
 

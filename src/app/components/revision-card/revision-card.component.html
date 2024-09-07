@@ -62,7 +62,7 @@
                     </button>
                     <div class="revision-card__button-container">
                         <button mat-raised-button class="revision-card__button revision-card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
-                        <button mat-raised-button class="revision-card__button revision-card__button--skip" (click)="nextQuestion()">Skip</button>
+                        <button *ngIf="showSkipButton" mat-raised-button class="revision-card__button revision-card__button--skip" (click)="nextQuestion()">Skip</button>
                         <button mat-raised-button class="revision-card__button revision-card__button--correct" (click)="answeredCorrectly()">Correct</button>
                     </div>
                 </div>
