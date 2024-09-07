@@ -13,33 +13,5 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card__outer" [ngClass]="{
-        'card__outer--no-question': currentQuestion?.question === '',
-        'card__outer--no-answer': currentQuestion?.answer === '',
-        'card__outer--not-revised': currentQuestion?.answerExpiryDate | expired,
-        'card__outer--revised': !(currentQuestion?.answerExpiryDate | expired) && currentQuestion?.answer !== ''
-    }">
-        <div class="card__inner">
-            <div class="card__content-container">
-                <div class="card__circle" [ngClass]="{
-                    'card__circle--no-question': currentQuestion?.question === '',
-                    'card__circle--no-answer': currentQuestion?.answer === '',
-                    'card__circle--not-revised': currentQuestion?.answerExpiryDate | expired,
-                    'card__circle--revised': !(currentQuestion?.answerExpiryDate | expired) && currentQuestion?.answer !== ''
-                }">
-                    {{ currentQuestion?.timesAnsweredCorrectly }}
-                </div>            
-                <div class="card__content" *ngIf="!questionsLeft()">
-                    No Questions Left
-                </div>
-                <app-question class="card__content" [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
-                <div class="card__button-container">
-                    <button mat-raised-button class="card__button card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
-                    <button mat-raised-button class="card__button card__button--skip" (click)="nextQuestion()">Skip</button>
-                    <button mat-raised-button class="card__button card__button--correct" (click)="answeredCorrectly()">Correct</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-revision-card class="card__content" [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-revision-card>
+

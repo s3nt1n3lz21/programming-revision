@@ -1,0 +1,295 @@
+@import "../../theme.scss";
+
+.card {
+    $top-offset: 20px;
+
+    position: absolute;
+    top: calc($header-height + $top-offset); /* Offset from the top, accounting for header and some extra space */
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 90%;
+    max-width: 700px;
+    z-index: 10;
+    border-radius: 8px;
+    height: 100%;
+    max-height: min(calc(100vh - $header-height - $top-offset), 1000px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__outer {
+        background-color: $color-primary;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        box-sizing: border-box;
+        width: 100%;
+        transition: background-color 0.3s;
+
+        &--not-revised {
+            background-color: $color-not-revised;
+        }
+
+        &--no-answer {
+            background-color: $color-no-answer;
+        }
+
+        &--no-question {
+            background-color: $color-no-question;
+        }
+
+        &--revised {
+            background-color: $color-revised;
+        }
+    }
+
+    &__inner {
+        background: rgba(255, 255, 255, 1);
+        box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 8px;
+    }
+
+    &__content-container {
+        background: rgba(255, 255, 255, 1);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow-y: scroll;
+
+        /* Scrollbar custom styles for WebKit browsers */
+        &::-webkit-scrollbar {
+            width: 12px; /* Adjust the width as needed */
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: lighten($color-primary, 40%); /* Lighter background track color */
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $color-primary; /* Scrollbar color */
+            border-radius: 6px;
+            border: 3px solid white; /* Creates padding between the scrollbar and content */
+        }
+
+        /* Firefox scrollbar styles */
+        scrollbar-color: $color-primary lighten($color-primary, 40%);
+        scrollbar-width: thin;
+
+        /* Push scrollbar further to the right */
+        padding-right: 10px; /* Adjust to increase/decrease the space between content and scrollbar */
+    }
+
+    &__header {
+        font-size: $font-size-2;
+        margin-bottom: 20px;
+        color: $color-primary;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__header-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    &__circle {
+        position: relative;
+        left: calc(100% - 80px);
+        background-color: $color-primary;
+        color: $color-secondary;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 2rem;
+        font-weight: bold;
+        transition: background-color 0.3s;
+
+        &--not-revised {
+            background-color: $color-not-revised;
+        }
+
+        &--no-answer {
+            background-color: $color-no-answer;
+        }
+
+        &--no-question {
+            background-color: $color-no-question;
+        }
+
+        &--revised {
+            background-color: $color-revised;
+        }
+    }
+
+    &__content {
+        margin-bottom: 20px;
+        color: $color-primary;
+        flex-grow: 1;
+    }
+
+    &__button-container {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    &__button {
+        margin: 0px;
+        min-width: unset;
+        width: 100%;
+    }
+
+    &__button--incorrect {
+        background-color: $color-incorrect;
+        color: $color-secondary;
+
+        &:hover {
+            background-color: lighten($color-incorrect, 10%);
+        }
+    }
+
+    &__button--correct {
+        background-color: $color-correct;
+        color: $color-secondary;
+
+        &:hover {
+            background-color: lighten($color-correct, 10%);
+        }
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+        top: $header-height;
+        height: 100%;
+        width: 100%;
+        max-height: none;
+        position: unset;
+        transform: unset;
+
+        &__outer {
+            height: 100%;
+            min-height: fit-content;
+        }
+
+        &__inner {
+            max-height: min(calc(100vh - $header-height - 40px));
+        }
+
+        &__content-container {
+            max-height: min(calc(100vh - $header-height - 80px));
+        }
+    
+        &__header {
+            font-size: $font-size-1;
+            display: none;
+        }
+
+        &__circle {
+            display: none;
+        }
+    }
+}
+
+.revision-card {
+    display: flex;
+    min-height: 300px;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 5px;
+    justify-content: flex-start;
+    height: 100%;
+    text-align: center;
+
+    &__header {
+        flex: 1;
+        @extend %center;
+        flex-direction: column;
+        color: $color-primary;
+    }
+
+    &__question {
+        font-size: $font-size-6;
+        line-height: 1.2;
+    }
+
+    &__edit-icon {
+        $new-height: 24px;
+        $scaling: calc($new-height / 40px);
+
+        bottom: 2px;
+        position: relative;
+        margin-left: 10px;
+        color: $color-secondary;
+        min-width: 10px;
+        width: $new-height;
+        height: $new-height;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+
+        mat-icon {
+            font-size: calc(24px * $scaling);  // Scale down the icon graphic (default is 24px)
+        }
+
+        &:hover {
+            color: lighten($color-secondary, 10%);
+        }
+    }
+
+    &__answer {
+        flex: 0 1 auto;
+        font-size: $font-size-4;
+        line-height: 1.4;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease, max-height 0.3s ease;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    &__answer--visible {
+        opacity: 1;
+        max-height: 1000px; /* Increased max-height to handle larger content */
+        transition: opacity 0.3s ease, max-height 0.5s ease; /* Slightly slower max-height transition for smoother expansion */
+    }
+
+    &__chip-list {
+        margin: 10px 0;
+
+        input {
+            text-align: center;
+        }
+    }
+
+    &__footer {
+        margin-top: auto;
+        @extend %space-around;
+        flex-direction: column;
+    }
+
+    &__footer-item {
+        width: 100%;
+    }
+}

@@ -10,12 +10,19 @@ $color-bright-purple: #8A2BE2;
 $color-neon-green: #39FF14;
 $color-hot-pink: #FF69B4;
 
+$color-primary: $color-bright-purple;
+$color-secondary: white;
+
 $color-incorrect: red;
 $color-correct: $color-lime-green;
 
+$color-not-revised: $color-incorrect;
+$color-revised: $color-correct;
+$color-no-answer: $color-primary;
+$color-no-question: $color-primary;
+
 // $color-primary: $color-tangerine-orange;
-$color-primary: $color-bright-purple;
-$color-secondary: white;
+
 
 $header-height: 60px;
 
