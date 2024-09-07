@@ -200,8 +200,15 @@ $color-no-question: $color-primary;
 
     &__button-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         flex-direction: row;
+        gap: 10px;
+    }
+
+    &__button {
+        margin: 0px;
+        min-width: unset;
+        width: 100%;
     }
 
     &__button--incorrect {
@@ -252,18 +259,6 @@ $color-no-question: $color-primary;
 
         &__circle {
             display: none;
-        }
-
-        &__button-container {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        &__button--correct,
-        &__button--skip,
-        &__button--incorrect {
-            width: 100%;
-            margin-bottom: 10px;
         }
     }
 }

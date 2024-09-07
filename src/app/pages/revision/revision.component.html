@@ -35,9 +35,9 @@
                 </div>
                 <app-question class="card__content" [question]="currentQuestion" [(showAnswer)]="showCurrentAnswer"></app-question>
                 <div class="card__button-container">
-                    <button mat-raised-button class="card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
-                    <button mat-raised-button class="card__button--skip" (click)="nextQuestion()">Skip</button>
-                    <button mat-raised-button class="card__button--correct" (click)="answeredCorrectly()">Correct</button>
+                    <button mat-raised-button class="card__button card__button--incorrect" (click)="answeredIncorrectly()">Incorrect</button>
+                    <button mat-raised-button class="card__button card__button--skip" (click)="nextQuestion()">Skip</button>
+                    <button mat-raised-button class="card__button card__button--correct" (click)="answeredCorrectly()">Correct</button>
                 </div>
             </div>
         </div>
