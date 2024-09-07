@@ -23,7 +23,7 @@ export class RevisionComponent implements OnInit {
 
 	constructor(
 		private store: Store<AppStateWrapper>,
-		private logger: LoggerService // Injecting LoggerService
+		private logger: LoggerService
 	) { 
 		this.questionsStore = this.store.select(state => state.state.questions);
 		this.logger.log(LogLevel.INFO, 'RevisionComponent', 'Component created');
@@ -87,7 +87,9 @@ export class RevisionComponent implements OnInit {
 	}
 
 	trackByFn(index: number, item: Question) {
-		this.logger.log(LogLevel.DEBUG, 'RevisionComponent', 'Tracking question by id', item.id);
+		if (this.logger) {
+			this.logger.log(LogLevel.DEBUG, 'RevisionComponent', 'Tracking question by id', item.id);
+		}
 		return item.id;
 	}
 
