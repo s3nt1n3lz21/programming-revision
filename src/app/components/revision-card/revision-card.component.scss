@@ -226,9 +226,15 @@
         flex-direction: column;
     }
 
-    &__footer-item {
+    &__hide-button {
+        background-color: $color-primary;
+        color: $color-secondary;
         width: 100%;
         margin: 0 0 10px 0;
+
+        &:hover {
+            background-color: lighten($color-primary, 20%);
+        }
     }
 
     &__button-container {
@@ -250,7 +256,7 @@
         color: $color-secondary;
 
         &:hover {
-            background-color: lighten($color-incorrect, 10%);
+            background-color: lighten($color-incorrect, 20%);
         }
     }
 
@@ -259,7 +265,7 @@
         color: $color-secondary;
 
         &:hover {
-            background-color: lighten($color-correct, 10%);
+            background-color: lighten($color-correct, 20%);
         }
     }
 }
