@@ -17,6 +17,16 @@
     justify-content: center;
     align-items: center;
 
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+        top: $header-height;
+        height: 100%;
+        width: 100%;
+        max-height: none;
+        position: unset;
+        transform: unset;
+    }
+
     &__outer {
         background-color: $color-primary;
         padding: 20px;
@@ -45,6 +55,11 @@
         &--revised {
             background-color: $color-revised;
         }
+
+        @media (max-width: 768px) {
+            height: 100%;
+            min-height: fit-content;
+        }
     }
 
     &__inner {
@@ -57,6 +72,10 @@
         padding: 20px;
         box-sizing: border-box;
         border-radius: 8px;
+
+        @media (max-width: 768px) {
+            max-height: min(calc(100vh - $header-height - 40px));
+        }
     }
 
     &__content-container {
@@ -90,6 +109,10 @@
 
         /* Push scrollbar further to the right */
         padding-right: 10px; /* Adjust to increase/decrease the space between content and scrollbar */
+
+        @media (max-width: 768px) {
+            max-height: min(calc(100vh - $header-height - 80px));
+        }
     }
 
     &__circle {
@@ -121,6 +144,10 @@
 
         &--revised {
             background-color: $color-revised;
+        }
+
+        @media (max-width: 768px) {
+            display: none;
         }
     }
 
@@ -233,37 +260,6 @@
 
         &:hover {
             background-color: lighten($color-correct, 10%);
-        }
-    }
-
-    /* Media query for smaller screens */
-    @media (max-width: 768px) {
-        top: $header-height;
-        height: 100%;
-        width: 100%;
-        max-height: none;
-        position: unset;
-        transform: unset;
-
-        &__outer {
-            height: 100%;
-            min-height: fit-content;
-        }
-
-        &__inner {
-            max-height: min(calc(100vh - $header-height - 40px));
-        }
-
-        &__content-container {
-            max-height: min(calc(100vh - $header-height - 80px));
-        }
-
-        &__header {
-            font-size: $font-size-1;
-        }
-
-        &__circle {
-            display: none;
         }
     }
 }
