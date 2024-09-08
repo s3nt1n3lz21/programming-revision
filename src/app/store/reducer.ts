@@ -1,5 +1,5 @@
 import { Question } from '../model/IQuestion';
-import { AllActions, UPDATE_QUESTION, SET_EDITING_QUESTION, SET_QUESTIONS, SET_SELECTED_QUESTION } from './action';
+import { AllActions, UPDATE_QUESTION, SET_EDITING_QUESTION, SET_QUESTIONS, SET_SELECTED_QUESTION, ADD_QUESTION } from './action';
 
 export interface AppStateWrapper {
     state: AppState
@@ -42,6 +42,10 @@ export function reducer(state: AppState = initialState, action: AllActions) {
             }
         case SET_EDITING_QUESTION:
             newState = { ...state, editingQuestion: action.editingQuestion }
+            console.log(action.type, newState);
+            return newState;
+        case ADD_QUESTION:
+            newState = { ...state, questions: [...state.questions, action.question] };
             console.log(action.type, newState);
             return newState;
         default:

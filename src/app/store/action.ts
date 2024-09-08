@@ -5,6 +5,7 @@ export const SET_SELECTED_QUESTION = 'SET_SELECTED_QUESTION';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const UPDATE_QUESTION = 'UPDATE_QUESTION';
 export const SET_EDITING_QUESTION = 'SET_EDITING_QUESTION';
+export const ADD_QUESTION = 'ADD_QUESTION';
 
 export class SetSelectedQuestion implements Action {
     readonly type = SET_SELECTED_QUESTION;
@@ -30,8 +31,15 @@ export class SetEditingQuestion implements Action {
     constructor(public editingQuestion: boolean) {}
 }
 
+export class AddQuestionAction implements Action {
+    readonly type = ADD_QUESTION;
+
+    constructor(public question: Question) {}
+}
+
 export type AllActions = 
     SetQuestions | 
     SetSelectedQuestion |
     UpdateQuestion |
-    SetEditingQuestion;
+    SetEditingQuestion |
+    AddQuestionAction;

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AddQuestion, DAY, emptyAddQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
-import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
+import { AddQuestionAction, SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -94,15 +94,16 @@ export class AddQuestionComponent implements OnInit {
 	this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Adding question: ', question);
 
 	this.apiService.addQuestion(question).subscribe(
-	  (response) => {
+	  (response: { name: string }) => {
+		const newQuestion: Question = { ...question, id: response.name };
 		this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question added successfully', response); // Log successful add
+		this.store.dispatch(new AddQuestionAction(newQuestion));
 		this.notificationService.addNotification('Added Question', 'success');
 		this.router.navigate(['question-list']);
 	  },
 	  (error) => {
 		this.logger.log(LogLevel.ERROR, 'AddQuestionComponent', 'Failed to add question', error); // Log error
 		this.notificationService.addNotification('Failed To Add Question', 'error');
-		console.error(error);
 	  }
 	);
   };
