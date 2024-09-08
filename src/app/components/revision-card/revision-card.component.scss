@@ -67,42 +67,6 @@
         }
     }
 
-    &__content-container {
-        background: rgba(255, 255, 255, 1);
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: relative;
-        overflow-y: scroll;
-
-        /* Scrollbar custom styles for WebKit browsers */
-        &::-webkit-scrollbar {
-            width: 12px; /* Adjust the width as needed */
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: lighten($color-primary, 40%); /* Lighter background track color */
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: $color-primary; /* Scrollbar color */
-            border-radius: 6px;
-            border: 3px solid white; /* Creates padding between the scrollbar and content */
-        }
-
-        /* Firefox scrollbar styles */
-        scrollbar-color: $color-primary lighten($color-primary, 40%);
-        scrollbar-width: thin;
-
-        /* Push scrollbar further to the right */
-        padding-right: 10px; /* Adjust to increase/decrease the space between content and scrollbar */
-
-        @media (max-width: 768px) {
-            max-height: min(calc(100vh - $header-height - 80px));
-        }
-    }
 
     &__circle {
         position: relative;
@@ -151,11 +115,30 @@
         width: 100%;
         height: 100%;
         text-align: center;
+        overflow: hidden;
+    }
+
+    &__qa-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: max-height $animation-duration ease;
+        overflow: hidden;
+        // height: 200px;
+        max-height: 200px;
+    }
+
+    &--answer-visible &__qa-container {
+        // height: 100%;
+        max-height: 1000px;
     }
 
     &__question {
+        color: $color-primary;
         font-size: $font-size-6;
         line-height: 1.2;
+        text-align: center;
+        flex-shrink: 0;
     }
 
     &__edit-icon {
@@ -183,22 +166,54 @@
         }
     }
 
+    @keyframes animateAnswerVisible {
+        0% {
+            max-height: 100%;
+            opacity: 0;
+            overflow-y: hidden;
+        }
+        99% {
+            overflow-y: hidden;
+        }
+        100% {
+            max-height: none;
+            opacity: 1;
+            overflow-y: auto;
+        }
+    }
+
     &__answer {
-        flex: 0 1 auto;
+        color: $color-primary;
+        text-align: center;
+        flex-shrink: 1;
+        min-height: auto;
+        max-height: 100%;
         font-size: $font-size-4;
         line-height: 1.4;
         opacity: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: opacity 0.3s ease, max-height 0.3s ease;
+        height: 0;
+        overflow-y: hidden;
         margin-top: 20px;
         margin-bottom: 20px;
+
+        /* Custom scrollbar styles */
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: darken($color-primary, 20%);
+            border-radius: 4px;
+        }
+        scrollbar-width: thin;
+        scrollbar-color: darken($color-primary, 20%) lighten($color-primary, 50%);
     }
 
     &__answer--visible {
         opacity: 1;
-        max-height: 1000px; /* Increased max-height to handle larger content */
-        transition: opacity 0.3s ease, max-height 0.5s ease; /* Slightly slower max-height transition for smoother expansion */
+        max-height: none;
+        height: auto;
+        overflow-y: auto;
+        animation: animateAnswerVisible $animation-duration forwards ease-in-out;
     }
 
     &__chip-list {
