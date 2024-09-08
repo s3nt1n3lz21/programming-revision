@@ -154,7 +154,9 @@
     &__answer {
         color: $color-primary;
         text-align: center;
-        flex-grow: 1;
+        flex-shrink: 1;
+        min-height: auto;
+        max-height: 100%;
         font-size: $font-size-4;
         line-height: 1.4;
         opacity: 0;
