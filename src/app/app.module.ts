@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QuestionComponent } from './components/question/question.component';
+import { RevisionCardComponent } from './components/revision-card/revision-card.component';
 import { RevisionComponent } from './pages/revision/revision.component';
 import { QuestionsListComponent } from './pages/questions-list/questions-list.component';
 import { AddQuestionComponent } from './pages/add-question/add-question.component';
@@ -39,7 +39,7 @@ import { environment } from '../environments/environment';
 		RevisionComponent,
 
 		// Components
-		QuestionComponent,
+		RevisionCardComponent,
 		BarComponent,
 		NotificationComponent,
 
