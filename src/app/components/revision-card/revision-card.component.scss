@@ -118,6 +118,21 @@
         overflow: hidden;
     }
 
+    &__qa-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: max-height $animation-duration ease;
+        overflow: hidden;
+        // height: 200px;
+        max-height: 200px;
+    }
+
+    &--answer-visible &__qa-container {
+        // height: 100%;
+        max-height: 1000px;
+    }
+
     &__question {
         color: $color-primary;
         font-size: $font-size-6;
@@ -151,6 +166,22 @@
         }
     }
 
+    @keyframes animateAnswerVisible {
+        0% {
+            max-height: 100%;
+            opacity: 0;
+            overflow-y: hidden;
+        }
+        99% {
+            overflow-y: hidden;
+        }
+        100% {
+            max-height: none;
+            opacity: 1;
+            overflow-y: auto;
+        }
+    }
+
     &__answer {
         color: $color-primary;
         text-align: center;
@@ -161,8 +192,7 @@
         line-height: 1.4;
         opacity: 0;
         height: 0;
-        overflow-y: auto;
-        transition: opacity 0.3s ease, max-height 0.3s ease;
+        overflow-y: hidden;
         margin-top: 20px;
         margin-bottom: 20px;
 
@@ -182,7 +212,8 @@
         opacity: 1;
         max-height: none;
         height: auto;
-        transition: opacity 0.3s ease, height 0.5s ease;
+        overflow-y: auto;
+        animation: animateAnswerVisible $animation-duration forwards ease-in-out;
     }
 
     &__chip-list {

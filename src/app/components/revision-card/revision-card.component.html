@@ -1,4 +1,4 @@
-<div class="revision-card">
+<div class="revision-card" [ngClass]="{'revision-card--answer-visible' : showAnswer}">
     <div class="revision-card__outer" [ngClass]="{
         'revision-card__outer--no-question': question?.question === '',
         'revision-card__outer--no-answer': question?.answer === '',
@@ -18,17 +18,19 @@
                 No Questions Left
             </div>
             <div class="revision-card__content">
-                <div class="revision-card__question">
-                    Q: {{ question?.question }}
-                    <button mat-icon-button class="revision-card__edit-icon" (click)="edit()">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                </div>
-    
-                <div 
-                    class="revision-card__answer"
-                    [ngClass]="{ 'revision-card__answer--visible': showAnswer }">
-                    A: {{ question?.answer }}
+                <div class="revision-card__qa-container">
+                    <div class="revision-card__question">
+                        Q: {{ question?.question }}
+                        <button mat-icon-button class="revision-card__edit-icon" (click)="edit()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+            
+                    <div 
+                        class="revision-card__answer"
+                        [ngClass]="{ 'revision-card__answer--visible': showAnswer }">
+                        A: {{ question?.answer }}
+                    </div>
                 </div>
             </div>
 
