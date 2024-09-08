@@ -212,6 +212,11 @@
         }
         scrollbar-width: thin;
         scrollbar-color: darken($color-primary, 20%) lighten($color-primary, 50%);
+
+        @media (max-width: 768px) {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
     }
 
     &__answer--visible {
