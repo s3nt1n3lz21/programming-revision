@@ -133,7 +133,6 @@
       }
     }
   },
-  "defaultProject": "programming-revision",
   "cli": {
     "analytics": false
   }

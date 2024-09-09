@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -36,12 +36,12 @@ export class AddQuestionComponent implements OnInit {
 	selectedQuestionStore: Observable<Question>;
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
-  tagCtrl = new FormControl();
+  tagCtrl = new UntypedFormControl();
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
     private store: Store<AppStateWrapper>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private apiService: ApiService,
     private router: Router,
     private notificationService: NotificationService,

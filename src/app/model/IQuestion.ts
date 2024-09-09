@@ -1,11 +1,11 @@
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 
 export interface IQuestionFormValues {
     question: string;
     answer: string;
 }
 
-export interface IQuestionForm extends FormGroup {
+export interface IQuestionForm extends UntypedFormGroup {
     value: IQuestionFormValues;
 }
 
