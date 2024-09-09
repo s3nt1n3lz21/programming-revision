@@ -5,7 +5,7 @@ import { AppStateWrapper } from 'src/app/store/reducer';
 import { Router } from '@angular/router';
 import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from '../../store/action';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 import { LoggerService, LogLevel } from 'src/app/services/logger.service'; // Import LoggerService and LogLevel
 import { ApiService } from 'src/app/services/api.service';
 

@@ -9,9 +9,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { AddQuestionAction, SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 import { map, startWith } from 'rxjs/operators';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LoggerService, LogLevel } from 'src/app/services/logger.service'; // Import LoggerService
 
