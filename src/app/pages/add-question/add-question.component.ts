@@ -10,8 +10,6 @@ import { AddQuestionAction, SetEditingQuestion, SetSelectedQuestion, UpdateQuest
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
-import { map, startWith } from 'rxjs/operators';
-import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LoggerService, LogLevel } from 'src/app/services/logger.service'; // Import LoggerService
 
@@ -144,27 +142,27 @@ export class AddQuestionComponent implements OnInit {
     this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag selected', event.option.viewValue); // Log tag selection
   }
 
-  add(event: MatChipInputEvent): void {
-  	const tag: string = (event.value || '').trim();
-  	// console.log('add: ', tag);
-  	// console.log(typeof tag);
-  	// console.log('this.selectedQuestion.tags: ', this.selectedQuestion.tags);
-  	// const newTags: string[] = this.selectedQuestion.tags.slice();
-  	// newTags.push(tag);
+//   add(event: MatChipInputEvent): void {
+//   	const tag: string = (event.value || '').trim();
+//   	// console.log('add: ', tag);
+//   	// console.log(typeof tag);
+//   	// console.log('this.selectedQuestion.tags: ', this.selectedQuestion.tags);
+//   	// const newTags: string[] = this.selectedQuestion.tags.slice();
+//   	// newTags.push(tag);
 
-  	// Add our tag
-  	if (tag) {
-  		// newTags.push(tag)
-  		this.tags.push(tag);
-  		console.log('this.tags: ', this.tags);
-      this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag added', tag); // Log tag added
-  	}
+//   	// Add our tag
+//   	if (tag) {
+//   		// newTags.push(tag)
+//   		this.tags.push(tag);
+//   		console.log('this.tags: ', this.tags);
+//       this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag added', tag); // Log tag added
+//   	}
 
-  	// Clear the input value
-  	this.tagInput.nativeElement.value = '';
+//   	// Clear the input value
+//   	this.tagInput.nativeElement.value = '';
 
-  	this.tagCtrl.setValue(null);
-  }
+//   	this.tagCtrl.setValue(null);
+//   }
 
   remove(tag: string): void {
   	const index = this.selectedQuestion.tags.indexOf(tag);
