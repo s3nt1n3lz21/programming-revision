@@ -4,63 +4,57 @@
   background-color: $color-primary;
   width: 100%;
   height: $header-height;
-  display: flex; // Ensure tabs stay in a single row
-  justify-content: space-around; // Distribute tabs evenly
-  overflow-x: hidden; // Prevent overflow
+  display: flex;
+  justify-content: space-around;
+  overflow-x: hidden;
 
   .header__nav-link {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $color-secondary;
+    color: $color-secondary; // Using $color-secondary for font color
     opacity: 1;
     height: $header-height;
     font-size: $font-size-6;
-    background-color: $color-primary; // Base background color
+    background-color: $color-primary;
     transition: background-color 0.3s, box-shadow 0.3s;
 
-    // Normal (non-active) state
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3),
-      -2px -2px 5px rgba(255, 255, 255, 0.1);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), -2px -2px 5px rgba(255, 255, 255, 0.1);
     border: 1px solid darken($color-primary, 10%);
 
     &:hover {
       cursor: pointer;
       background-color: lighten($color-primary, 5%);
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4),
-        -2px -2px 5px rgba(255, 255, 255, 0.2);
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4), -2px -2px 5px rgba(255, 255, 255, 0.2);
     }
 
     &.active {
       background-color: darken($color-primary, 10%);
-      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5),
-        inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -2px -2px 5px rgba(255, 255, 255, 0.2);
       border-bottom: 2px solid darken($color-secondary, 10%);
+      color: $color-secondary; // Make active state font color $color-secondary
     }
 
-    .mat-tab-label {
+    // Angular Material classes inheritance
+    .mat-tab-label,
+    .mat-tab-label-active {
       color: inherit;
       font-weight: bold;
     }
-
-    .mat-tab-label-active {
-      color: inherit;
-    }
   }
 
-  // Media query for smaller screens
   @media (max-width: 768px) {
     .header__nav-link {
-      font-size: $font-size-4; // Reduce font size on smaller screens
-      padding: 0 10px; // Adjust padding to fit more tabs
+      font-size: $font-size-4;
+      padding: 0 10px;
     }
   }
 
   @media (max-width: 480px) {
     .header__nav-link {
-      font-size: $font-size-3; // Further reduce font size on very small screens
-      padding: 0 5px; // Further reduce padding to ensure tabs fit
+      font-size: $font-size-3;
+      padding: 0 5px;
     }
   }
 }
