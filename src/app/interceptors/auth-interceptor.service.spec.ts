@@ -1,6 +1,6 @@
 import {AuthInterceptor} from "./auth-interceptor.service";
 import {OktaAuth} from "@okta/okta-auth-js";
-import {HttpHandler, HttpRequest} from "@angular/common/http";
+import { HttpHandler, HttpRequest } from "@angular/common/http";
 import createSpyObj = jasmine.createSpyObj;
 import {TestBed} from "@angular/core/testing";
 import {OKTA_AUTH} from "@okta/okta-angular";

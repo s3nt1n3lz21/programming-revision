@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,49 +26,39 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 
-@NgModule({
-	declarations: [
-		// Layout
-		AppComponent,
-		HeaderComponent,
-
-		// Pages
-		LoginComponent,
-		QuestionsListComponent,
-		AddQuestionComponent,
-		RevisionComponent,
-
-		// Components
-		RevisionCardComponent,
-		BarComponent,
-		NotificationComponent,
-
-		// Pipes
-		ExpiredPipe,
-
-		// Directives
-		ShowNDirective
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		HttpClientModule,
-		FormsModule,
-		ReactiveFormsModule,
-		CommonModule,
-		MaterialModule,
-		StoreModule.forRoot({ state: reducer }),
-		BrowserAnimationsModule,
-		ServiceWorkerModule.register('ngsw-worker.js', {
-			enabled: environment.production,
-			// Register the ServiceWorker as soon as the application is stable
-			// or after 30 seconds (whichever comes first).
-			registrationStrategy: 'registerWhenStable:30000'
-		})
-	],
-	providers: [
-		NotificationService
-	],
-	bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        // Layout
+        AppComponent,
+        HeaderComponent,
+        // Pages
+        LoginComponent,
+        QuestionsListComponent,
+        AddQuestionComponent,
+        RevisionComponent,
+        // Components
+        RevisionCardComponent,
+        BarComponent,
+        NotificationComponent,
+        // Pipes
+        ExpiredPipe,
+        // Directives
+        ShowNDirective
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MaterialModule,
+        StoreModule.forRoot({ state: reducer }),
+        BrowserAnimationsModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })], providers: [
+        NotificationService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
