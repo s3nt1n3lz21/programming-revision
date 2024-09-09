@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
     "@angular/service-worker": "16.2.12",
-    "@ngrx/store": "^15.4.0",
+    "@ngrx/store": "^16.3.0",
     "d3": "^7.2.1",
     "d3-scale": "^4.0.2",
     "firebase": "^9.6.1",
