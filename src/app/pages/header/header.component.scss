@@ -8,12 +8,18 @@
   justify-content: space-around;
   overflow-x: hidden;
 
+  // Override Angular Material CSS variables with SCSS variables
+  --mat-tab-header-inactive-label-text-color: #{$color-secondary};
+  --mat-tab-header-active-label-text-color: #{$color-secondary};
+  --mat-tab-header-inactive-hover-label-text-color: #{lighten($color-secondary, 10%)};
+  --mat-tab-header-active-hover-label-text-color: #{lighten($color-secondary, 10%)};
+
   .header__nav-link {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $color-secondary; // Using $color-secondary for font color
+    color: var(--mat-tab-header-inactive-label-text-color);
     opacity: 1;
     height: $header-height;
     font-size: $font-size-6;
@@ -27,16 +33,16 @@
       cursor: pointer;
       background-color: lighten($color-primary, 5%);
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4), -2px -2px 5px rgba(255, 255, 255, 0.2);
+      color: var(--mat-tab-header-inactive-hover-label-text-color);
     }
 
     &.active {
       background-color: darken($color-primary, 10%);
       box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -2px -2px 5px rgba(255, 255, 255, 0.2);
       border-bottom: 2px solid darken($color-secondary, 10%);
-      color: $color-secondary; // Make active state font color $color-secondary
+      color: var(--mat-tab-header-active-label-text-color);
     }
 
-    // Angular Material classes inheritance
     .mat-tab-label,
     .mat-tab-label-active {
       color: inherit;
