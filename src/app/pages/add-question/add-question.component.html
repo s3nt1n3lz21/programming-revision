@@ -31,6 +31,7 @@
     </mat-form-field>
   </div>
 
+  <!-- Updated Chip List for tags -->
   <!-- <mat-form-field class="add-question__chip-list" appearance="fill">
     <mat-chip-list #chipList aria-label="Tag selection">
         <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
@@ -47,8 +48,8 @@
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
-  </mat-form-field>   -->
-  
+  </mat-form-field> -->
+
   <button *ngIf="!editingQuestion" class="add-question__button add-question__button--primary" mat-raised-button color="primary" (click)="addQuestion()">Add Question</button>
-  <button *ngIf="editingQuestion" class="add-question__button add-question__button--accent" mat-raised-button color="accent" (click)="editQuestion()">Edit Question</button>  
+  <button *ngIf="editingQuestion" class="add-question__button add-question__button--accent" mat-raised-button color="accent" (click)="editQuestion()">Edit Question</button>
 </form>

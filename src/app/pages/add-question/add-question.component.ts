@@ -9,9 +9,10 @@ import { ApiService } from 'src/app/services/api.service';
 import { AddQuestionAction, SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LoggerService, LogLevel } from 'src/app/services/logger.service'; // Import LoggerService
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
 	selector: 'app-add-question',
@@ -136,33 +137,23 @@ export class AddQuestionComponent implements OnInit {
   };
 
   tagSelected(event: MatAutocompleteSelectedEvent): void {
-  	this.selectedQuestion.tags.push(event.option.viewValue);
-  	this.tagInput.nativeElement.value = '';
-  	this.tagCtrl.setValue(null);
+    this.selectedQuestion.tags.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    this.tagCtrl.setValue(null);
     this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag selected', event.option.viewValue); // Log tag selection
-  }
+	}
 
-//   add(event: MatChipInputEvent): void {
-//   	const tag: string = (event.value || '').trim();
-//   	// console.log('add: ', tag);
-//   	// console.log(typeof tag);
-//   	// console.log('this.selectedQuestion.tags: ', this.selectedQuestion.tags);
-//   	// const newTags: string[] = this.selectedQuestion.tags.slice();
-//   	// newTags.push(tag);
+	add(event: MatChipInputEvent): void {
+		const tag: string = (event.value || '').trim();
 
-//   	// Add our tag
-//   	if (tag) {
-//   		// newTags.push(tag)
-//   		this.tags.push(tag);
-//   		console.log('this.tags: ', this.tags);
-//       this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag added', tag); // Log tag added
-//   	}
+		if (tag) {
+			this.tags.push(tag);
+			this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag added', tag); // Log tag added
+		}
 
-//   	// Clear the input value
-//   	this.tagInput.nativeElement.value = '';
-
-//   	this.tagCtrl.setValue(null);
-//   }
+		this.tagInput.nativeElement.value = '';
+		this.tagCtrl.setValue(null);
+	}
 
   remove(tag: string): void {
   	const index = this.selectedQuestion.tags.indexOf(tag);
