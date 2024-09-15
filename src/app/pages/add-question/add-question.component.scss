@@ -28,20 +28,16 @@
 
     &__input {
         display: block;
+    }
 
-        // Ensure the text inside the textarea is centered and matches the primary color
-        ::ng-deep textarea.mat-input-element {
+    &__input-text {
+        &.mat-mdc-form-field-input-control:not(.mdc-text-field--disabled) {
             color: $color-primary;
             text-align: center; /* Center align the input text */
             font-size: $font-size-6;
             line-height: 1.2;
         }
 
-        // Optionally, change the placeholder color as well
-        ::ng-deep textarea.mat-input-element::placeholder {
-            color: lighten($color-primary, 30%);
-            text-align: center; /* Center align placeholder as well */
-        }
     }
 
     &__chip-list {

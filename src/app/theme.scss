@@ -12,5 +12,7 @@ body {
     --mdc-theme-on-primary: #{$color-secondary}; // Text color on primary button
     --mdc-theme-secondary: #{$color-primary}; // Accent button background color
     --mdc-theme-on-secondary: #{$color-secondary}; // Text color on accent button
+    --mdc-filled-text-field-container-color: none;
+    --mat-form-field-hover-state-layer-opacity: 0;
 }
 
