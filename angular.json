@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "programming-revision:build"
+            "buildTarget": "programming-revision:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "programming-revision:build:production"
+              "buildTarget": "programming-revision:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "programming-revision:build"
+            "buildTarget": "programming-revision:build"
           }
         },
         "test": {
@@ -133,7 +133,6 @@
       }
     }
   },
-  "defaultProject": "programming-revision",
   "cli": {
     "analytics": false
   }

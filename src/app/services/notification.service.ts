@@ -46,7 +46,7 @@ export class NotificationService implements OnDestroy {
 			type
 		};
 		this._notificationsQueue.push(notification);
-		this._notificationsQueueSubject.next();
+		this._notificationsQueueSubject.next(true);
 
 		this.logger.log(LogLevel.INFO, 'NotificationService', 'Notification added', message, type); // Log notification added
 	}

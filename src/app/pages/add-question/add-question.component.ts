@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -10,10 +10,9 @@ import { AddQuestionAction, SetEditingQuestion, SetSelectedQuestion, UpdateQuest
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { map, startWith } from 'rxjs/operators';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { NotificationService } from 'src/app/services/notification.service';
 import { LoggerService, LogLevel } from 'src/app/services/logger.service'; // Import LoggerService
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
 	selector: 'app-add-question',
@@ -36,12 +35,12 @@ export class AddQuestionComponent implements OnInit {
 	selectedQuestionStore: Observable<Question>;
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
-  tagCtrl = new FormControl();
+  tagCtrl = new UntypedFormControl();
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
     private store: Store<AppStateWrapper>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private apiService: ApiService,
     private router: Router,
     private notificationService: NotificationService,
@@ -138,33 +137,23 @@ export class AddQuestionComponent implements OnInit {
   };
 
   tagSelected(event: MatAutocompleteSelectedEvent): void {
-  	this.selectedQuestion.tags.push(event.option.viewValue);
-  	this.tagInput.nativeElement.value = '';
-  	this.tagCtrl.setValue(null);
+    this.selectedQuestion.tags.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    this.tagCtrl.setValue(null);
     this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag selected', event.option.viewValue); // Log tag selection
-  }
+	}
 
-  add(event: MatChipInputEvent): void {
-  	const tag: string = (event.value || '').trim();
-  	// console.log('add: ', tag);
-  	// console.log(typeof tag);
-  	// console.log('this.selectedQuestion.tags: ', this.selectedQuestion.tags);
-  	// const newTags: string[] = this.selectedQuestion.tags.slice();
-  	// newTags.push(tag);
+	add(event: MatChipInputEvent): void {
+		const tag: string = (event.value || '').trim();
 
-  	// Add our tag
-  	if (tag) {
-  		// newTags.push(tag)
-  		this.tags.push(tag);
-  		console.log('this.tags: ', this.tags);
-      this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag added', tag); // Log tag added
-  	}
+		if (tag) {
+			this.tags.push(tag);
+			this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Tag added', tag); // Log tag added
+		}
 
-  	// Clear the input value
-  	this.tagInput.nativeElement.value = '';
-
-  	this.tagCtrl.setValue(null);
-  }
+		this.tagInput.nativeElement.value = '';
+		this.tagCtrl.setValue(null);
+	}
 
   remove(tag: string): void {
   	const index = this.selectedQuestion.tags.indexOf(tag);

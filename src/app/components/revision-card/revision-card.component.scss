@@ -151,7 +151,7 @@
         $new-height: 24px;
         $scaling: calc($new-height / 40px);
 
-        bottom: 2px;
+        bottom: 4px;
         position: relative;
         margin-left: 10px;
         color: $color-secondary;
@@ -165,6 +165,10 @@
 
         mat-icon {
             font-size: calc(24px * $scaling);  // Scale down the icon graphic (default is 24px)
+            min-width: $new-height;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         &:hover {
@@ -242,14 +246,16 @@
         width: 100%;
     }
 
-    &__hide-button {
-        background-color: $color-primary;
-        color: $color-secondary;
-        width: 100%;
-        margin: 0 0 10px 0;
-
-        &:hover {
-            background-color: lighten($color-primary, 20%);
+    &__button-hide {
+        &:not(:disabled) {
+            background-color: $color-primary;
+            color: $color-secondary;
+            width: 100%;
+            margin: 0 0 10px 0;
+    
+            &:hover {
+                background-color: lighten($color-primary, 20%);
+            }
         }
     }
 
@@ -262,38 +268,51 @@
     }
 
     &__button {
-        margin: 0px;
-        min-width: unset;
-        width: 100%;
+        &:not(:disabled) {
+            background-color: $color-primary;
+            margin: 0px;
+            min-width: unset;
+            width: 100%;
+
+            &:hover {
+                background-color: lighten($color-primary, 20%);
+            }
+        }
     }
 
     &__button-skip {
-        @extend .revision-card__button;
-        background-color: $color-skip;
-        color: $color-secondary;
-
-        &:hover {
-            background-color: lighten($color-skip, 20%);
+        &:not(:disabled) {
+            @extend .revision-card__button;
+            background-color: $color-skip;
+            color: $color-secondary;
+    
+            &:hover {
+                background-color: lighten($color-skip, 20%);
+            }
         }
     }
 
     &__button-incorrect {
-        @extend .revision-card__button;
-        background-color: $color-incorrect;
-        color: $color-secondary;
-
-        &:hover {
-            background-color: lighten($color-incorrect, 20%);
+        &:not(:disabled) {
+            @extend .revision-card__button;
+            background-color: $color-incorrect;
+            color: $color-secondary;
+    
+            &:hover {
+                background-color: lighten($color-incorrect, 20%);
+            }
         }
     }
 
     &__button-correct {
-        @extend .revision-card__button;
-        background-color: $color-correct;
-        color: $color-secondary;
+        &:not(:disabled) {
+            @extend .revision-card__button;
+            background-color: $color-correct;
+            color: $color-secondary;
 
-        &:hover {
-            background-color: lighten($color-correct, 20%);
+            &:hover {
+                background-color: lighten($color-correct, 20%);
+            }
         }
     }
 }

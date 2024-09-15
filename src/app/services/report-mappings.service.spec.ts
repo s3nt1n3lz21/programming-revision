@@ -1,4 +1,4 @@
-import {HttpClientTestingModule, HttpTestingController,} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {LoggerService} from './logger.service';
 import {LoggerServiceStub} from 'src/testing/stubs';
@@ -7,6 +7,7 @@ import { ApiService } from './api.service';
 import { createPropertyGroup } from '../model/IPropertyGroup';
 import { createPropertyMapping } from '../model/IPropertyMapping';
 import { createReportMappingDetail, IReportMappingDetail } from '../model/IReportMappingDetail';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 xdescribe('ReportMappingsService', () => {
   let service: ApiService;
@@ -15,12 +16,14 @@ xdescribe('ReportMappingsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         ApiService,
-        {provide: LoggerService, useValue: new LoggerServiceStub()}
-      ]
-    });
+        { provide: LoggerService, useValue: new LoggerServiceStub() },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(ApiService);
