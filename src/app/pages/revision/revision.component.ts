@@ -100,8 +100,16 @@ export class RevisionComponent implements OnInit {
 	}
 
 	public noQuestionsLeft() {
-		const noQuestions = this.questions.map(q => new Date(q.answerExpiryDate) < new Date() ).reduce((previousValue, currentValue) => previousValue + Number(currentValue), 0);
-		this.logger.log(LogLevel.INFO, 'RevisionComponent', 'No questions left', noQuestions);
-		return noQuestions;
+		const noQuestionsLeft = this.questions.map(q => new Date(q.answerExpiryDate) < new Date() ).reduce((previousValue, currentValue) => previousValue + Number(currentValue), 0);
+		this.logger.log(LogLevel.INFO, 'RevisionComponent', 'No questions left', noQuestionsLeft);
+		return noQuestionsLeft;
+	}
+
+	public noRevisedQuestions() {
+		return this.questions.map(q => new Date(q.answerExpiryDate) > new Date() ).reduce((previousValue, currentValue) => previousValue + Number(currentValue), 0);
+	}
+
+	public noQuestions() {
+		return this.questions.length;
 	}
 }
