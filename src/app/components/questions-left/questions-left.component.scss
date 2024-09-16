@@ -2,11 +2,14 @@
 
 .questions-left {
     &__outer {
-      width: 100%;
+      --margin: 10px;
+
+      width: calc(100% - 2*var(--margin));
       background-color: $color-primary;
       border-radius: 12px;
       padding: 10px;
       box-sizing: border-box;
+      margin: var(--margin);
     }
   
     &__inner {
