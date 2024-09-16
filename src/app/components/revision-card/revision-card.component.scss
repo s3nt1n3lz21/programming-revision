@@ -1,7 +1,7 @@
 @import "../../theme.scss";
 
 .revision-card {
-    border-radius: 8px;
+    border-radius: $spacing-1;
     flex: 1;
     display: flex;
     justify-content: center;
@@ -18,9 +18,9 @@
 
     &__outer {
         background-color: $color-primary;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: $spacing-1;
+        border-radius: $spacing-1;
+        box-shadow: 0 4px $spacing-1 rgba(0, 0, 0, 0.1);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -28,6 +28,7 @@
         box-sizing: border-box;
         width: 100%;
         transition: background-color 0.3s;
+        margin: $spacing-1;
 
         &--not-revised {
             background-color: $color-not-revised;
@@ -52,19 +53,21 @@
     }
 
     &__inner {
+        --padding: #{$spacing-2};
+
         background: rgba(255, 255, 255, 1);
         box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
-        padding: 20px;
+        padding: var(--padding);
         box-sizing: border-box;
         border-radius: 8px;
         align-items: center;
 
         @media (max-width: 768px) {
-            max-height: min(calc(100vh - $header-height - 40px));
+            max-height: min(calc(100vh - $header-height - 2*var(--padding)));
         }
     }
 
@@ -78,7 +81,7 @@
         height: var(--circle-size);
         min-width: var(--circle-size);
         min-height: var(--circle-size);
-        margin-bottom: 20px;
+        margin-bottom: $spacing-2;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -106,7 +109,7 @@
         @media (max-width: 768px) {
             --circle-size: 40px;
             font-size: $font-size-3;
-            margin-bottom: 10px;
+            margin-bottom: $spacing-1;
         }
     }
 
@@ -148,14 +151,14 @@
     }
 
     &__edit-icon {
-        $new-height: 24px;
+        $new-height: $spacing-3;
         $scaling: calc($new-height / 40px);
 
         bottom: 4px;
         position: relative;
-        margin-left: 10px;
+        margin-left: $spacing-1;
         color: $color-secondary;
-        min-width: 10px;
+        min-width: $spacing-1;
         width: $new-height;
         height: $new-height;
         display: inline-flex;
@@ -203,8 +206,8 @@
         opacity: 0;
         height: 0;
         overflow-y: hidden;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: $spacing-2;
+        margin-bottom: $spacing-2;
 
         /* Custom scrollbar styles */
         &::-webkit-scrollbar {
@@ -218,8 +221,8 @@
         scrollbar-color: darken($color-primary, 20%) lighten($color-primary, 50%);
 
         @media (max-width: 768px) {
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: $spacing-1;
+            margin-bottom: $spacing-1;
         }
     }
 
@@ -232,7 +235,7 @@
     }
 
     &__chip-list {
-        margin: 10px 0;
+        margin: $spacing-1 0;
 
         input {
             text-align: center;
@@ -251,7 +254,7 @@
             background-color: $color-primary;
             color: $color-secondary;
             width: 100%;
-            margin: 0 0 10px 0;
+            margin: 0 0 $spacing-1 0;
     
             &:hover {
                 background-color: lighten($color-primary, 20%);
@@ -264,7 +267,7 @@
         display: flex;
         justify-content: space-between;
         flex-direction: row;
-        gap: 10px;
+        gap: $spacing-1;
     }
 
     &__button {
