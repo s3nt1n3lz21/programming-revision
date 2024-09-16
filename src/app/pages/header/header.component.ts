@@ -11,9 +11,9 @@ export class HeaderComponent {
 
   constructor(public router: Router) { 
     this.navLinks = [
-      { path: 'revision', label: 'Revision' },
-      { path: 'question-list', label: 'All Questions' },
-      { path: 'add-question', label: 'Add Question' }
+      { path: 'revision', label: 'REVISION' },
+      { path: 'question-list', label: 'ALL QUESTIONS' },
+      { path: 'add-question', label: 'ADD QUESTION' }
     ];
   }
 }
