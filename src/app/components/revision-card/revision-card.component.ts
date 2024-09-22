@@ -5,7 +5,7 @@ import { AppStateWrapper } from 'src/app/store/reducer';
 import { Router } from '@angular/router';
 import { SetEditingQuestion, SetQuestionIntervals, SetSelectedQuestion, UpdateQuestion } from '../../store/actions';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips'; // Replaced MatLegacyChipInputEvent with MatChipInputEvent
+import { MatChipInputEvent } from '@angular/material/chips';
 import { LoggerService, LogLevel } from 'src/app/services/logger.service';
 import { ApiService } from 'src/app/services/api.service';
 import { takeUntil } from 'rxjs/operators';
@@ -122,10 +122,12 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 
 	answeredCorrectly = () => {
 		const updatedQuestion = { ...this.question };
+		const previousTimesAnsweredCorrectly = updatedQuestion.timesAnsweredCorrectly;
 		updatedQuestion.timesAnsweredCorrectly += 1;
 	
-		if (updatedQuestion.timesAnsweredCorrectly < this.intervals.length) {
-			const interval = this.intervals[updatedQuestion.timesAnsweredCorrectly];
+		if (previousTimesAnsweredCorrectly < this.intervals.length) {
+			// Use previousTimesAnsweredCorrectly as the index to get the interval before incrementing
+			const interval = this.intervals[previousTimesAnsweredCorrectly];
 			updatedQuestion.answerExpiryDate = new Date(Date.now() + interval * DAY).toISOString();
 		} else {
 			// Add 30 days if the next interval doesn't exist
@@ -151,16 +153,38 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 
 	answeredIncorrectly = () => {
 		const updatedQuestion: Question = { ...this.question };
+		const previousTimesAnsweredCorrectly = updatedQuestion.timesAnsweredCorrectly;
+	
+		if (previousTimesAnsweredCorrectly >= 0 && previousTimesAnsweredCorrectly < this.intervals.length) {
+			// Use previousTimesAnsweredCorrectly directly to fetch the current interval
+			const interval = this.intervals[previousTimesAnsweredCorrectly];
+	
+			// Reduce the interval by 1 day
+			const reducedInterval = Math.max(1, interval - 1); // Ensure interval doesn't go below 1 day
+			updatedQuestion.answerExpiryDate = new Date(Date.now() + this.intervals[0] * DAY).toISOString();
+	
+			// Optionally update the intervals array with the reduced interval
+			const updatedIntervals = [...this.intervals];
+			updatedIntervals[previousTimesAnsweredCorrectly] = reducedInterval;
+			this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
+		} else {
+			// If no valid interval exists, just set the expiry date to 1 day from now
+			updatedQuestion.answerExpiryDate = new Date(Date.now() + DAY).toISOString();
+		}
+	
+		// Now reset timesAnsweredCorrectly after setting the expiry date
 		updatedQuestion.timesAnsweredCorrectly = 0;
-		updatedQuestion.answerExpiryDate = new Date(Date.now() - DAY).toISOString();
-
+	
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
 			() => {
-				this.store.dispatch(UpdateQuestion({question: updatedQuestion}));
+				this.store.dispatch(UpdateQuestion({ question: updatedQuestion }));
 			},
-			(error) => { console.error(error); }
+			(error) => {
+				console.error(error);
+			}
 		);
 	};
+	
 
 	nextQuestion = () => {
 		this.nextQuestionEvent.emit(true);
