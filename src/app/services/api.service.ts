@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddQuestion, emptyAddQuestion, Question } from '../model/IQuestion';
+import { IAddQuestion, emptyAddQuestion, Question } from '../model/IQuestion';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,7 +16,7 @@ export class ApiService {
 	}
 
 	updateQuestion(question: Question) {
-		const questionWithoutID: AddQuestion = emptyAddQuestion();
+		const questionWithoutID: IAddQuestion = emptyAddQuestion();
 		questionWithoutID.answer = question.answer;
 		questionWithoutID.question = question.question;
 		questionWithoutID.answerExpiryDate = question.answerExpiryDate;
@@ -35,7 +35,7 @@ export class ApiService {
 		);
 	}
 
-	addQuestion(question: AddQuestion) {
+	addQuestion(question: IAddQuestion) {
 		return this.http.post(
 			'https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/questions.json',
 			JSON.stringify(question),

@@ -20,7 +20,7 @@ export interface Question {
     tags: string[];
 }
 
-export interface AddQuestion {
+export interface IAddQuestion {
     question: string;
     answer: string;
     answerExpiryDate: string;
@@ -39,7 +39,7 @@ export function emptyQuestion(): Question {
   }
 }
 
-export function emptyAddQuestion(): AddQuestion {
+export function emptyAddQuestion(): IAddQuestion {
   return {
     question: '',
     answer: '',

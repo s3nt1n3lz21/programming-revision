@@ -11,7 +11,6 @@ import { QuestionsListComponent } from './pages/questions-list/questions-list.co
 import { AddQuestionComponent } from './pages/add-question/add-question.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { reducer } from './store/reducer';
 import { ExpiredPipe } from './pipes/expired.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -25,7 +24,9 @@ import { ShowNDirective } from './directives/show-n.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { QuestionsLeftComponent } from './components/questions-left/questions-left.component';
-
+import { QuestionEffects } from './store/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { appReducer } from './store/reducer';
 
 @NgModule({ declarations: [
         // Layout
@@ -56,7 +57,8 @@ import { QuestionsLeftComponent } from './components/questions-left/questions-le
         ReactiveFormsModule,
         CommonModule,
         MaterialModule,
-        StoreModule.forRoot({ state: reducer }),
+        StoreModule.forRoot({ state: appReducer }),
+        EffectsModule.forRoot([QuestionEffects]),
         BrowserAnimationsModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,

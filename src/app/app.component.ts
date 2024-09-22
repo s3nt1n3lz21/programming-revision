@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { emptyQuestion, Question } from './model/IQuestion';
 import { ApiService } from './services/api.service';
-import { SetQuestionIntervals, SetQuestions } from './store/action';
+import { SetQuestionIntervals, SetQuestions } from './store/actions';
 import { AppStateWrapper } from './store/reducer';
 import { LoggerService, LogLevel } from './services/logger.service';
 
@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
   
         this.logger.log(LogLevel.INFO, 'AppComponent', 'loaded questions: ', questions);
         this.questions = questions;
-        this.store.dispatch(new SetQuestions(questions));
+        this.store.dispatch(SetQuestions({questions}));
       },
       (error) => {
         this.logger.log(LogLevel.ERROR, 'AppComponent', 'Failed to load questions: ', error);
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit {
     this.apiService.getQuestionIntervals().subscribe(
       (intervals: number[]) => {
         this.logger.log(LogLevel.INFO, 'AppComponent', 'loaded question intervals: ', intervals);
-        this.store.dispatch(new SetQuestionIntervals(intervals));
+        this.store.dispatch(SetQuestionIntervals({intervals}));
       },
       (error) => { this.logger.log(LogLevel.ERROR, 'AppComponent', 'Failed to load intervals: ', error); }
     );

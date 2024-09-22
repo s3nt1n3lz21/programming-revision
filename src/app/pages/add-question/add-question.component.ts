@@ -4,9 +4,9 @@ import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AddQuestion, DAY, emptyAddQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
+import { IAddQuestion, DAY, emptyAddQuestion, IQuestionForm, Question } from 'src/app/model/IQuestion';
 import { ApiService } from 'src/app/services/api.service';
-import { AddQuestionAction, SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/action';
+import { AddQuestion, SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from 'src/app/store/actions';
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -83,7 +83,7 @@ export class AddQuestionComponent implements OnInit {
 	this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Adding a new question'); // Log add question action
 	
 	const questionFormValues = this.questionForm.value;
-	const question: AddQuestion = emptyAddQuestion();
+	const question: IAddQuestion = emptyAddQuestion();
 	
 	question.question = this.removePrefix(questionFormValues.question, 'Q: '); // Remove prefix
 	question.answer = this.removePrefix(questionFormValues.answer, 'A: '); // Remove prefix
@@ -96,7 +96,7 @@ export class AddQuestionComponent implements OnInit {
 	  (response: { name: string }) => {
 		const newQuestion: Question = { ...question, id: response.name };
 		this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question added successfully', response); // Log successful add
-		this.store.dispatch(new AddQuestionAction(newQuestion));
+		this.store.dispatch(AddQuestion({question: newQuestion}));
 		this.notificationService.addNotification('Added Question', 'success');
 		this.router.navigate(['question-list']);
 	  },
@@ -123,9 +123,9 @@ export class AddQuestionComponent implements OnInit {
 	  () => {
 		this.logger.log(LogLevel.INFO, 'AddQuestionComponent', 'Question edited successfully'); // Log successful edit
 		this.notificationService.addNotification('Edited Question', 'success');
-		this.store.dispatch(new UpdateQuestion(question));
-		this.store.dispatch(new SetSelectedQuestion(null));
-		this.store.dispatch(new SetEditingQuestion(false));
+		this.store.dispatch(UpdateQuestion({question}));
+		this.store.dispatch(SetSelectedQuestion({question: null}));
+		this.store.dispatch(SetEditingQuestion({editingQuestion: false}));
 		this.router.navigate(['question-list']);
 	  },
 	  (error) => {
@@ -203,3 +203,4 @@ export class AddQuestionComponent implements OnInit {
   }
   
 }
+

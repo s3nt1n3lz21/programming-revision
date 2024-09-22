@@ -3,7 +3,7 @@ import { DAY, Question } from 'src/app/model/IQuestion';
 import { Store } from '@ngrx/store';
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { Router } from '@angular/router';
-import { SetEditingQuestion, SetQuestionIntervals, SetSelectedQuestion, UpdateQuestion } from '../../store/action';
+import { SetEditingQuestion, SetQuestionIntervals, SetSelectedQuestion, UpdateQuestion } from '../../store/actions';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips'; // Replaced MatLegacyChipInputEvent with MatChipInputEvent
 import { LoggerService, LogLevel } from 'src/app/services/logger.service';
@@ -69,8 +69,8 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 
 	edit = () => {
 		this.logger.log(LogLevel.INFO, 'RevisionCardComponent', 'Navigating to edit question:', this.question.id);
-		this.store.dispatch(new SetSelectedQuestion(this.question));
-		this.store.dispatch(new SetEditingQuestion(true));
+		this.store.dispatch(SetSelectedQuestion({question: this.question}));
+		this.store.dispatch(SetEditingQuestion({editingQuestion: true}));
 		this.router.navigate(['add-question']);
 	};
 
@@ -135,12 +135,12 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 	
 			// Add the new interval to the intervals array and dispatch the action
 			const updatedIntervals = [...this.intervals, nextInterval];
-			this.store.dispatch(new SetQuestionIntervals(updatedIntervals));
+			this.store.dispatch(SetQuestionIntervals({intervals: updatedIntervals}));
 		}
 	
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
 			() => {
-				this.store.dispatch(new UpdateQuestion(updatedQuestion));
+				this.store.dispatch(UpdateQuestion({question: updatedQuestion}));
 			},
 			(error) => {
 				console.error(error);
@@ -156,7 +156,7 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
 			() => {
-				this.store.dispatch(new UpdateQuestion(updatedQuestion));
+				this.store.dispatch(UpdateQuestion({question: updatedQuestion}));
 			},
 			(error) => { console.error(error); }
 		);
