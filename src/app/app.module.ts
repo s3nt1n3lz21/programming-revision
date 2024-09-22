@@ -45,7 +45,8 @@ import { QuestionsLeftComponent } from './components/questions-left/questions-le
         // Directives
         ShowNDirective
     ],
-    bootstrap: [AppComponent], imports: [
+    bootstrap: [AppComponent], 
+    imports: [
         // Standalone Components
         QuestionsLeftComponent,
         

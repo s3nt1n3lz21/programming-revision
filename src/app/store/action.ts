@@ -6,6 +6,8 @@ export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const UPDATE_QUESTION = 'UPDATE_QUESTION';
 export const SET_EDITING_QUESTION = 'SET_EDITING_QUESTION';
 export const ADD_QUESTION = 'ADD_QUESTION';
+export const SET_QUESTION_INTERVALS = 'SET_QUESTION_INTERVALS';
+export const UPDATE_QUESTION_INTERVALS = 'UPDATE_QUESTION_INTERVALS';
 
 export class SetSelectedQuestion implements Action {
     readonly type = SET_SELECTED_QUESTION;
@@ -37,9 +39,23 @@ export class AddQuestionAction implements Action {
     constructor(public question: Question) {}
 }
 
+export class SetQuestionIntervals implements Action {
+    readonly type = SET_QUESTION_INTERVALS;
+
+    constructor(public intervals: number[]) {}
+}
+
+export class UpdateQuestionIntervals implements Action {
+    readonly type = UPDATE_QUESTION_INTERVALS;
+
+    constructor(public intervals: number[]) {}
+}
+
 export type AllActions = 
     SetQuestions | 
     SetSelectedQuestion |
     UpdateQuestion |
     SetEditingQuestion |
-    AddQuestionAction;
+    AddQuestionAction |
+    SetQuestionIntervals |
+    UpdateQuestionIntervals;

@@ -2,6 +2,11 @@
   <div class="questions-left__outer">
     <div class="questions-left__inner">
       <div class="questions-left__content">
+        <p>
+          <span *ngFor="let interval of intervals; let i = index">
+            {{ intervals[i] }}<span *ngIf="i < intervals.length - 1"> - </span>
+          </span>
+        </p>
         <p>{{ questionsLeft }} Questions Left</p>
   
         <div class="questions-left__progress-bar">

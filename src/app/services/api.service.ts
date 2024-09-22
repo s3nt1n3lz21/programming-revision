@@ -47,4 +47,15 @@ export class ApiService {
 		);
 	}
 
+	getQuestionIntervals(): Observable<number[]> {
+		return this.http.get<number[]>('https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/intervals.json');
+	}
+
+	updateQuestionIntervals(intervals: number[]): Observable<void> {
+		return this.http.put<void>(
+			'https://programming-revision-default-rtdb.europe-west1.firebasedatabase.app/intervals.json',
+			JSON.stringify(intervals),
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
 }
