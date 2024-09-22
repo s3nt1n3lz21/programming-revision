@@ -3,11 +3,13 @@ import { DAY, Question } from 'src/app/model/IQuestion';
 import { Store } from '@ngrx/store';
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { Router } from '@angular/router';
-import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion } from '../../store/action';
+import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion, UpdateQuestionIntervals } from '../../store/action';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips'; // Replaced MatLegacyChipInputEvent with MatChipInputEvent
 import { LoggerService, LogLevel } from 'src/app/services/logger.service';
 import { ApiService } from 'src/app/services/api.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-revision-card',
@@ -18,6 +20,8 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 
 	readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 	maxTags = 99;
+	private unsubscribe$ = new Subject<void>();
+	intervals: number[];
 
 	constructor(
 		private store: Store<AppStateWrapper>,
@@ -43,6 +47,18 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 
 	ngOnInit(): void {
 		this.logger.log(LogLevel.INFO, 'RevisionCardComponent', 'Initialized with question:', this.question);
+	
+		this.store.select(state => state.state.questionIntervals)
+		.pipe(takeUntil(this.unsubscribe$))
+		.subscribe(intervals => {
+			this.intervals = intervals;
+			this.logger.log(LogLevel.DEBUG, 'RevisionCardComponent', 'Question Intervals loaded', intervals);
+		});
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
 	}
 
 	revealAnswer = () => {
@@ -107,18 +123,22 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 	answeredCorrectly = () => {
 		const updatedQuestion = { ...this.question };
 		updatedQuestion.timesAnsweredCorrectly += 1;
-
-		if (this.question.timesAnsweredCorrectly <= 5) {
-			updatedQuestion.answerExpiryDate = new Date(Date.now() + DAY * 2 ** this.question.timesAnsweredCorrectly).toISOString();
+	
+		if (updatedQuestion.timesAnsweredCorrectly < this.intervals.length) {
+		  const interval = this.intervals[updatedQuestion.timesAnsweredCorrectly];
+		  updatedQuestion.answerExpiryDate = new Date(Date.now() + interval * DAY).toISOString();
 		} else {
-			updatedQuestion.answerExpiryDate = new Date(Date.now() + (30 * DAY) * (this.question.timesAnsweredCorrectly - 4)).toISOString();
+		  // Add 30 days if the next interval doesn't exist
+		  const lastInterval = this.intervals[this.intervals.length - 1] || 0;
+		  const nextInterval = lastInterval + 30;
+		  updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
 		}
-
+	
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
-			() => {
-				this.store.dispatch(new UpdateQuestion(updatedQuestion));
-			},
-			(error) => { console.error(error); }
+		  () => {
+			this.store.dispatch(new UpdateQuestion(updatedQuestion));
+		  },
+		  (error) => { console.error(error); }
 		);
 	};
 
