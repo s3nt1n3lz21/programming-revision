@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { emptyQuestion, Question } from './model/IQuestion';
 import { ApiService } from './services/api.service';
-import { SetQuestions } from './store/action';
+import { SetQuestionIntervals, SetQuestions } from './store/action';
 import { AppStateWrapper } from './store/reducer';
+import { LoggerService, LogLevel } from './services/logger.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppStateWrapper>,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private logger: LoggerService
   ) {
     // Load the firebase service account details from a local non-git file, without using a backend
     // var {google} = require("googleapis");
@@ -79,19 +81,29 @@ export class AppComponent implements OnInit {
           };
 
           if (!question.tags || !Array.isArray(question.tags)) {
-            question.tags = []
+            question.tags = [];
           }
 
           questions.push(question);
         }
   
+        this.logger.log(LogLevel.INFO, 'AppComponent', 'loaded questions: ', questions);
         this.questions = questions;
         this.store.dispatch(new SetQuestions(questions));
       },
       (error) => {
-        console.error(error);
+        this.logger.log(LogLevel.ERROR, 'AppComponent', 'Failed to load questions: ', error);
       }
-    )
+    );
+
+    // Fetch intervals and dispatch them to the store
+    this.apiService.getQuestionIntervals().subscribe(
+      (intervals: number[]) => {
+        this.logger.log(LogLevel.INFO, 'AppComponent', 'loaded question intervals: ', intervals);
+        this.store.dispatch(new SetQuestionIntervals(intervals));
+      },
+      (error) => { this.logger.log(LogLevel.ERROR, 'AppComponent', 'Failed to load intervals: ', error); }
+    );
   }
 
   // public saveToCSVFile(fileName: string, data: string[][]) {

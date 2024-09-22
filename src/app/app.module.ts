@@ -24,6 +24,7 @@ import { MaterialModule } from './modules/material.module';
 import { ShowNDirective } from './directives/show-n.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { QuestionsLeftComponent } from './components/questions-left/questions-left.component';
 
 
 @NgModule({ declarations: [
@@ -44,7 +45,12 @@ import { environment } from '../environments/environment';
         // Directives
         ShowNDirective
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], 
+    imports: [
+        // Standalone Components
+        QuestionsLeftComponent,
+        
+        BrowserModule,
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
