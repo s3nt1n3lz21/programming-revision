@@ -123,32 +123,46 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 	answeredCorrectly = () => {
 		const updatedQuestion = { ...this.question };
 		const previousTimesAnsweredCorrectly = updatedQuestion.timesAnsweredCorrectly;
+	
+		// Increment the timesAnsweredCorrectly
 		updatedQuestion.timesAnsweredCorrectly += 1;
 	
 		if (previousTimesAnsweredCorrectly < this.intervals.length) {
-			// Use previousTimesAnsweredCorrectly as the index to get the interval before incrementing
-			const interval = this.intervals[previousTimesAnsweredCorrectly];
-			updatedQuestion.answerExpiryDate = new Date(Date.now() + interval * DAY).toISOString();
+			// Increase the previous interval by 1 day
+			const previousInterval = this.intervals[previousTimesAnsweredCorrectly];
+			const updatedPreviousInterval = previousInterval + 1;
+	
+			// Use the next interval for setting the expiry date
+			const nextInterval = this.intervals[updatedQuestion.timesAnsweredCorrectly] || updatedPreviousInterval;
+	
+			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
+	
+			// Update the intervals array by setting the updated previous interval
+			const updatedIntervals = [...this.intervals];
+			updatedIntervals[previousTimesAnsweredCorrectly] = updatedPreviousInterval;
+			this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
+	
 		} else {
-			// Add 30 days if the next interval doesn't exist
+			// If we're out of intervals, add 30 days and extend the array
 			const lastInterval = this.intervals[this.intervals.length - 1] || 0;
 			const nextInterval = lastInterval + 30;
+	
 			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
 	
 			// Add the new interval to the intervals array and dispatch the action
 			const updatedIntervals = [...this.intervals, nextInterval];
-			this.store.dispatch(SetQuestionIntervals({intervals: updatedIntervals}));
+			this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
 		}
 	
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
 			() => {
-				this.store.dispatch(UpdateQuestion({question: updatedQuestion}));
+				this.store.dispatch(UpdateQuestion({ question: updatedQuestion }));
 			},
 			(error) => {
 				console.error(error);
 			}
 		);
-	};
+	};	
 	
 
 	answeredIncorrectly = () => {
