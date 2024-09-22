@@ -127,26 +127,26 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 		// Increment the timesAnsweredCorrectly
 		updatedQuestion.timesAnsweredCorrectly += 1;
 	
+		// Update the previous interval by 1 day, if it exists
 		if (previousTimesAnsweredCorrectly < this.intervals.length) {
-			// Increase the previous interval by 1 day
 			const previousInterval = this.intervals[previousTimesAnsweredCorrectly];
 			const updatedPreviousInterval = previousInterval + 1;
 	
-			// Use the next interval for setting the expiry date
-			const nextInterval = this.intervals[updatedQuestion.timesAnsweredCorrectly] || updatedPreviousInterval;
-	
-			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
-	
-			// Update the intervals array by setting the updated previous interval
+			// Update the intervals array with the updated previous interval
 			const updatedIntervals = [...this.intervals];
 			updatedIntervals[previousTimesAnsweredCorrectly] = updatedPreviousInterval;
 			this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
+		}
 	
+		// Now check the new value of timesAnsweredCorrectly to determine the next interval
+		if (updatedQuestion.timesAnsweredCorrectly < this.intervals.length) {
+			// Use the next interval for setting the expiry date
+			const nextInterval = this.intervals[updatedQuestion.timesAnsweredCorrectly];
+			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
 		} else {
 			// If we're out of intervals, add 30 days and extend the array
 			const lastInterval = this.intervals[this.intervals.length - 1] || 0;
 			const nextInterval = lastInterval + 30;
-	
 			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
 	
 			// Add the new interval to the intervals array and dispatch the action
@@ -154,6 +154,7 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 			this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
 		}
 	
+		// Update the question in the API and store
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
 			() => {
 				this.store.dispatch(UpdateQuestion({ question: updatedQuestion }));
@@ -162,8 +163,7 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 				console.error(error);
 			}
 		);
-	};	
-	
+	};
 
 	answeredIncorrectly = () => {
 		const updatedQuestion: Question = { ...this.question };
