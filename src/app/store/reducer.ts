@@ -65,11 +65,11 @@ export const appReducer = createReducer(
 
     on(SetQuestionIntervals, (state, { intervals }) => ({
         ...state,
-        questionIntervals: intervals,
+        questionIntervals: intervals ?? initialState.questionIntervals,
     })),
 
     on(UpdateQuestionIntervals, (state, { intervals }) => ({
         ...state,
-        questionIntervals: intervals,
+        questionIntervals: intervals ?? initialState.questionIntervals,
     }))
 );
