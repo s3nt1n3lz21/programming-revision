@@ -3,7 +3,7 @@ import { DAY, Question } from 'src/app/model/IQuestion';
 import { Store } from '@ngrx/store';
 import { AppStateWrapper } from 'src/app/store/reducer';
 import { Router } from '@angular/router';
-import { SetEditingQuestion, SetSelectedQuestion, UpdateQuestion, UpdateQuestionIntervals } from '../../store/action';
+import { SetEditingQuestion, SetQuestionIntervals, SetSelectedQuestion, UpdateQuestion } from '../../store/action';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips'; // Replaced MatLegacyChipInputEvent with MatChipInputEvent
 import { LoggerService, LogLevel } from 'src/app/services/logger.service';
@@ -125,22 +125,29 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 		updatedQuestion.timesAnsweredCorrectly += 1;
 	
 		if (updatedQuestion.timesAnsweredCorrectly < this.intervals.length) {
-		  const interval = this.intervals[updatedQuestion.timesAnsweredCorrectly];
-		  updatedQuestion.answerExpiryDate = new Date(Date.now() + interval * DAY).toISOString();
+			const interval = this.intervals[updatedQuestion.timesAnsweredCorrectly];
+			updatedQuestion.answerExpiryDate = new Date(Date.now() + interval * DAY).toISOString();
 		} else {
-		  // Add 30 days if the next interval doesn't exist
-		  const lastInterval = this.intervals[this.intervals.length - 1] || 0;
-		  const nextInterval = lastInterval + 30;
-		  updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
+			// Add 30 days if the next interval doesn't exist
+			const lastInterval = this.intervals[this.intervals.length - 1] || 0;
+			const nextInterval = lastInterval + 30;
+			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
+	
+			// Add the new interval to the intervals array and dispatch the action
+			const updatedIntervals = [...this.intervals, nextInterval];
+			this.store.dispatch(new SetQuestionIntervals(updatedIntervals));
 		}
 	
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
-		  () => {
-			this.store.dispatch(new UpdateQuestion(updatedQuestion));
-		  },
-		  (error) => { console.error(error); }
+			() => {
+				this.store.dispatch(new UpdateQuestion(updatedQuestion));
+			},
+			(error) => {
+				console.error(error);
+			}
 		);
 	};
+	
 
 	answeredIncorrectly = () => {
 		const updatedQuestion: Question = { ...this.question };
