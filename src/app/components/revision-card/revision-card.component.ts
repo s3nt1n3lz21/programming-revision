@@ -145,8 +145,7 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
 		} else {
 			// If we're out of intervals, add 30 days and extend the array
-			const lastInterval = this.intervals[this.intervals.length - 1] || 0;
-			const nextInterval = lastInterval + 30;
+			const nextInterval = (updatedQuestion.timesAnsweredCorrectly - 5)*30;
 			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
 	
 			// Add the new interval to the intervals array and dispatch the action
