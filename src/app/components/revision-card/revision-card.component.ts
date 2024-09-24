@@ -173,7 +173,7 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 			const interval = this.intervals[previousTimesAnsweredCorrectly];
 	
 			// Reduce the interval by 1 day
-			const reducedInterval = Math.max(1, interval - 1); // Ensure interval doesn't go below 1 day
+			const reducedInterval = Math.max(0, interval - 1);
 			updatedQuestion.answerExpiryDate = new Date(Date.now() + this.intervals[0] * DAY).toISOString();
 	
 			// Optionally update the intervals array with the reduced interval
