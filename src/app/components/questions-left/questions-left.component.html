@@ -4,7 +4,7 @@
       <div class="questions-left__content">
         <p>
           <span *ngFor="let interval of intervals; let i = index">
-            {{ intervals[i] }}<span *ngIf="i < intervals.length - 1"> - </span>
+            {{ i>0 ? intervals[i] : 0 }}<span *ngIf="i < intervals.length - 1"> - </span>
           </span>
         </p>
         <p>{{ questionsLeft }} Questions Left</p>
