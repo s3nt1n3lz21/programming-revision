@@ -128,30 +128,27 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 		updatedQuestion.timesAnsweredCorrectly += 1;
 	
 		// Update the previous interval by 1 day, if it exists
-		if (previousTimesAnsweredCorrectly < this.intervals.length) {
-			const previousInterval = this.intervals[previousTimesAnsweredCorrectly];
+		const updatedIntervals = [...this.intervals];
+		if (previousTimesAnsweredCorrectly < updatedIntervals.length) {
+			const previousInterval = updatedIntervals[previousTimesAnsweredCorrectly];
 			const updatedPreviousInterval = previousInterval + 1;
 	
 			// Update the intervals array with the updated previous interval
-			const updatedIntervals = [...this.intervals];
 			updatedIntervals[previousTimesAnsweredCorrectly] = updatedPreviousInterval;
-			this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
 		}
 	
-		// Now check the new value of timesAnsweredCorrectly to determine the next interval
-		if (updatedQuestion.timesAnsweredCorrectly < this.intervals.length) {
-			// Use the next interval for setting the expiry date
-			const nextInterval = this.intervals[updatedQuestion.timesAnsweredCorrectly];
-			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
-		} else {
-			// If we're out of intervals, add 30 days and extend the array
-			const nextInterval = (updatedQuestion.timesAnsweredCorrectly - 5)*30;
-			updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
-	
-			// Add the new interval to the intervals array and dispatch the action
-			const updatedIntervals = [...this.intervals, nextInterval];
-			this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
+		// If timesAnsweredCorrectly is greater than the current length of intervals, append new intervals
+		while (updatedQuestion.timesAnsweredCorrectly >= updatedIntervals.length) {
+			const lastInterval = updatedIntervals[updatedIntervals.length - 1] || 30; // Start with 30 if no intervals
+			updatedIntervals.push(lastInterval + 30); // Add 30 more than the previous interval
 		}
+	
+		// Set the next answer expiry date based on the updated intervals
+		const nextInterval = updatedIntervals[updatedQuestion.timesAnsweredCorrectly];
+		updatedQuestion.answerExpiryDate = new Date(Date.now() + nextInterval * DAY).toISOString();
+	
+		// Dispatch the updated intervals to the store
+		this.store.dispatch(SetQuestionIntervals({ intervals: updatedIntervals }));
 	
 		// Update the question in the API and store
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
@@ -162,7 +159,7 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 				console.error(error);
 			}
 		);
-	};
+	};	
 
 	answeredIncorrectly = () => {
 		const updatedQuestion: Question = { ...this.question };
