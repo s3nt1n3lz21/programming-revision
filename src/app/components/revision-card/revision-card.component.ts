@@ -182,8 +182,8 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 			updatedQuestion.answerExpiryDate = new Date(Date.now() + DAY).toISOString();
 		}
 	
-		// Now reset timesAnsweredCorrectly after setting the expiry date
-		updatedQuestion.timesAnsweredCorrectly = 0;
+		// Decrease timesAnsweredCorrectly by 1 but not below 0
+		updatedQuestion.timesAnsweredCorrectly = Math.max(0, previousTimesAnsweredCorrectly - 1);
 	
 		this.apiService.updateQuestion(updatedQuestion).subscribe(
 			() => {
@@ -194,7 +194,6 @@ export class RevisionCardComponent implements OnInit, OnChanges {
 			}
 		);
 	};
-	
 
 	nextQuestion = () => {
 		this.nextQuestionEvent.emit(true);
